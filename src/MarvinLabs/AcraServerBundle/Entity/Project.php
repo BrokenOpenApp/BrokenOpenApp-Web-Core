@@ -5,7 +5,7 @@ namespace MarvinLabs\AcraServerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AppFilter
+ * Project
  *
  *
  * @ORM\Table(name="acra_project")
