@@ -49,9 +49,30 @@ class ProjectCrashController extends DefaultViewController
 			throw $this->createNotFoundException('Unable to find crash.');
 		}
 
+		$buildValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashBuild')->findBy(array('crash'=>$crash));
+		$crashConfigValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashBuild')->findBy(array('crash'=>$crash));
+		$displayValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashDisplay')->findBy(array('crash'=>$crash));
+		$envValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashEnvironment')->findBy(array('crash'=>$crash));
+		$featuresValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashFeatures')->findBy(array('crash'=>$crash));
+		$initialConfigValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashInitialConfiguration')->findBy(array('crash'=>$crash));
+		$settingsGlobalValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashSettingsGlobal')->findBy(array('crash'=>$crash));
+		$settingsSecureValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashSettingsSecure')->findBy(array('crash'=>$crash));
+		$settingsSystemValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashSettingsSystem')->findBy(array('crash'=>$crash));
+		$sharedPrefsValues = $doctrine->getRepository('MLabsAcraServerBundle:CrashSharedPreferences')->findBy(array('crash'=>$crash));
+
 		return $this->render('MLabsAcraServerBundle:ProjectCrash:index.html.twig', $this->getViewParameters(
 			array(
 				'project'	=> $this->project,
+				'buildValues'	=> $buildValues,
+				'crashConfigurationValues'	=> $crashConfigValues,
+				'displayValues'	=> $displayValues,
+				'environmentValues'	=> $envValues,
+				'featuresValues'	=> $featuresValues,
+				'initialConfigurationValues'	=> $initialConfigValues,
+				'settingsGlobalValues'	=> $settingsGlobalValues,
+				'settingsSecureValues'	=> $settingsSecureValues,
+				'settingsSystemValues'	=> $settingsSystemValues,
+				'sharedPreferencesValues'	=> $sharedPrefsValues,
 				'crash'      => $crash,
 			)));
 	}

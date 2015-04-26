@@ -106,13 +106,6 @@ class Crash
     /**
      * @var string
      *
-     * @ORM\Column(name="build", type="text", nullable=true)
-     */
-    private $build;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="brand", type="text", nullable=true)
      */
     private $brand;
@@ -151,27 +144,6 @@ class Crash
      * @ORM\Column(name="stack_trace", type="text", nullable=true)
      */
     private $stackTrace;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="initial_configuration", type="text", nullable=true)
-     */
-    private $initialConfiguration;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="crash_configuration", type="text", nullable=true)
-     */
-    private $crashConfiguration;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="display", type="text", nullable=true)
-     */
-    private $display;
 
     /**
      * @var string
@@ -256,48 +228,6 @@ class Crash
      * @ORM\Column(name="user_email", type="text", nullable=true)
      */
     private $userEmail;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="device_features", type="text", nullable=true)
-     */
-    private $deviceFeatures;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="environment", type="text", nullable=true)
-     */
-    private $environment;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="settings_global", type="text", nullable=true)
-     */
-    private $settingsGlobal;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="settings_system", type="text", nullable=true)
-     */
-    private $settingsSystem;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="settings_secure", type="text", nullable=true)
-     */
-    private $settingsSecure;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="shared_preferences", type="text", nullable=true)
-     */
-    private $sharedPreferences;
 
     /**
      * @var string
@@ -671,29 +601,6 @@ class Crash
     }
 
     /**
-     * Set build
-     *
-     * @param string $build
-     * @return Crash
-     */
-    public function setBuild($build)
-    {
-        $this->build = $build;
-    
-        return $this;
-    }
-
-    /**
-     * Get build
-     *
-     * @return string 
-     */
-    public function getBuild()
-    {
-        return $this->build;
-    }
-
-    /**
      * Set brand
      *
      * @param string $brand
@@ -869,75 +776,6 @@ class Crash
     		}
     	}
     	return FALSE;
-    }
-    
-    /**
-     * Set initialConfiguration
-     *
-     * @param string $initialConfiguration
-     * @return Crash
-     */
-    public function setInitialConfiguration($initialConfiguration)
-    {
-        $this->initialConfiguration = $initialConfiguration;
-    
-        return $this;
-    }
-
-    /**
-     * Get initialConfiguration
-     *
-     * @return string 
-     */
-    public function getInitialConfiguration()
-    {
-        return $this->initialConfiguration;
-    }
-
-    /**
-     * Set crashConfiguration
-     *
-     * @param string $crashConfiguration
-     * @return Crash
-     */
-    public function setCrashConfiguration($crashConfiguration)
-    {
-        $this->crashConfiguration = $crashConfiguration;
-    
-        return $this;
-    }
-
-    /**
-     * Get crashConfiguration
-     *
-     * @return string 
-     */
-    public function getCrashConfiguration()
-    {
-        return $this->crashConfiguration;
-    }
-
-    /**
-     * Set display
-     *
-     * @param string $display
-     * @return Crash
-     */
-    public function setDisplay($display)
-    {
-        $this->display = $display;
-    
-        return $this;
-    }
-
-    /**
-     * Get display
-     *
-     * @return string 
-     */
-    public function getDisplay()
-    {
-        return $this->display;
     }
 
     /**
@@ -1216,144 +1054,7 @@ class Crash
         return $this->userEmail;
     }
 
-    /**
-     * Set deviceFeatures
-     *
-     * @param string $deviceFeatures
-     * @return Crash
-     */
-    public function setDeviceFeatures($deviceFeatures)
-    {
-        $this->deviceFeatures = $deviceFeatures;
-    
-        return $this;
-    }
 
-    /**
-     * Get deviceFeatures
-     *
-     * @return string 
-     */
-    public function getDeviceFeatures()
-    {
-        return $this->deviceFeatures;
-    }
-
-    /**
-     * Set environment
-     *
-     * @param string $environment
-     * @return Crash
-     */
-    public function setEnvironment($environment)
-    {
-        $this->environment = $environment;
-    
-        return $this;
-    }
-
-    /**
-     * Get environment
-     *
-     * @return string 
-     */
-    public function getEnvironment()
-    {
-        return $this->environment;
-    }
-
-    /**
-     * Set settingsGlobal
-     *
-     * @param string $settingsGlobal
-     * @return Crash
-     */
-    public function setSettingsGlobal($settingsGlobal)
-    {
-        $this->settingsGlobal = $settingsGlobal;
-    
-        return $this;
-    }
-
-    /**
-     * Get settingsGlobal
-     *
-     * @return string 
-     */
-    public function getSettingsGlobal()
-    {
-        return $this->settingsGlobal;
-    }
-
-    /**
-     * Set settingsSystem
-     *
-     * @param string $settingsSystem
-     * @return Crash
-     */
-    public function setSettingsSystem($settingsSystem)
-    {
-        $this->settingsSystem = $settingsSystem;
-    
-        return $this;
-    }
-
-    /**
-     * Get settingsSystem
-     *
-     * @return string 
-     */
-    public function getSettingsSystem()
-    {
-        return $this->settingsSystem;
-    }
-
-    /**
-     * Set settingsSecure
-     *
-     * @param string $settingsSecure
-     * @return Crash
-     */
-    public function setSettingsSecure($settingsSecure)
-    {
-        $this->settingsSecure = $settingsSecure;
-    
-        return $this;
-    }
-
-    /**
-     * Get settingsSecure
-     *
-     * @return string 
-     */
-    public function getSettingsSecure()
-    {
-        return $this->settingsSecure;
-    }
-
-    /**
-     * Set sharedPreferences
-     *
-     * @param string $sharedPreferences
-     * @return Crash
-     */
-    public function setSharedPreferences($sharedPreferences)
-    {
-        $this->sharedPreferences = $sharedPreferences;
-    
-        return $this;
-    }
-
-    /**
-     * Get sharedPreferences
-     *
-     * @return string 
-     */
-    public function getSharedPreferences()
-    {
-        return $this->sharedPreferences;
-    }
-    
     /**
      * @ORM\PrePersist
      */

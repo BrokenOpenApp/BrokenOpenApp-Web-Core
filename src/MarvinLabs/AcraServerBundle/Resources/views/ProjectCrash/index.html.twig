@@ -60,14 +60,28 @@
 				{{ fields.echo('Product code', crash.product) }}
 				{{ fields.echo('Total memory', crash.totalMemSize | bfos_format_bytes, crash.totalMemSize) }}
 				{{ fields.echo('Available memory', crash.availableMemSize | bfos_format_bytes, crash.availableMemSize) }}
-				{{ fields.echo('Display', crash.display, crash.display, 'pre') }}
-				{{ fields.echo('Features', crash.deviceFeatures, crash.deviceFeatures, 'pre') }}
+
+				<strong class="label">Display:</strong>
+				{%  for value in displayValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
+				<strong class="label">Features:</strong>
+				{%  for value in featuresValues %}
+					<p>{{ value.feature }}</p>
+				{%  endfor %}
+
 				{{ fields.echo('Device ID', crash.deviceId, crash.deviceId, 'pre') }}
 			</ul>
 			
 			<ul id="android" class="hide">
 				{{ fields.echo('Version', crash.androidVersion) }}
-				{{ fields.echo('Build details', crash.build, crash.build, 'pre') }}
+
+				<strong class="label">Build:</strong>
+				{%  for value in buildValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+				</pre>
 			</ul>	
 			
 			<ul id="logs" class="hide">
@@ -78,14 +92,34 @@
 			</ul>	
 			
 			<ul id="settings" class="hide">
-				{{ fields.echo('Global', crash.settingsGlobal, crash.settingsGlobal, 'pre') }}
-				{{ fields.echo('System', crash.settingsSystem, crash.settingsSystem, 'pre') }}
-				{{ fields.echo('Secure', crash.settingsSecure, crash.settingsSecure, 'pre') }}
+				<strong class="label">Global:</strong>
+				{%  for value in settingsGlobalValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
+				<strong class="label">System:</strong>
+				{%  for value in settingsSystemValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
+				<strong class="label">Secure:</strong>
+				{%  for value in settingsSecureValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
 			</ul>
 			
 			<ul id="configuration" class="hide">
-				{{ fields.echo('initialConfiguration', crash.initialConfiguration, crash.initialConfiguration, 'pre') }}
-				{{ fields.echo('crashConfiguration', crash.crashConfiguration, crash.crashConfiguration, 'pre') }}
+
+				<strong class="label">Initial Configuration:</strong>
+				{%  for value in initialConfigurationValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
+
+				<strong class="label">Crash Configuration:</strong>
+				{%  for value in crashConfigurationValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
 			</ul>	
 			
 			<ul id="other" class="hide">
@@ -95,8 +129,19 @@
 				{{ fields.echo('dropbox', crash.dropbox, crash.dropbox, 'pre') }}
 				{{ fields.echo('isSilent', crash.isSilent, crash.isSilent, 'pre') }}
 				{{ fields.echo('installationId', crash.installationId, crash.installationId, 'pre') }}
-				{{ fields.echo('environment', crash.environment, crash.environment, 'pre') }}
-				{{ fields.echo('sharedPreferences', crash.sharedPreferences, crash.sharedPreferences, 'pre') }}
+
+
+				<strong class="label">Environment:</strong>
+				{%  for value in environmentValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
+
+				<strong class="label">Shared Preferences:</strong>
+				{%  for value in sharedPreferencesValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+
 				{{ fields.echo('mediaCodecList', crash.mediaCodecList, crash.mediaCodecList, 'pre') }}
 				{{ fields.echo('threadDetails', crash.threadDetails, crash.threadDetails, 'pre') }}
 			</ul>	 
