@@ -26,29 +26,16 @@
 					<tr>
 						<th>Last Crash</th>
 						<th>Crashes</th>
-						<th>App versions</th>
-						<th>Android versions</th>
 						<th></th>
 					</tr>
 					{% endblock %}
 				</thead>
 				<tbody>
 				{% for c in crashes %}
-					{% set appVersions = c.appVersions|split(',')|sort %}
-					{% set shortAppVersions = appVersions|slice(-3, 3)|join(', ') %} 
-					{% if appVersions|length > 3 %}{% set shortAppVersions = "...#{shortAppVersions}" %}{% endif %}							
-					{% set appVersions = appVersions|join(', ') %} 
-					
-					{% set androidVersions = c.androidVersions|split(',')|sort %}
-					{% set shortAndroidVersions = androidVersions|slice(-3, 3)|join(', ') %} 
-					{% if androidVersions|length > 3 %}{% set shortAndroidVersions = "...#{shortAndroidVersions}" %}{% endif %}							
-					{% set androidVersions = androidVersions|join(', ') %} 
 					
 					<tr>
 						<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
 						<td class="crash-num">{{ c.crashNum }}</td>
-						<td class="app-version" title="{{ appVersions|e }}">{{ shortAppVersions }}</td>
-						<td class="android-version" title="{{ androidVersions|e }}">{{ shortAndroidVersions }}</td>
 						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueId}) }}" class="primary-button">Details</a></td>
 					</tr>
 				{% endfor %}
