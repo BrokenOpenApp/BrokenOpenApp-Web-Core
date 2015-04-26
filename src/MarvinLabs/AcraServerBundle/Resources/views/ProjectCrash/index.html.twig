@@ -16,9 +16,10 @@
 
 {{ breadcrumb.echo([ 
 			{ label: 'Dashboard', link: path('_main_dashboard') },
-			{ label: 'App #' ~ crash.packageName, link: path('_app_dashboard', {'packageName': crash.packageName}) },
-			{ label: 'Issue #' ~ crash.issueId, link: path('_issue_details', {'issueId': crash.issueId}) },
-			{ label: 'Crash #' ~ crash.id, link: path('_crash_details', {'id': crash.id}) },
+			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+
+			{ label: 'App #' ~ crash.packageName, link: path('_project_app_index', {'projectId':project.id,'packageName': crash.packageName	}) },
+			{ label: 'Crash #' ~ crash.id, link: path('_project_crash_index', {'projectId':project.id,'crashId': crash.id}) }
 		]) }}
 
 <section class="crash-header">

@@ -29,11 +29,19 @@ class CrashController extends Controller
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function addAction()
-	{	
-    	$crash = $this->newCrashFromRequest($this->getRequest());
+	{
+		$doctrine = $this->getDoctrine()->getManager();
 
-       	// Persist crash
-  		$doctrine = $this->getDoctrine()->getManager();
+		// Project?
+		$projectRepo = $doctrine->getRepository('MLabsAcraServerBundle:Project');
+		$project = $projectRepo->findOneBy(array('incoming_crash_id'=>$this->getRequest()->query->get('project')));
+		if (!$project) {
+			return  new Response( '404' );
+		}
+
+       	// Crash
+		$crash = $this->newCrashFromRequest($this->getRequest());
+		$crash->setProject($project);
 		$doctrine->persist($crash);
    		$doctrine->flush();
    		

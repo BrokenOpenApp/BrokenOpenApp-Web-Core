@@ -17,8 +17,9 @@
 
 {{ breadcrumb.echo([ 
 			{ label: 'Dashboard', link: path('_main_dashboard') },
-			{ label: 'App #' ~ issue.packageName, link: path('_app_dashboard', {'packageName': issue.packageName}) },
-			{ label: 'Issue #' ~ issue.issueId, link: path('_issue_details', {'id': issue.issueId}) }
+			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+			{ label: 'App #' ~ issue.packageName, link: path('_project_app_index', {'projectId':project.id,'packageName': issue.packageName}) },
+			{ label: 'Issue #' ~ issue.issueId, link: path('_project_issue_index', {'projectId':project.id,'id': issue.issueId}) }
 		]) }}
 
 <section class="issue-header">
@@ -58,7 +59,7 @@
 				<td class="package-name">{{ c.packageName }}</td>
 				<td class="app-version">{{ c.appVersionName }}</td>
 				<td class="android-version">{{ c.androidVersion }}</td>
-				<td class="action-link"><a href="{{ path('_crash_details', {'id': c.id}) }}" class="primary-button">Details</a></td>
+				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
 			</tr>
 		{% endfor %}
 		</tbody>

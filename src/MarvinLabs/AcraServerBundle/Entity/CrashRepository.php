@@ -13,7 +13,7 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get some statistics for a particular application
 	 */
-	public function newApplicationVersionsStatisticsQuery($packageName) {    
+	public function newApplicationVersionsStatisticsQuery(Project $project, $packageName) {
     	$where = "c.status=:status ";
     	$params = array( 'status' => Crash::$STATUS_NEW );
     	
@@ -40,7 +40,7 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get some statistics for a particular application
 	 */
-	public function newApplicationAndroidVersionsStatisticsQuery($packageName) {    	
+	public function newApplicationAndroidVersionsStatisticsQuery(Project $project, $packageName) {
     	$where = "c.status=:status ";
     	$params = array( 'status' => Crash::$STATUS_NEW );
     	
@@ -66,7 +66,7 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get some statistics for a particular application
 	 */
-	public function newApplicationTimeStatisticsQuery($packageName) {    	
+	public function newApplicationTimeStatisticsQuery(Project $project, $packageName) {
     	$where = "1=1 ";
     	$params = array();
     	
@@ -94,7 +94,7 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get some statistics for a particular application
 	 */
-	public function newApplicationsTimeStatisticsQuery() {    	
+	public function newApplicationsTimeStatisticsQuery(Project $project) {
     	$query = "SELECT "
     					. "MIN(c.userCrashDate) as crashDate, "
     					. "YEAR(c.userCrashDate) as crashDateYear, "
@@ -102,26 +102,34 @@ class CrashRepository extends EntityRepository
     					. "DAY(c.userCrashDate) as crashDateDay, "
     					. "COUNT(DISTINCT c.id) as crashNum "
         			. "FROM MarvinLabs\AcraServerBundle\Entity\Crash c "
+					. "WHERE c.project = :project "
         			. "GROUP BY crashDateYear, crashDateMonth, crashDateDay "
         			. "ORDER BY crashDate ASC ";
-    	
+
+		$params = array( 'project'=>$project);
+
         return $this->getEntityManager()
-        		->createQuery($query);
+        		->createQuery($query)
+			->setParameters($params);
 	}
 	
 	/**
 	 * Get some statistics for the registered applications
 	 */
-	public function newApplicationsStatisticsQuery() {    	
+	public function newApplicationsStatisticsQuery(Project $project) {
     	$query = "SELECT c.packageName as packageName, "
     					. "COUNT(DISTINCT c.issueId) as issueNum, "
     					. "COUNT(DISTINCT c.id) as crashNum "
         			. "FROM MarvinLabs\AcraServerBundle\Entity\Crash c "
+					. "WHERE c.project = :project "
         			. "GROUP BY c.packageName "
         			. "ORDER BY c.packageName ASC ";
-    	    	
+
+		$params = array( 'project'=>$project);
+
         return $this->getEntityManager()
-        		->createQuery($query);
+        		->createQuery($query)
+			->setParameters($params);
 	}
 	
 	/**
@@ -143,10 +151,10 @@ class CrashRepository extends EntityRepository
 	 * 
 	 * @return array
 	 */
-    public function newIssueDetailsQuery($issueId)
+    public function newIssueDetailsQuery(Project $project, $issueId)
     {
-    	$where = "1=1 ";
-    	$params = array();
+    	$where = " c.project = :project ";
+    	$params = array('project'=>$project);
     	
     	if ($issueId!=null) {
     		$where .= 'AND c.issueId=:issueId ';
@@ -177,10 +185,10 @@ class CrashRepository extends EntityRepository
 	 * 
 	 * @return array
 	 */
-    public function newIssueCrashesQuery($issueId)
+    public function newIssueCrashesQuery(Project $project, $issueId)
     {
-    	$where = "1=1 ";
-    	$params = array();
+    	$where = " c.project = :project ";
+    	$params = array('project'=>$project);
     	
     	if ($issueId!=null) {
     		$where .= 'AND c.issueId=:issueId ';
@@ -205,10 +213,10 @@ class CrashRepository extends EntityRepository
 	 * 
 	 * @return array
 	 */
-    public function newLatestIssuesQuery($packageName=null)
+    public function newLatestIssuesQuery(Project $project, $packageName=null)
     {
-    	$where = "c.status=:status ";
-    	$params = array( 'status' => Crash::$STATUS_NEW );
+    	$where = "c.status=:status AND c.project =:project ";
+    	$params = array( 'status' => Crash::$STATUS_NEW , 'project'=>$project);
     	
     	if ($packageName!=null) {
     		$where .= 'AND c.packageName=:packageName ';

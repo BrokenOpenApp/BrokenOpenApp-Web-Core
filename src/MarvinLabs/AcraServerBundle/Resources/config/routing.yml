@@ -3,32 +3,43 @@ _crash_add:
     defaults: { _controller: MLabsAcraServerBundle:Crash:add }
     methods:  [POST]
 
-_crash_details:
-    pattern:  /crash/details/{id}
-    defaults: { _controller: MLabsAcraServerBundle:Issue:crashDetails }
+_main_dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: MLabsAcraServerBundle:DashBoard:index }
+    methods:  [GET]
+
+_project_index:
+    pattern:  /project/{projectId}
+    defaults: { _controller: MLabsAcraServerBundle:Project:index }
     methods:  [GET]
     requirements:
-        id: \d+
+        projectId: \d+
 
-_issue_details:
-    pattern:  /issue/details/{issueId}
-    defaults: { _controller: MLabsAcraServerBundle:Issue:issueDetails, issueId: a }
-    methods:  [GET]
-    requirements:
-        issueId: "[0-9a-fA-F]{32}"
 
-_app_dashboard:
-    pattern:  /application/{packageName}
-    defaults: { _controller: MLabsAcraServerBundle:Issue:appDashboard, packageName: com.example.myapp }
+_project_app_index:
+    pattern:  /project/{projectId}/application/{packageName}
+    defaults: { _controller: MLabsAcraServerBundle:ProjectApplication:index }
     methods:  [GET]
     requirements:
         packageName: "[0-9a-zA-Z\.]+"
+        projectId: \d+
 
-_main_dashboard:
-    pattern:  /dashboard
-    defaults: { _controller: MLabsAcraServerBundle:Issue:dashboard }
+
+_project_issue_index:
+    pattern:  /project/{projectId}/issue/{issueId}
+    defaults: { _controller: MLabsAcraServerBundle:ProjectIssue:index, issueId: a }
     methods:  [GET]
+    requirements:
+        issueId: "[0-9a-fA-F]{32}"
+        projectId: \d+
 
+_project_crash_index:
+    pattern:  /project/{projectId}/crash/details/{crashId}
+    defaults: { _controller: MLabsAcraServerBundle:ProjectCrash:index }
+    methods:  [GET]
+    requirements:
+        id: \d+
+        projectId: \d+
 
 #_crash_test_data:
 #    pattern:  /crash/generate_data

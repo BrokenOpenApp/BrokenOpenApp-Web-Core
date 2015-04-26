@@ -25,6 +25,13 @@ class Crash
      */
     private $id;
 
+	/**
+	 *
+	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Project")
+	 * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
+	 */
+	private $project;
+
     /**
      * @var datetime $createdAt
      *
@@ -320,6 +327,24 @@ class Crash
     	$this->setCreatedAt(new \DateTime(null, new \DateTimeZone('UTC')));
     	$this->setStatus(self::$STATUS_NEW);
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getProject()
+	{
+		return $this->project;
+	}
+
+	/**
+	 * @param mixed $project
+	 */
+	public function setProject($project)
+	{
+		$this->project = $project;
+	}
+
+
 
     /**
      * Set threadDetails

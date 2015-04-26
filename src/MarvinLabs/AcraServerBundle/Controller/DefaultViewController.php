@@ -19,23 +19,9 @@ class DefaultViewController extends Controller implements IAcraServerController
      */
     public function getViewParameters($additionalParameters=array()) {
     	return array_merge( array(
-    			'applications' => $this->getApplications()
+
     		), $additionalParameters);
     }
     
-    public function getApplications() 
-    {
-    	return $this->applications;	
-    }
-    
-    // --------------------------------------------------------------------------------------
-    // IAcraServerController implementation
 
-    public function setApplications($applications)
-    {
-    	$this->applications = $applications;
-    }
-    
-    /** @var array */
-    private $applications;
 }

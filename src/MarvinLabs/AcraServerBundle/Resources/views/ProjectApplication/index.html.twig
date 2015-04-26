@@ -2,33 +2,46 @@
 
 {% import 'MLabsAcraServerBundle::breadcrumb.html.twig' as breadcrumb %}
 {% block main %}
+
+{{ breadcrumb.echo([ 
+			{ label: 'Dashboard', link: path('_main_dashboard') },
+			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+			{ label: 'App #' ~ packageName, link: path('_project_app_index', {'projectId':project.id, 'packageName': packageName}) }
+		]) }}
+		
+	<section>
+		<h1>{{ packageName }}</h1>
+	</section>
+
 	<section class="dashboard-header">
 		<div id="statistics-tabs" class="tab-container">				
 			<ul class="nav">
 		    	<li class="tab first"><a href="#distribution" class="current">Distribution</a></li>
- 	            <li class="tab last"><a href="#evolution-num">Evolution</a></li>
+ 	            <li class="tab last"><a href="#evolution">Evolution</a></li>
 		    </ul>
 			
 		    <div class="content">		
 				<div id="distribution">
-					<div id="issues-per-app" class="graph-container half-width">
+					<div id="issues-per-version" class="graph-container half-width">
 						<div class="graph"></div>
-						<h4 class="title">Issues per application</h4>
+						<h4 class="title">New crashes per application version</h4>
 					</div>
-					<div id="crashes-per-app" class="graph-container half-width">
+					<div id="issues-per-android" class="graph-container half-width">
 						<div class="graph"></div>
-						<h4 class="title">Crashes per application</h4>
+						<h4 class="title">New crashes per Android version</h4>
 					</div>
-				</div>
-				<div id="evolution-num">
+				</div> 
+				<div id="evolution">
 					<div id="crash-in-time" class="graph-container full-width">
 						<div class="graph"></div>
 						<h4 class="title">Number of crashes with time</h4>
 					</div>
-				</div>
+				</div>				
 			</div>
 		</div>
 	</section>
+
+	<!-- Line - Crashes per version per date -->
 
 	<!-- List - Last 10 issues submitted -->
 	<section class="latest-issues">
@@ -38,7 +51,6 @@
 				<thead>
 					{% block table_headers %}
 					<tr>
-						<th>Package</th>
 						<th>Last Crash</th>
 						<th>Crashes</th>
 						<th>App versions</th>
@@ -60,12 +72,11 @@
 					{% set androidVersions = androidVersions|join(', ') %} 
 					
 					<tr>
-						<td class="package-name">{{ c.packageName }}</td>
 						<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
 						<td class="crash-num">{{ c.crashNum }}</td>
 						<td class="app-version" title="{{ appVersions|e }}">{{ shortAppVersions }}</td>
 						<td class="android-version" title="{{ androidVersions|e }}">{{ shortAndroidVersions }}</td>
-						<td class="action-link"><a href="{{ path('_issue_details', {'issueId': c.issueId}) }}" class="primary-button">Details</a></td>
+						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueId}) }}" class="primary-button">Details</a></td>
 					</tr>
 				{% endfor %}
 				</tbody>
@@ -96,27 +107,27 @@
     var lineGraphOptions = { 
 			xaxis: {
 				mode: "time",
+				minTickSize: [1, "day"],
 				min: {{ minTime.crashDate | date('U') }},
 				max: {{ maxTime.crashDate | date('U') }},
 				twelveHourClock: false,
-				minTickSize: [1, "day"],
 				timeformat: "%Y/%m/%d"
 			}
 	    };
 	    
-    var issuesPerAppData = [
-    {% for s in applicationStatistics %}
+    var issuesPerVersionData = [
+    {% for s in versionStatistics %}
 		    {
-			    label: "{{ s.packageName }}",
+			    label: "{{ s.appVersionName }} ~ {{ s.appVersionCode }}",
     			data: {{ s.issueNum }}
 			},
 	{% endfor %}
 		];
-	    
-    var crashesPerAppData = [
-    {% for s in applicationStatistics %}
+		
+    var issuesPerAndroidData = [
+    {% for s in androidStatistics %}
 		    {
-			    label: "{{ s.packageName }}",
+			    label: "{{ s.androidVersion }}",
     			data: {{ s.crashNum }}
 			},
 	{% endfor %}
@@ -135,14 +146,14 @@
     	if (onlyActiveTab) {
     		var activeTab = $(".tab-container").tabs( "option", "active" );
 	       	if (activeTab==0) {	
-			    $.plot("#issues-per-app .graph", issuesPerAppData, pieChartOptions);
-			    $.plot("#crashes-per-app .graph", crashesPerAppData, pieChartOptions);
+			    $.plot("#issues-per-version .graph", issuesPerVersionData, pieChartOptions);
+			    $.plot("#issues-per-android .graph", issuesPerAndroidData, pieChartOptions);
 	       	} else if (activeTab==1) {	
 			    $.plot("#crash-in-time .graph", timeData, lineGraphOptions);
 	       	}
        	} else {
-			$.plot("#issues-per-app .graph", issuesPerAppData, pieChartOptions);
-			$.plot("#crashes-per-app .graph", crashesPerAppData, pieChartOptions);
+			$.plot("#issues-per-version .graph", issuesPerVersionData, pieChartOptions);
+			$.plot("#issues-per-android .graph", issuesPerAndroidData, pieChartOptions);
 			$.plot("#crash-in-time .graph", timeData, lineGraphOptions);
        	}
     }

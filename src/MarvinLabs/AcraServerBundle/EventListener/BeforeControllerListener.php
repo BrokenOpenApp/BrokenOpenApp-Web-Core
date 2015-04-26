@@ -30,11 +30,7 @@ class BeforeControllerListener
         }
  
         if ($controllerObject instanceof IAcraServerController) {
-			$doctrine = $controllerObject->getDoctrine()->getManager();
-	        $crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');	
-	        $applications = $crashRepo->newAllApplicationsQuery()->getResult();
-	        
-            $controllerObject->setApplications($applications);
+
         }
     }
 }
