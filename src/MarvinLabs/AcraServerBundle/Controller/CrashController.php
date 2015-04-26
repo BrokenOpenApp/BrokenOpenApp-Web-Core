@@ -47,7 +47,8 @@ class CrashController extends Controller
 		$projectRepo = $doctrine->getRepository('MLabsAcraServerBundle:Project');
 		$project = $projectRepo->findOneBy(array('incoming_crash_id'=>$this->getRequest()->query->get('project')));
 		if (!$project) {
-			return  new Response( '404' );
+			// TEMP TODO return  new Response( '404' ); 
+			$project = $projectRepo->findOneBy(array('incoming_crash_id'=>'beecount'));
 		}
 
 		// Crash & issue
