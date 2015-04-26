@@ -15,7 +15,7 @@ class CrashFeatures
 {
 
 	/**
-	 * @ORM\ID
+	 * @ORM\Id
 	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Crash")
 	 * @ORM\JoinColumn(name="crash_id", referencedColumnName="id", nullable=false)
 	 */
@@ -25,7 +25,7 @@ class CrashFeatures
     /**
      * @var string
      *
-	 * @ORM\ID
+	 * @ORM\Id
      * @ORM\Column(name="key", type="text", nullable=false)
      */
     private $feature;

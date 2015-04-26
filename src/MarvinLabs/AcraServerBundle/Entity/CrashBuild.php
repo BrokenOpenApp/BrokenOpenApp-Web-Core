@@ -15,7 +15,7 @@ class CrashBuild
 {
 
 	/**
-	 * @ORM\ID
+	 * @ORM\Id
 	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Crash")
 	 * @ORM\JoinColumn(name="crash_id", referencedColumnName="id", nullable=false)
 	 */
@@ -25,7 +25,7 @@ class CrashBuild
     /**
      * @var string
      *
-	 * @ORM\ID
+	 * @ORM\Id
      * @ORM\Column(name="key", type="string", nullable=false)
      */
     private $key;
