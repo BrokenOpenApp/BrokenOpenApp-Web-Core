@@ -19,10 +19,11 @@ class Crash
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @ORM\SequenceGenerator(sequenceName="acra_crash_id_seq")
+	 */
     private $id;
 
 	/**

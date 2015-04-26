@@ -18,7 +18,8 @@ class Project
 	 *
 	 * @ORM\Column(name="id", type="integer", nullable=false)
 	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="IDENTITY")
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @ORM\SequenceGenerator(sequenceName="acra_project_id_seq")
 	 */
 	private $id;
 
