@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Crash
 {
-	public static $STATUS_NEW 		= 0;
-	public static $STATUS_FIXED 	= 1;
 	
     /**
      * @var integer
@@ -33,6 +31,13 @@ class Crash
 	 */
 	private $project;
 
+	/**
+	 *
+	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Issue")
+	 * @ORM\JoinColumn(name="issue_id", referencedColumnName="id", nullable=false)
+	 */
+	private $issue;
+
     /**
      * @var datetime $createdAt
      *
@@ -40,19 +45,7 @@ class Crash
      */
     private $createdAt;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="status", type="integer", nullable=false)
-     */
-    private $status;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="issue_id", type="string", length=32, nullable=false)
-     */
-    private $issueId;
 
     /**
      * @var string
@@ -256,7 +249,6 @@ class Crash
     public function __construct()
     {
     	$this->setCreatedAt(new \DateTime(null, new \DateTimeZone('UTC')));
-    	$this->setStatus(self::$STATUS_NEW);
     }
 
 	/**
@@ -274,6 +266,24 @@ class Crash
 	{
 		$this->project = $project;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIssue()
+	{
+		return $this->issue;
+	}
+
+	/**
+	 * @param mixed $issue
+	 */
+	public function setIssue($issue)
+	{
+		$this->issue = $issue;
+	}
+
+
 
 
 
@@ -377,66 +387,6 @@ class Crash
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Crash
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer 
-     */
-    public function getStatusAsString()
-    {
-        switch ($this->status) {
-        	case self::$STATUS_NEW: 	return 'new';
-        	case self::$STATUS_FIXED: 	return 'new';
-        	default: 					return 'unknwown';
-        }
-    }
-
-    /**
-     * Set issueId
-     *
-     * @param string $issueId
-     * @return Crash
-     */
-    public function setIssueId($issueId)
-    {
-        $this->issueId = $issueId;
-    
-        return $this;
-    }
-
-    /**
-     * Get issueId
-     *
-     * @return string 
-     */
-    public function getIssueId()
-    {
-        return $this->issueId;
     }
 
     /**
@@ -1066,6 +1016,6 @@ class Crash
     	if ('AppCache' == get_class($kernel)) $kernel = $kernel->getKernel();
     	$kernel->getContainer()->get('logger')->warn('Computed issue id: ' . $issueId);
     	
-    	$this->setIssueId($issueId);
+    	return $issueId;
     }
 }

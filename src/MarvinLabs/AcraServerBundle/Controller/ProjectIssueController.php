@@ -43,10 +43,11 @@ class ProjectIssueController extends DefaultViewController
 		}
 
 		// Dashboard
-		$crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');
+		$issueRepo = $doctrine->getRepository('MLabsAcraServerBundle:Issue');
+		$issue = $issueRepo->findOneBy(array('project'=>$this->project, 'issueId'=>$issueId));
 
-		$issue = $crashRepo->newIssueDetailsQuery($this->project, $issueId)->getSingleResult();
-		$crashes = $crashRepo->newIssueCrashesQuery($this->project, $issueId)->setMaxResults(15)->getResult();
+		$crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');
+		$crashes = $crashRepo->newIssueCrashesQuery($this->project, $issue->getIssueId())->setMaxResults(15)->getResult();
 
 		if (!$issue) {
 			throw $this->createNotFoundException('Unable to find issue.');

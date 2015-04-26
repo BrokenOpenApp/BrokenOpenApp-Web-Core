@@ -65,12 +65,13 @@ class CrashRepository extends EntityRepository
     	$params = array('project'=>$project);
     	
     	if ($issueId!=null) {
-    		$where .= 'AND c.issueId=:issueId ';
+    		$where .= 'AND i.issueId=:issueId ';
     		$params['issueId'] = $issueId;
     	}
     	
     	$query = "SELECT c "
         			. "FROM MarvinLabs\AcraServerBundle\Entity\Crash c "
+					. " JOIN c.issue i "
         			. "WHERE " . $where 
         			. "ORDER BY c.userCrashDate DESC ";
     	    	
@@ -89,22 +90,22 @@ class CrashRepository extends EntityRepository
 	 */
     public function newLatestIssuesQuery(Project $project, $packageName=null)
     {
-    	$where = "c.status=:status AND c.project =:project ";
-    	$params = array( 'status' => Crash::$STATUS_NEW , 'project'=>$project);
+    	$where = "  i.project =:project ";
+    	$params = array(  'project'=>$project);
     	
     	if ($packageName!=null) {
     		$where .= 'AND c.packageName=:packageName ';
     		$params['packageName'] = $packageName;
     	}
 
-    	$query = "SELECT c.issueId, "
-        				. "COUNT(c.id) as crashNum, "
-        				. "MAX(c.userCrashDate) as latestCrashDate "
-        			. "FROM MarvinLabs\AcraServerBundle\Entity\Crash c "
-        			. "WHERE " . $where 
-        			. "GROUP BY c.issueId "
-        			. "ORDER BY latestCrashDate DESC ";
-
+		$query = " SELECT i.issueId AS issueId ,".
+			" COUNT(c.id) as crashNum, " .
+			" MAX(c.userCrashDate) as latestCrashDate ".
+			" FROM MarvinLabs\AcraServerBundle\Entity\Crash c ".
+			" JOIN c.issue i ".
+			" WHERE ". $where .
+			"GROUP BY issueId ".
+			"ORDER BY latestCrashDate DESC ";
 
     	return $this->getEntityManager()
 		    	->createQuery($query)

@@ -24,9 +24,7 @@
 <section class="issue-header">
 	<h1>Issue #{{ issue.issueId }}</h1>
 
-	<ul>
-		{{ fields.echo('Latest crash', "#{issue.latestCrashDate | date('Y-m-d H:i:s')} (UTC)", issue.latestCrashDate) }}
-	</ul>
+
 </section>
 
 <section class="issue-crashes">
