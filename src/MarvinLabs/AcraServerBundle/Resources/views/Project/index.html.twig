@@ -97,18 +97,31 @@
 	},
 	};
 
-	{% set minTime = timeStatistics | first %}
-	{% set maxTime = timeStatistics | last %}
-	var lineGraphOptions = {
-	xaxis: {
-	mode: "time",
-	min: {{ minTime.crashDate | date('U') }},
-	max: {{ maxTime.crashDate | date('U') }},
-	twelveHourClock: false,
-	minTickSize: [1, "day"],
-	timeformat: "%Y/%m/%d"
-	}
-	};
+	{%  if timeStatistics|length > 0 %}
+		{% set minTime = timeStatistics | first %}
+		{% set maxTime = timeStatistics | last %}
+		var lineGraphOptions = {
+		xaxis: {
+		mode: "time",
+		min: {{ minTime.crashDate | date('U') }},
+		max: {{ maxTime.crashDate | date('U') }},
+		twelveHourClock: false,
+		minTickSize: [1, "day"],
+		timeformat: "%Y/%m/%d"
+		}
+		};
+	{%  else %}
+		var lineGraphOptions = {
+		xaxis: {
+		mode: "time",
+		min: {{ "now" | date('U') }},
+		max: {{ "now" | date('U') }},
+		twelveHourClock: false,
+		minTickSize: [1, "day"],
+		timeformat: "%Y/%m/%d"
+		}
+		};
+	{%  endif %}
 
 	var issuesPerAppData = [
 	{% for s in applicationStatistics %}
