@@ -47,15 +47,11 @@ class ProjectController extends DefaultViewController
 		$crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');
 
 		$crashes = $crashRepo->newLatestIssuesQuery($this->project)->setMaxResults(15)->getResult();
-		$applicationStatistics = $crashRepo->newApplicationsStatisticsQuery($this->project)->getResult();
-		$timeStatistics = $crashRepo->newApplicationsTimeStatisticsQuery($this->project)->getResult();
 
 		return $this->render('MLabsAcraServerBundle:Project:index.html.twig', $this->getViewParameters(
 			array(
 				'project' => $this->project,
 				'crashes' => $crashes,
-				'timeStatistics' => $timeStatistics,
-				'applicationStatistics' => $applicationStatistics
 			)));
 	}
 

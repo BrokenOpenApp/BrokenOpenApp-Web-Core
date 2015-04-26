@@ -21,7 +21,7 @@ class Crash
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+	 * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -126,14 +126,14 @@ class Crash
     /**
      * @var integer
      *
-     * @ORM\Column(name="total_mem_size", type="integer", nullable=true)
+     * @ORM\Column(name="total_mem_size", type="bigint", nullable=true)
      */
     private $totalMemSize;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="available_mem_size", type="integer", nullable=true)
+     * @ORM\Column(name="available_mem_size", type="bigint", nullable=true)
      */
     private $availableMemSize;
 

@@ -18,18 +18,13 @@
 {{ breadcrumb.echo([ 
 			{ label: 'Dashboard', link: path('_main_dashboard') },
 			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
-			{ label: 'App #' ~ issue.packageName, link: path('_project_app_index', {'projectId':project.id,'packageName': issue.packageName}) },
 			{ label: 'Issue #' ~ issue.issueId, link: path('_project_issue_index', {'projectId':project.id,'id': issue.issueId}) }
 		]) }}
 
 <section class="issue-header">
-	<h1>{{ issue.packageName }} // Issue #{{ issue.issueId }}</h1>
-	
-	{% set appVersions = issue.appVersions|split(',')|sort|join(', ') %}			
-	{% set androidVersions = issue.androidVersions|split(',')|sort|join(', ') %}
+	<h1>Issue #{{ issue.issueId }}</h1>
+
 	<ul>
-		{{ fields.echo('App versions', appVersions) }}
-		{{ fields.echo('Android versions', androidVersions) }}
 		{{ fields.echo('Latest crash', "#{issue.latestCrashDate | date('Y-m-d H:i:s')} (UTC)", issue.latestCrashDate) }}
 	</ul>
 </section>
@@ -44,8 +39,6 @@
 			<tr>
 				<th>Id</th>
 				<th>Created</th>
-				<th>Package</th>
-				<th>App version</th>
 				<th>Android version</th>
 				<th></th>
 			</tr>
@@ -56,9 +49,6 @@
 			<tr>
 				<td class="id">#{{ c.id }}</td>
 				<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
-				<td class="package-name">{{ c.packageName }}</td>
-				<td class="app-version">{{ c.appVersionName }}</td>
-				<td class="android-version">{{ c.androidVersion }}</td>
 				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
 			</tr>
 		{% endfor %}

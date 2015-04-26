@@ -48,17 +48,11 @@ class ProjectApplicationController extends DefaultViewController
 
 		$crashes = $crashRepo->newLatestIssuesQuery($this->project, $packageName)->setMaxResults(15)->getResult();
 
-		$versionStatistics = $crashRepo->newApplicationVersionsStatisticsQuery($this->project, $packageName)->getResult();
-		$androidStatistics = $crashRepo->newApplicationAndroidVersionsStatisticsQuery($this->project, $packageName)->getResult();
-		$timeStatistics = $crashRepo->newApplicationTimeStatisticsQuery($this->project, $packageName)->getResult();
 
 		return $this->render('MLabsAcraServerBundle:ProjectApplication:index.html.twig',  $this->getViewParameters(
 			array(
 				'project' => $this->project,
 				'packageName'   		=> $packageName,
-				'versionStatistics'		=> $versionStatistics,
-				'androidStatistics'		=> $androidStatistics,
-				'timeStatistics'		=> $timeStatistics,
 				'crashes'   			=> $crashes
 			)));
 	}
