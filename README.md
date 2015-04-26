@@ -3,17 +3,8 @@ acra-server
 
 A server to collect crash data of your android applications
 
-## Current features
+## WORK IN PROGRESS - USE WITH PAIN - CHECK BACK IN A FEW MONTHS FOR MORE!
 
-- Email notification on new crash
-- Grouping of similar crashes into "issues"
-- Dashboard for all applications with some statistics
-- Dashboard for a single application with some statistics
-
-## Demo
-
-There is a demo server running (with very few crashes halas, we are looking for crash data to feed this DB): http://acra-server-demo.marvinlabs.com/dashboard
- 
 ## Installation
 
 The app can be installed on your server by installing the Symfony framework first and then this bundle (requires command line access to git, php and composer on your server)
