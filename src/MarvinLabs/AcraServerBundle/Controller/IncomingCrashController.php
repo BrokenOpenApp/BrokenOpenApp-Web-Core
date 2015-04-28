@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use MarvinLabs\AcraServerBundle\Entity\Crash;
 use MarvinLabs\AcraServerBundle\DataFixtures\LoadFixtureData;
 
-class CrashController extends Controller
+class IncomingCrashController extends Controller
 {
 	// TODO Disable in PROD environment
 // 	public function generateTestDataAction()

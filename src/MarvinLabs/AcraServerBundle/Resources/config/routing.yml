@@ -1,6 +1,6 @@
 _crash_add:
     pattern:  /crash/add
-    defaults: { _controller: MLabsAcraServerBundle:Crash:add }
+    defaults: { _controller: MLabsAcraServerBundle:IncomingCrash:add }
     methods:  [POST]
 
 _main_dashboard:
