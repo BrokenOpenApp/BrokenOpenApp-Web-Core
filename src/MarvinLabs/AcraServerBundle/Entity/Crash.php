@@ -26,6 +26,10 @@ class Crash
 
 	/**
 	 *
+     * If we have Issue field, do we also need Project field? Yes.
+     *
+     * We get a crash, save it for posterity as fast as possible and work out which issue it is later.
+     *
 	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Project")
 	 * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
 	 */
@@ -33,8 +37,10 @@ class Crash
 
 	/**
 	 *
+     * This can be null (and we also have an project field) because we get a crash, save it for posterity as fast as possible and work out which issue it is later.
+     *
 	 * @ORM\ManyToOne(targetEntity="MarvinLabs\AcraServerBundle\Entity\Issue")
-	 * @ORM\JoinColumn(name="issue_id", referencedColumnName="id", nullable=false)
+	 * @ORM\JoinColumn(name="issue_id", referencedColumnName="id", nullable=true)
 	 */
 	private $issue;
 
@@ -1003,7 +1009,7 @@ class Crash
     {
         return $this->userEmail;
     }
-    
+
     public function computeIssueId() 
     {    	
     	$issueId = md5($this->getShortStackTrace());
