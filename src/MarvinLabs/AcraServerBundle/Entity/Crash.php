@@ -1003,11 +1003,7 @@ class Crash
     {
         return $this->userEmail;
     }
-
-
-    /**
-     * @ORM\PrePersist
-     */
+    
     public function computeIssueId() 
     {    	
     	$issueId = md5($this->getShortStackTrace());
