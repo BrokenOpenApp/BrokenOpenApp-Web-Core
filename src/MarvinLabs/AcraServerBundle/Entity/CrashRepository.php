@@ -99,6 +99,7 @@ class CrashRepository extends EntityRepository
     	}
 
 		$query = " SELECT i.issueId AS issueId ,".
+            " MAX(i.title) AS title, ".
 			" COUNT(c.id) as crashNum, " .
 			" MAX(c.userCrashDate) as latestCrashDate ".
 			" FROM MarvinLabs\AcraServerBundle\Entity\Crash c ".

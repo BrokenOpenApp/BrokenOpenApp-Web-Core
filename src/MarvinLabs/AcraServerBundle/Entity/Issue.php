@@ -38,6 +38,16 @@ class Issue
 	 */
 	private $issueId;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=250, nullable=true)
+     *
+     * Should really be nullable=false later but for now we have old data TODO
+     *
+     */
+    private $title;
+
 	/**
 	 * @return int
 	 */
@@ -87,6 +97,23 @@ class Issue
 	{
 		$this->issueId = $issueId;
 	}
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
 
 
 

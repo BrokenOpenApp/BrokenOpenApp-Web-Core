@@ -33,6 +33,14 @@ _project_issue_index:
         issueId: "[0-9a-fA-F]{32}"
         projectId: \d+
 
+_project_issue_edittitle:
+    pattern:  /project/{projectId}/issue/{issueId}/edittitle
+    defaults: { _controller: MLabsAcraServerBundle:ProjectIssue:editTitle, issueId: a }
+    methods:  [GET,POST]
+    requirements:
+        issueId: "[0-9a-fA-F]{32}"
+        projectId: \d+
+
 _project_crash_index:
     pattern:  /project/{projectId}/crash/details/{crashId}
     defaults: { _controller: MLabsAcraServerBundle:ProjectCrash:index }

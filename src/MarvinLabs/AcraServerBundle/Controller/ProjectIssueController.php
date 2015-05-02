@@ -2,64 +2,100 @@
 
 namespace MarvinLabs\AcraServerBundle\Controller;
 
-use Doctrine\ORM\Mapping\Entity;
 
+use MarvinLabs\AcraServerBundle\Form\Type\IssueEditTitleFormType;
 use Symfony\Component\HttpFoundation\Response;
 
-use MarvinLabs\AcraServerBundle\Controller\DefaultViewController;
-use MarvinLabs\AcraServerBundle\Entity\Crash;
-use MarvinLabs\AcraServerBundle\DataFixtures\LoadFixtureData;
 
 class ProjectIssueController extends DefaultViewController
 {
 
 
+    protected $project;
 
-	protected $project;
-
-	protected function build($projectId) {
-		$doctrine = $this->getDoctrine()->getManager();
-
-		$projectRepo = $doctrine->getRepository('MLabsAcraServerBundle:Project');
-		$this->project = $projectRepo->findOneById($projectId);
-		if (!$this->project) {
-			return  new Response( '404' );
-		}
-
-		return null;
-	}
-
-	/**
-	 * Render the dashboard for a particular app
-	 */
-	public function indexAction($projectId, $issueId) {
-		$doctrine = $this->getDoctrine()->getManager();
+    protected $issue;
 
 
-		// project
-		$return = $this->build($projectId);
-		if ($return) {
-			return $return;
-		}
+    protected function build($projectId, $issueId)
+    {
+        $doctrine = $this->getDoctrine()->getManager();
 
-		// Dashboard
-		$issueRepo = $doctrine->getRepository('MLabsAcraServerBundle:Issue');
-		$issue = $issueRepo->findOneBy(array('project'=>$this->project, 'issueId'=>$issueId));
+        $projectRepo = $doctrine->getRepository('MLabsAcraServerBundle:Project');
+        $this->project = $projectRepo->findOneById($projectId);
+        if (!$this->project) {
+            return new Response('404');
+        }
 
-		$crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');
-		$crashes = $crashRepo->newIssueCrashesQuery($this->project, $issue->getIssueId())->setMaxResults(15)->getResult();
+        $issueRepo = $doctrine->getRepository('MLabsAcraServerBundle:Issue');
+        $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'issueId' => $issueId));
+        if (!$this->issue) {
+            return new Response('404');
+        }
 
-		if (!$issue) {
-			throw $this->createNotFoundException('Unable to find issue.');
-		}
+        return null;
+    }
 
-		return $this->render('MLabsAcraServerBundle:ProjectIssue:index.html.twig', $this->getViewParameters(
-			array(
-				'project' => $this->project,
-				'issue'		=> $issue,
-				'crashes'	=> $crashes
-			)));
-	}
+    /**
+     * Render the dashboard for a particular app
+     */
+    public function indexAction($projectId, $issueId)
+    {
+        $doctrine = $this->getDoctrine()->getManager();
+
+
+        // project & issue
+        $return = $this->build($projectId, $issueId);
+        if ($return) {
+            return $return;
+        }
+
+        // Dashboard
+        $crashRepo = $doctrine->getRepository('MLabsAcraServerBundle:Crash');
+        $crashes = $crashRepo->newIssueCrashesQuery($this->project, $this->issue->getIssueId())->setMaxResults(15)->getResult();
+
+        return $this->render('MLabsAcraServerBundle:ProjectIssue:index.html.twig', $this->getViewParameters(
+            array(
+                'project' => $this->project,
+                'issue' => $this->issue,
+                'crashes' => $crashes
+            )));
+    }
+
+    public function editTitleAction($projectId, $issueId)
+    {
+        $doctrine = $this->getDoctrine()->getManager();
+
+
+        // project & issue
+        $return = $this->build($projectId, $issueId);
+        if ($return) {
+            return $return;
+        }
+
+        // edit title
+        $form = $this->createForm(new IssueEditTitleFormType(), $this->issue);
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($this->issue);
+                $em->flush();
+                return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getIssueId())));
+            }
+        }
+
+
+        return $this->render('MLabsAcraServerBundle:ProjectIssue:editTitle.html.twig', array(
+            'project' => $this->project,
+            'issue' => $this->issue,
+            'form' => $form->createView(),
+        ));
+
+
+    }
 
 }
 

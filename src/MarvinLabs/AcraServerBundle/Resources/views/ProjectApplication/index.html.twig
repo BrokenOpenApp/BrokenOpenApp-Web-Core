@@ -24,6 +24,7 @@
 				<thead>
 					{% block table_headers %}
 					<tr>
+						<th>Title</th>
 						<th>Last Crash</th>
 						<th>Crashes</th>
 						<th></th>
@@ -34,6 +35,7 @@
 				{% for c in crashes %}
 					
 					<tr>
+						<td>{{ c.title }}</td>
 						<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
 						<td class="crash-num">{{ c.crashNum }}</td>
 						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueId}) }}" class="primary-button">Details</a></td>
