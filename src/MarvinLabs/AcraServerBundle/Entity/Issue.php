@@ -114,6 +114,16 @@ class Issue
         $this->title = $title;
     }
 
+    /**
+     * @param string $title
+     */
+    public function setTitleFromCrash(Crash $crash)
+    {
+        $bits = explode("/n",trim($crash->getStackTrace()));
+        $title = substr(trim($bits[0]),0,250);
+        $this->title = $title;
+    }
+
 
 
 

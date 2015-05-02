@@ -51,21 +51,10 @@ class IncomingCrashController extends Controller
 			$project = $projectRepo->findOneBy(array('incoming_crash_id'=>'beecount'));
 		}
 
-		// Crash & issue
+		// Crash
 		$issueRepo = $doctrine->getRepository('MLabsAcraServerBundle:Issue');
 		$crash = $this->newCrashFromRequest($this->getRequest());
 		$crash->setProject($project);
-		$issueID = $crash->computeIssueId();
-		$issue = $issueRepo->findOneBy(array('issueId'=>$issueID, 'project'=>$project));
-		if (!$issue) {
-			$issue = new Issue();
-			$issue->setProject($project);
-			$issue->setIssueId($issueID);
-			$doctrine->persist($issue);
-			// flush here to try and avoid race conditions; another bug report the same may be coming in at the same time.
-			$doctrine->flush();
-		}
-		$crash->setIssue($issue);
 		$doctrine->persist($crash);
 		// flush here so always got basic data of crash at least!
 		$doctrine->flush();
@@ -147,6 +136,22 @@ class IncomingCrashController extends Controller
 		}
 
 		$doctrine->flush();
+
+        // Issue
+        $issueID = $crash->computeIssueId();
+        $issue = $issueRepo->findOneBy(array('issueId'=>$issueID, 'project'=>$project));
+        if (!$issue) {
+            $issue = new Issue();
+            $issue->setProject($project);
+            $issue->setIssueId($issueID);
+            $issue->setTitleFromCrash($crash);
+            $doctrine->persist($issue);
+
+        }
+        $crash->setIssue($issue);
+        $doctrine->persist($crash);
+        // flush here to try and avoid race conditions; another bug report the same may be coming in at the same time and we might get 2 issues!
+        $doctrine->flush();
 
    		// Send notification email
 		$this->sendNewCrashNotification(
