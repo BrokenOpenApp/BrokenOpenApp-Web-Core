@@ -56,28 +56,28 @@ class Crash
     /**
      * @var string
      *
-     * @ORM\Column(name="report_id", type="text", nullable=false)
+     * @ORM\Column(name="report_id", type="text", nullable=true)
      */
     private $reportId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="app_version_code", type="text", nullable=false)
+     * @ORM\Column(name="app_version_code", type="text", nullable=true)
      */
     private $appVersionCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="app_version_name", type="text", nullable=false)
+     * @ORM\Column(name="app_version_name", type="text", nullable=true)
      */
     private $appVersionName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="package_name", type="text", nullable=false)
+     * @ORM\Column(name="package_name", type="text", nullable=true)
      */
     private $packageName;
 
