@@ -42,7 +42,7 @@ _project_issue_edittitle:
         projectId: \d+
 
 _project_crash_index:
-    pattern:  /project/{projectId}/crash/details/{crashId}
+    pattern:  /project/{projectId}/crash/{crashId}
     defaults: { _controller: MLabsAcraServerBundle:ProjectCrash:index }
     methods:  [GET]
     requirements:
