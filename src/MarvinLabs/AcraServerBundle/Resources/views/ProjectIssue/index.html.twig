@@ -38,7 +38,9 @@
 				<th>Id</th>
 				<th>Created</th>
 				<th>App</th>
+				<th>Version</th>
 				<th>Device</th>
+				<th>Android</th>
 				<th></th>
 			</tr>
 			{% endblock %}
@@ -48,8 +50,10 @@
 			<tr>
 				<td class="id">#{{ c.id }}</td>
 				<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
-				<td>{{  c.packageName }}, {{ c.appVersionName }} ({{  c.appVersionCode }})</td>
-				<td>{{  c.brand }} {{ c.phoneModel }} V{{  c.androidVersion }}</td>
+				<td>{{  c.packageName }}</td>
+				<td>{{ c.appVersionName }} ({{  c.appVersionCode }})</td>
+				<td>{{  c.brand }} {{ c.phoneModel }}</td>
+				<td>V{{  c.androidVersion }}</td>
 				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
 			</tr>
 		{% endfor %}
