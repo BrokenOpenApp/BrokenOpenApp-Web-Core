@@ -121,7 +121,7 @@ class Issue
     {
         $bits = explode("\n",trim($crash->getStackTrace()));
         $title = substr(trim($bits[0]),0,250);
-        $this->title = $title;
+        $this->title = trim($title) ? trim($title) : "Issue";
     }
 
 

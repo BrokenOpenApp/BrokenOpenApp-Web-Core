@@ -5,7 +5,7 @@ namespace MarvinLabs\AcraServerBundle\Test\Entity;
 
 use MarvinLabs\AcraServerBundle\Entity\Crash;
 
-class CalculatorTest extends \PHPUnit_Framework_TestCase
+class CrashEntityTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testGetShortStackTrace()
