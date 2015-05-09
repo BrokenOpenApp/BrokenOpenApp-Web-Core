@@ -40,4 +40,21 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     }
 
+	public function dataForHasStackTrace() {
+		return array(
+			array('',false),
+			array('       ',false),
+			array('   cat!    ',true),
+		);
+	}
+
+	/**
+	 * @dataProvider dataForHasStackTrace
+	 */
+	public function testHasStackTrace($in, $out) {
+		$crash = new Crash();
+		$crash->setStackTrace($in);
+		$this->assertEquals($out, $crash->hasStackTrace());
+	}
+
 }

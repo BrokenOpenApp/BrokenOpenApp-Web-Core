@@ -685,9 +685,19 @@ class Crash
     }
 
     /**
+     * Has stackTrace
+     *
+     * @return boolean
+     */
+    public function hasStackTrace()
+    {
+        return (boolean)trim($this->stackTrace);
+    }
+
+    /**
      * Get stackTrace
      *
-     * @return string 
+     * @return string
      */
     public function getStackTrace()
     {
