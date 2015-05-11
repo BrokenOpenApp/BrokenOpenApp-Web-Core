@@ -9,7 +9,7 @@ parameters:
     database_path: null
     
     # DB TABLE PREFIX
-    m_labs_acra_server.table_prefix: as_
+    jmb_technology_brokenopenapp_core.table_prefix: boa_
     
     # SWIFT MAILER
     mailer_transport: mail

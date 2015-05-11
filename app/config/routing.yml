@@ -1,4 +1,4 @@
-MLabsAcraServerBundle:
-    resource: "@MLabsAcraServerBundle/Resources/config/routing.yml"
+JMBTechnologyBrokenOpenAppCoreBundle:
+    resource: "@JMBTechnologyBrokenOpenAppCoreBundle/Resources/config/routing.yml"
     prefix:   /
 

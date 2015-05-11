@@ -22,7 +22,7 @@ class AppKernel extends Kernel
 
   			new BFOS\TwigExtensionsBundle\BFOSTwigExtensionsBundle(),
         		
-            new MarvinLabs\AcraServerBundle\MLabsAcraServerBundle(),
+            new JMBTechnology\BrokenOpenAppCoreBundle\JMBTechnologyBrokenOpenAppCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

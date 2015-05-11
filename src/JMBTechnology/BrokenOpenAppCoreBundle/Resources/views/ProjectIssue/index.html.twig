@@ -1,0 +1,99 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+{% import 'JMBTechnologyBrokenOpenAppCoreBundle::breadcrumb.html.twig' as breadcrumb %}
+{% import _self as fields %}
+
+
+{% macro echo(title, value, test, value_wrapper, outer_tag) %}
+	{% if test | default(value) %}	
+		<{{ outer_tag | default('li') }} class="field">
+			<strong class="label">{{ title }}</strong>: <{{value_wrapper | default('span')}} class="value">{{ value }}</{{value_wrapper | default('span')}}>
+		</{{ outer_tag | default('li') }}>
+	{% endif %}	
+{% endmacro %}
+
+
+{% block main %}
+
+{{ breadcrumb.echo([ 
+			{ label: 'Dashboard', link: path('_main_dashboard') },
+			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+			{ label: 'Issue #' ~ issue.issueId, link: path('_project_issue_index', {'projectId':project.id,'id': issue.issueId}) }
+		]) }}
+
+<section class="issue-header">
+	<h1>Issue: {{ issue.title }}</h1>
+
+
+</section>
+
+<section class="issue-crashes">
+	<h2>Latest {{ crashes|length }} crashes</h2>
+
+{% if crashes %}
+	<table>
+		<thead>
+			{% block table_headers %}
+			<tr>
+				<th>Id</th>
+				<th>Created</th>
+				<th>App</th>
+				<th>Version</th>
+				<th>Device</th>
+				<th>Android</th>
+				<th></th>
+			</tr>
+			{% endblock %}
+		</thead>
+		<tbody>
+		{% for c in crashes %}
+			<tr>
+				<td class="id">#{{ c.id }}</td>
+				<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
+				<td>{{  c.packageName }}</td>
+				<td>{{ c.appVersionName }} ({{  c.appVersionCode }})</td>
+				<td>{{  c.brand }} {{ c.phoneModel }}</td>
+				<td>V{{  c.androidVersion }}</td>
+				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		<tfoot>
+			{{ block('table_headers') }}
+		</tfoot>
+	</table>
+{% else %}
+	<p>No crashes here</p>
+{% endif %}
+</section>
+
+{% endblock %}
+
+{% block javascripts %}    
+    $(document).ready(function(){ 	    
+	    // Tab handling
+	    var globalTabOptions = {
+		        hide: { effect: "fade", duration: 300 },
+		        show: { effect: "fade", duration: 300 },
+		        
+		       	// Following is to fix the page jump
+		       	// see: http://stackoverflow.com/questions/243794/jquery-ui-tabs-causing-screen-to-jump
+				select: function(event, ui) {
+					jQuery(this).css('height', jQuery(this).height());
+					jQuery(this).css('overflow', 'hidden');
+				},
+				show: function(event, ui) {
+					jQuery(this).css('height', 'auto');
+					jQuery(this).css('overflow', 'visible');
+				}
+			};
+	    $("#details-tabs").tabs(globalTabOptions);
+	});
+{% endblock %}
+

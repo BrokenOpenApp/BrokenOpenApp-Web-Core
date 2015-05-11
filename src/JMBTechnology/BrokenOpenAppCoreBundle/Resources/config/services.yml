@@ -1,0 +1,15 @@
+parameters:
+    jmb_technology_brokenopenapp_core.table_prefix: boa_
+
+services:
+    jmb_technology_brokenopenapp_core.table_prefix_subscriber:
+        class: JMBTechnology\BrokenOpenAppCoreBundle\Subscriber\TablePrefixSubscriber
+        arguments: [%jmb_technology_brokenopenapp_core.table_prefix%]
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    jmb_technology_brokenopenapp_core.before_controller_action_listener:
+        class: JMBTechnology\BrokenOpenAppCoreBundle\EventListener\BeforeControllerListener
+        arguments: []
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
