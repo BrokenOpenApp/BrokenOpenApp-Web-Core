@@ -53,3 +53,23 @@ _project_crash_index:
 #    pattern:  /crash/generate_data
 #    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:Crash:generateTestData }
 #    methods:  [GET]
+
+account_register:
+    path:     /register
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register }
+
+account_create:
+    path:     /register/create
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:create }
+
+account_login:
+    path:     /login
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserLogin:login }
+
+account_login_check:
+    path:     /login/check
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserLogin:check }
+
+account_logout:
+    path:   /logout
+

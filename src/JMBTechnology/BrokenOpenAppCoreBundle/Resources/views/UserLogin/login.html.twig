@@ -1,0 +1,31 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+
+{% block main %}
+
+
+	{% if error %}
+		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	{% endif %}
+
+	<form action="{{ path('account_login_check') }}" method="post">
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="_password" />
+
+		<button type="submit">login</button>
+
+		<input type="hidden" name="_target_path" value="/dashboard" />
+	</form>
+
+{% endblock %}
+

@@ -26,7 +26,8 @@
         "kriswallsmith/assetic": "1.1.*",
         "brazilianfriendsofsymfony/twig-extensions-bundle": "dev-master",
         "nelmio/alice": "1.5.x-dev",
-        "beberlei/DoctrineExtensions": "dev-master"
+        "beberlei/DoctrineExtensions": "dev-master",
+		"ircmaxell/password-compat": "~1.0.3"
     },
     "scripts": {
         "post-install-cmd": [
