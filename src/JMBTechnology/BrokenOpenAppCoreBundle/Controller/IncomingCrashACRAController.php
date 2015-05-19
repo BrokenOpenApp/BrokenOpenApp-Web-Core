@@ -26,7 +26,7 @@ use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  */
-class IncomingCrashController extends Controller
+class IncomingCrashACRAController extends Controller
 {
 	// TODO Disable in PROD environment
 // 	public function generateTestDataAction()

@@ -1,6 +1,6 @@
 _crash_add:
     pattern:  /crash/add
-    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrash:add }
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA:add }
     methods:  [POST]
 
 _main_dashboard:
