@@ -52,8 +52,7 @@ class IncomingCrashController extends Controller
 		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
 		$project = $projectRepo->findOneBy(array('incoming_crash_id'=>$this->getRequest()->query->get('project')));
 		if (!$project) {
-			// TEMP TODO return  new Response( '404' ); 
-			$project = $projectRepo->findOneBy(array('incoming_crash_id'=>'beecount'));
+			return new Response('404');
 		}
 
 		// Crash
