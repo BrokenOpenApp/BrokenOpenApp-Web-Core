@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  *
- * @ORM\Table(name="acra_crash")
+ * @ORM\Table(name="crash")
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashRepository")
  * @ORM\HasLifecycleCallbacks
  */
