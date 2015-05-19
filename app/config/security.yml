@@ -22,8 +22,7 @@ security:
 
         default:
             pattern:    ^/
-            http_basic: ~
-            anonymous: true
+            anonymous:    true
             provider: our_db_provider
             form_login:
                 login_path: /login
@@ -34,6 +33,8 @@ security:
 
 
     access_control:
+        - { path: ^/$, roles: ROLE_USER }
+        - { path: ^/project, roles: ROLE_USER }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login/check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
