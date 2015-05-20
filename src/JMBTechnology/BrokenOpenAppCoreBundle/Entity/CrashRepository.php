@@ -27,21 +27,21 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get the issue details 
 	 *  
-	 * @param number $issueId 
+	 * @param string $issueFingerPrint
 	 * 
 	 * @return array
 	 */
-    public function newIssueDetailsQuery(Project $project, $issueId)
+    public function newIssueDetailsQuery(Project $project, $issueFingerPrint)
     {
     	$where = " c.project = :project ";
     	$params = array('project'=>$project);
     	
-    	if ($issueId!=null) {
-    		$where .= 'AND c.issueId=:issueId ';
-    		$params['issueId'] = $issueId;
+    	if ($issueFingerPrint!=null) {
+    		$where .= 'AND c.fingerprint=:fingerprint ';
+    		$params['fingerprint'] = $issueFingerPrint;
     	}
     	
-    	$query = "SELECT c.issueId as issueId, "
+    	$query = "SELECT c.issueFingerPrint as issueFingerPrint, "
         				. "COUNT(c.id) as crashNum, "
         				. "MAX(c.userCrashDate) as latestCrashDate "
         			. "FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c "
@@ -57,18 +57,18 @@ class CrashRepository extends EntityRepository
 	/**
 	 * Get the issue details 
 	 *  
-	 * @param number $issueId 
+	 * @param String $issueFingerPrint
 	 * 
 	 * @return array
 	 */
-    public function newIssueCrashesQuery(Project $project, $issueId)
+    public function newIssueCrashesQuery(Project $project, $issueFingerPrint)
     {
     	$where = " c.project = :project ";
     	$params = array('project'=>$project);
     	
-    	if ($issueId!=null) {
-    		$where .= 'AND i.issueId=:issueId ';
-    		$params['issueId'] = $issueId;
+    	if ($issueFingerPrint!=null) {
+    		$where .= 'AND i.fingerprint=:fingerprint ';
+    		$params['fingerprint'] = $issueFingerPrint;
     	}
     	
     	$query = "SELECT c "
@@ -100,14 +100,14 @@ class CrashRepository extends EntityRepository
     		$params['packageName'] = $packageName;
     	}
 
-		$query = " SELECT i.issueId AS issueId ,".
+		$query = " SELECT i.fingerprint AS fingerprint ,".
             " MAX(i.title) AS title, ".
 			" COUNT(c.id) as crashNum, " .
 			" MAX(c.userCrashDate) as latestCrashDate ".
 			" FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c ".
 			" JOIN c.issue i ".
 			" WHERE ". $where .
-			"GROUP BY issueId ".
+			"GROUP BY fingerprint ".
 			"ORDER BY latestCrashDate DESC ";
 
     	return $this->getEntityManager()

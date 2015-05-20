@@ -36,9 +36,9 @@ class Issue
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="issue_id", type="string", length=32, nullable=false)
+	 * @ORM\Column(name="fingerprint", type="string", length=32, nullable=false)
 	 */
-	private $issueId;
+	private $fingerprint;
 
     /**
      * @var string
@@ -82,22 +82,20 @@ class Issue
 		$this->project = $project;
 	}
 
-
-
 	/**
 	 * @return string
 	 */
-	public function getIssueId()
+	public function getFingerprint()
 	{
-		return $this->issueId;
+		return $this->fingerprint;
 	}
 
 	/**
-	 * @param string $issueId
+	 * @param string $fingerPrint
 	 */
-	public function setIssueId($issueId)
+	public function setFingerprint($fingerPrint)
 	{
-		$this->issueId = $issueId;
+		$this->fingerprint = $fingerPrint;
 	}
 
     /**

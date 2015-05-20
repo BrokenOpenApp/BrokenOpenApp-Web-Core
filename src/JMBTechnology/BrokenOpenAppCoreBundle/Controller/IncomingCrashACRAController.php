@@ -149,12 +149,12 @@ class IncomingCrashACRAController extends Controller
 
         // Issue, if we have a stacktrace.
 		if ($crash->hasStackTrace()) {
-			$issueID = $crash->computeIssueId();
-			$issue = $issueRepo->findOneBy(array('issueId'=>$issueID, 'project'=>$project));
+			$issueFingerPrint = $crash->computeIssueFingerPrint();
+			$issue = $issueRepo->findOneBy(array('fingerprint'=>$issueFingerPrint, 'project'=>$project));
 			if (!$issue) {
 				$issue = new Issue();
 				$issue->setProject($project);
-				$issue->setIssueId($issueID);
+				$issue->setFingerprint($issueFingerPrint);
 				$issue->setTitleFromCrash($crash);
 				$doctrine->persist($issue);
 

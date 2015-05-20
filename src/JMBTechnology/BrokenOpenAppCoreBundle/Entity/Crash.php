@@ -1050,7 +1050,7 @@ class Crash
         return $this->userEmail;
     }
 
-    public function computeIssueId() 
+    public function computeIssueFingerPrint()
     {    	
     	$issueId = md5($this->getShortStackTrace());
 

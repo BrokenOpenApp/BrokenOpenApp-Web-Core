@@ -32,7 +32,7 @@ class ProjectIssueController extends DefaultViewController
         }
 
         $issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
-        $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'issueId' => $issueId));
+        $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'fingerprint' => $issueId));
         if (!$this->issue) {
             return new Response('404');
         }
@@ -61,7 +61,7 @@ class ProjectIssueController extends DefaultViewController
 
         // Dashboard
         $crashRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Crash');
-        $crashes = $crashRepo->newIssueCrashesQuery($this->project, $this->issue->getIssueId())->setMaxResults(15)->getResult();
+        $crashes = $crashRepo->newIssueCrashesQuery($this->project, $this->issue->getFingerprint())->setMaxResults(15)->getResult();
 
         return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:index.html.twig', $this->getViewParameters(
             array(
@@ -93,7 +93,7 @@ class ProjectIssueController extends DefaultViewController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($this->issue);
                 $em->flush();
-                return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getIssueId())));
+                return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getFingerprint())));
             }
         }
 
