@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use JMBTechnology\BrokenOpenAppCoreBundle\Controller\DefaultViewController;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash;
 use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
+use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVoter;
 
 
 /**

@@ -5,6 +5,7 @@ namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Form\Type\IssueEditTitleFormType;
 use Symfony\Component\HttpFoundation\Response;
+use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVoter;
 
 /**
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
