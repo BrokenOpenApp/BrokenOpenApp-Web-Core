@@ -41,6 +41,13 @@ class Crash
 
 	/**
 	 *
+	 * @ORM\ManyToOne(targetEntity="JMBTechnology\BrokenOpenAppCoreBundle\Entity\IncomingCrashACRA")
+	 * @ORM\JoinColumn(name="incoming_crash_acra_id", referencedColumnName="id", nullable=true)
+	 */
+	private $incomingCrashACRA;
+
+	/**
+	 *
      * This can be null (and we also have an project field) because we get a crash, save it for posterity as fast as possible and work out which issue it is later.
      *
 	 * @ORM\ManyToOne(targetEntity="JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue")
@@ -276,6 +283,25 @@ class Crash
 	{
 		$this->project = $project;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIncomingCrashACRA()
+	{
+		return $this->incomingCrashACRA;
+	}
+
+	/**
+	 * @param mixed $incomingCrashACRA
+	 */
+	public function setIncomingCrashACRA($incomingCrashACRA)
+	{
+		$this->incomingCrashACRA = $incomingCrashACRA;
+	}
+
+
+
 
 	/**
 	 * @return mixed

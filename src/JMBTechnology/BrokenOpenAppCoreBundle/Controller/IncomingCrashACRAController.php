@@ -64,6 +64,7 @@ class IncomingCrashACRAController extends Controller
 		$issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
 		$crash = $this->newCrashFromRequest($this->getRequest());
 		$crash->setProject($project);
+		$crash->setIncomingCrashACRA($incomingCrashACRA);
 		$doctrine->persist($crash);
 		// flush here so always got basic data of crash at least!
 		$doctrine->flush();
