@@ -13,3 +13,14 @@ services:
         arguments: []
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    security.access.project_voter:
+        class: JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVoter
+        public: false
+        tags:
+            - { name: security.voter }
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+
+

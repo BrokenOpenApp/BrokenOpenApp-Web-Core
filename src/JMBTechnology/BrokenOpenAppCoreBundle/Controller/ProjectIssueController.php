@@ -23,6 +23,7 @@ class ProjectIssueController extends DefaultViewController
     {
         $doctrine = $this->getDoctrine()->getManager();
 
+		// load
         $projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
         $this->project = $projectRepo->findOneById($projectId);
         if (!$this->project) {
@@ -35,7 +36,12 @@ class ProjectIssueController extends DefaultViewController
             return new Response('404');
         }
 
-        return null;
+		// permissions
+		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
+			return  new Response( '403' );
+		}
+		
+		return null;
     }
 
     /**

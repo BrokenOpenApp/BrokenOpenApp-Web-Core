@@ -4,6 +4,7 @@ namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 use Doctrine\ORM\Mapping\Entity;
 
+use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVoter;
 use Symfony\Component\HttpFoundation\Response;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Controller\DefaultViewController;
@@ -25,10 +26,16 @@ class ProjectController extends DefaultViewController
 	protected function build($projectId) {
 		$doctrine = $this->getDoctrine()->getManager();
 
+		// load
 		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
 		$this->project = $projectRepo->findOneById($projectId);
 		if (!$this->project) {
 			return  new Response( '404' );
+		}
+
+		// permissions
+		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
+			return  new Response( '403' );
 		}
 
 		return null;
