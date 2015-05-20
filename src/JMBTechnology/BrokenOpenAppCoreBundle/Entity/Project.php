@@ -33,13 +33,6 @@ class Project
 	private $title;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="incoming_crash_id", type="string", nullable=false, length=100, unique = true)
-	 */
-	private $incoming_crash_id;
-
-	/**
 	 * @return int
 	 */
 	public function getId()
@@ -53,22 +46,6 @@ class Project
 	public function setId($id)
 	{
 		$this->id = $id;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIncomingCrashId()
-	{
-		return $this->incoming_crash_id;
-	}
-
-	/**
-	 * @param string $incoming_crash_id
-	 */
-	public function setIncomingCrashId($incoming_crash_id)
-	{
-		$this->incoming_crash_id = $incoming_crash_id;
 	}
 
 	/**

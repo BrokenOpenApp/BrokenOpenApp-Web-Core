@@ -49,8 +49,13 @@ class IncomingCrashACRAController extends Controller
 		$doctrine = $this->getDoctrine()->getManager();
 
 		// Project?
-		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
-		$project = $projectRepo->findOneBy(array('incoming_crash_id'=>$this->getRequest()->query->get('project')));
+		$incomingCrashACRARepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA');
+		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key'=>$this->getRequest()->query->get('project')));
+		if (!$incomingCrashACRA) {
+			return new Response('404');
+		}
+
+		$project = $incomingCrashACRA->getProject();
 		if (!$project) {
 			return new Response('404');
 		}

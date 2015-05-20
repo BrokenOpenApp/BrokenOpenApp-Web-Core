@@ -4,6 +4,7 @@ namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 use Doctrine\ORM\Mapping\Entity;
 
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\IncomingCrashACRA;
 use JMBTechnology\BrokenOpenAppCoreBundle\JMBTechnologyBrokenOpenAppCoreBundle;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Project;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\UserInProject;
@@ -33,7 +34,6 @@ class ProjectNewController extends DefaultViewController
 
 		// start project
 		$project = new Project();
-		$project->setIncomingCrashId(JMBTechnologyBrokenOpenAppCoreBundle::createRandomString(1,100));
 
 		$form = $this->createForm(new ProjectNewFormType(), $project);
 
@@ -51,6 +51,11 @@ class ProjectNewController extends DefaultViewController
 				$userInProject->setIsAdmin(true);
 				$userInProject->setIsAccepted(true);
 				$em->persist($userInProject);
+
+				$incomingCrashACRA = new IncomingCrashACRA();
+				$incomingCrashACRA->setProject($project);
+				$incomingCrashACRA->setIncomingCrashKey(JMBTechnologyBrokenOpenAppCoreBundle::createRandomString(1,100));
+				$em->persist($incomingCrashACRA);
 
 				$em->flush();
 				return $this->redirect($this->generateUrl('_project_index', array('projectId'=>$project->getId())));
