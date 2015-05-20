@@ -1,0 +1,30 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+
+{% block main %}
+
+	<section class="issue-header">
+		<h1>New Project</h1>
+	</section>
+
+	<section class="issue-crashes">
+		<form class="styled" action="" method="post" {{ form_enctype(form) }}>
+			{{ form_errors(form) }}
+
+			{{ form_row(form.title) }}
+
+			{{ form_rest(form) }}
+
+			<input type="submit" value="Create Project" />
+		</form>
+
+	</section>
+
+{% endblock %}
+

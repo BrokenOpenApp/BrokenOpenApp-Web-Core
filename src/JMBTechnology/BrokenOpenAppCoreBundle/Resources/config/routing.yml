@@ -8,6 +8,11 @@ _main_dashboard:
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:DashBoard:index }
     methods:  [GET]
 
+_project_new:
+    pattern:  /project/new
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectNew:index }
+    methods:  [GET,POST]
+
 _project_index:
     pattern:  /project/{projectId}
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:Project:index }
