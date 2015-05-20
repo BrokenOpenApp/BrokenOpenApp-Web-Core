@@ -14,9 +14,24 @@ use Symfony\Component\HttpFoundation\Request;
 class UserRegisterController extends DefaultViewController
 {
 
+	protected function isAllowed() {
+		if (!$this->container->hasParameter('jmb_technology_brokenopenapp_core.user_registration_allowed')) {
+			return false;
+		}
+
+		return $this->container->getParameter('jmb_technology_brokenopenapp_core.user_registration_allowed');
+	}
 
 	public function registerAction()
 	{
+		if (!$this->isAllowed()) {
+			return $this->render(
+				'JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:notAllowed.html.twig',
+				array()
+			);
+		}
+
+
 		$registration = new UserRegistration();
 		$form = $this->createForm(new UserRegistrationType(), $registration, array(
 			'action' => $this->generateUrl('account_create'),
@@ -30,6 +45,13 @@ class UserRegisterController extends DefaultViewController
 
 	public function createAction(Request $request)
 	{
+		if (!$this->isAllowed()) {
+			return $this->render(
+				'JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:notAllowed.html.twig',
+				array()
+			);
+		}
+
 		$em = $this->getDoctrine()->getManager();
 
 		$form = $this->createForm(new UserRegistrationType(), new UserRegistration());

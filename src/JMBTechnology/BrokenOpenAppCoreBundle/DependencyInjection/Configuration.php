@@ -36,6 +36,11 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('incoming_crash_url')->defaultValue('')->end()
             ->end();
+
+		$rootNode
+            ->children()
+            ->booleanNode('user_registration_allowed')->defaultValue(true)->end()
+            ->end();
 			
         return $treeBuilder;
     }
