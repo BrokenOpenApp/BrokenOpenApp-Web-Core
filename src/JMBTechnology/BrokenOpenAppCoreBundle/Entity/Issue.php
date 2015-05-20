@@ -43,10 +43,7 @@ class Issue
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=250, nullable=true)
-     *
-     * Should really be nullable=false later but for now we have old data TODO
-     *
+     * @ORM\Column(name="title", type="string", length=250, nullable=false)
      */
     private $title;
 
