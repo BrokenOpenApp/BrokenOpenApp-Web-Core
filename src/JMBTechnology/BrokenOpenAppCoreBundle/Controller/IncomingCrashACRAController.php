@@ -65,6 +65,7 @@ class IncomingCrashACRAController extends Controller
 		$crash = $this->newCrashFromRequest($this->getRequest());
 		$crash->setProject($project);
 		$crash->setIncomingCrashACRA($incomingCrashACRA);
+		$crash->setReporterIp($this->getRequest()->getClientIp());
 		$doctrine->persist($crash);
 		// flush here so always got basic data of crash at least!
 		$doctrine->flush();

@@ -39,6 +39,7 @@
 		{{ fields.echo('Submitted', "#{crash.createdAt | date('Y-m-d H:i:s')} (UTC)", crash.createdAt) }}
 		{{ fields.echo('User comment', crash.userComment) }}
 		{{ fields.echo('User email', crash.userEmail) }}
+		{{ fields.echo('User IP', crash.reporterIP) }}
 	</ul>
 </section>
 

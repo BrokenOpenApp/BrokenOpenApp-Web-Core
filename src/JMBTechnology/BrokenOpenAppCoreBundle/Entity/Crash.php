@@ -55,6 +55,14 @@ class Crash
 	 */
 	private $issue;
 
+	/**
+	 *
+	 * @var string
+	 *
+	 * @ORM\Column(name="reporter_ip", type="string", length=250, nullable=true)
+	 */
+	private $reporter_ip;
+
     /**
      * @var datetime $createdAt
      *
@@ -317,6 +325,22 @@ class Crash
 	public function setIssue($issue)
 	{
 		$this->issue = $issue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getReporterIp()
+	{
+		return $this->reporter_ip;
+	}
+
+	/**
+	 * @param string $reporter_ip
+	 */
+	public function setReporterIp($reporter_ip)
+	{
+		$this->reporter_ip = $reporter_ip;
 	}
 
 
