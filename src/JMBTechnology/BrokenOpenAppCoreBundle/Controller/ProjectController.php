@@ -54,6 +54,18 @@ class ProjectController extends DefaultViewController
 			return $return;
 		}
 
+
+		$incomingCrashACRARepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA');
+		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('project'=>$this->project));
+
+
+		$host = $this->container->hasParameter('jmb_technology_brokenopenapp_core.incoming_crash_url') ?
+			$this->container->getParameter('jmb_technology_brokenopenapp_core.incoming_crash_url') : '';
+
+		$url = (trim($host) ? trim($host) : 'http://'.$this->getRequest()->server->get('HTTP_HOST'))
+			.$this->generateUrl('_crash_add')
+			.'?project='.$incomingCrashACRA->getIncomingCrashKey();
+
 		// Dashboard
 
 		$crashRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Crash');
@@ -64,6 +76,7 @@ class ProjectController extends DefaultViewController
 			array(
 				'project' => $this->project,
 				'crashes' => $crashes,
+				'incomingCrashURL' => $url,
 			)));
 	}
 

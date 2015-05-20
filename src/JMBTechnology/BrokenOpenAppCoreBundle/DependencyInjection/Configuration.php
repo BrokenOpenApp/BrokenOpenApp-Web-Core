@@ -31,6 +31,11 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('table_prefix')->defaultValue('boa_')->end()
             ->end();
+
+		$rootNode
+            ->children()
+            ->scalarNode('incoming_crash_url')->defaultValue('')->end()
+            ->end();
 			
         return $treeBuilder;
     }

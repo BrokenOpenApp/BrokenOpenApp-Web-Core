@@ -50,4 +50,22 @@
 		{% endif %}
 	</section>
 
+
+	<h2>Set up ACRA</h2>
+	<pre>
+import org.acra.*;
+import org.acra.annotation.*;
+
+@ReportsCrashes(formUri = "{{  incomingCrashURL }}")
+public class OurApplication extends Application {
+
+        @Override
+        public void onCreate() {
+                super.onCreate();
+                ACRA.init(this);
+        }
+
+}
+	</pre>
+
 {% endblock %}
