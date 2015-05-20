@@ -1,5 +1,5 @@
 
-DELETE FROM boa_settings_system  ;
+DELETE FROM boa_crash_settings_system  ;
 DELETE FROM boa_crash_build    ;
 DELETE FROM boa_crash_crash_configuration ;
 DELETE FROM boa_crash_display  ;
