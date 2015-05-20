@@ -10,7 +10,7 @@ security:
         our_db_provider:
             entity:
                 class: JMBTechnologyBrokenOpenAppCoreBundle:User
-                property: username
+                property: email
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]

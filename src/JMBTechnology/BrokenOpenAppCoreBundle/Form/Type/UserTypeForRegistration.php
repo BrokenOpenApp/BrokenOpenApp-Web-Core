@@ -16,7 +16,6 @@ class UserTypeForRegistration extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('username', 'text');
 		$builder->add('email', 'email');
 		$builder->add('password', 'repeated', array(
 			'first_name'  => 'password',

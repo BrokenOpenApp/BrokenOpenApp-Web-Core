@@ -40,7 +40,7 @@ class ProjectIssueController extends DefaultViewController
 		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
 			return  new Response( '403' );
 		}
-		
+
 		return null;
     }
 

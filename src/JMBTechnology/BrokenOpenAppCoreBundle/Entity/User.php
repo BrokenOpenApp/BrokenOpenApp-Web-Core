@@ -27,11 +27,6 @@ class User  implements UserInterface, \Serializable
 	private $id;
 
 	/**
-	 * @ORM\Column(type="string", length=100, unique=true, nullable=true)
-	 */
-	private $username;
-
-	/**
 	 * @ORM\Column(type="string", length=64, nullable=true)
 	 */
 	private $password;
@@ -51,7 +46,7 @@ class User  implements UserInterface, \Serializable
 
 	public function getUsername()
 	{
-		return $this->username;
+		return $this->email;
 	}
 
 	public function getSalt()
@@ -114,23 +109,12 @@ class User  implements UserInterface, \Serializable
 		$this->password = $password;
 	}
 
-	/**
-	 * @param mixed $username
-	 */
-	public function setUsername($username)
-	{
-		$this->username = $username;
-	}
-
-
-
-
 	/** @see \Serializable::serialize() */
 	public function serialize()
 	{
 		return serialize(array(
 			$this->id,
-			$this->username,
+			$this->email,
 			$this->password,
 		));
 	}
@@ -140,7 +124,7 @@ class User  implements UserInterface, \Serializable
 	{
 		list (
 			$this->id,
-			$this->username,
+			$this->email,
 			$this->password,
 			) = unserialize($serialized);
 	}
