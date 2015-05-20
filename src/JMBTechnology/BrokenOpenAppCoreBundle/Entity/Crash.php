@@ -1059,8 +1059,11 @@ class Crash
      */
     public function setUserEmail($userEmail)
     {
-        $this->userEmail = $userEmail;
-    
+		// ACRA puts this is as a default value. We want NULLs, not placeholder strings.
+		if ($userEmail != "N/A") {
+			$this->userEmail = $userEmail;
+		}
+
         return $this;
     }
 
