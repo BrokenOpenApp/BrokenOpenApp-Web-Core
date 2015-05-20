@@ -3,6 +3,7 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\IssueHistoryTitle;
 use JMBTechnology\BrokenOpenAppCoreBundle\Form\Type\IssueEditTitleFormType;
 use Symfony\Component\HttpFoundation\Response;
 use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVoter;
@@ -92,6 +93,14 @@ class ProjectIssueController extends DefaultViewController
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($this->issue);
+
+				$issueHistory = new IssueHistoryTitle();
+				$issueHistory->setTitle($this->issue->getTitle());
+				$issueHistory->setIssue($this->issue);
+				$issueHistory->setUser($this->getUser());
+				$issueHistory->setCreatedAt(new \DateTime("now", new \DateTimeZone("UTC")));
+				$em->persist($issueHistory);
+
                 $em->flush();
                 return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getFingerprint())));
             }
