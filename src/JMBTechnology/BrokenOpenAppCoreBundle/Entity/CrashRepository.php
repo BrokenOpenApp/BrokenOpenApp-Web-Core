@@ -114,4 +114,26 @@ class CrashRepository extends EntityRepository
 		    	->createQuery($query)
 		    	->setParameters($params);   
     }
+
+
+	/**
+	 * Get the latest issues (crashes that are supposed to be similar)
+	 *
+	 * @param string $packageName A package name to get only for this particular app or null
+	 * @param number $limit The max number of issues to return (-1 for all)
+	 *
+	 * @return array
+	 */
+    public function newCrashesToProcessQuery()
+    {
+
+		$query = " SELECT c.id AS id ".
+			" FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c ".
+			" WHERE c.issue IS NULL AND c.stackTrace IS NOT NULL " .
+			"ORDER BY c.createdAt ASC " ;
+
+    	return $this->getEntityManager()
+		    	->createQuery($query)
+		    	->setParameters(array());
+    }
 }

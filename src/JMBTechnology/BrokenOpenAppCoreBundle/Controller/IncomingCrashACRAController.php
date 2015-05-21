@@ -16,6 +16,7 @@ use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashSettingsSecure;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashSettingsSystem;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashSharedPreferences;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue;
+use JMBTechnology\BrokenOpenAppCoreBundle\ProcessCrash;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -62,7 +63,6 @@ class IncomingCrashACRAController extends Controller
 		}
 
 		// Crash
-		$issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
 		$crash = $this->newCrashFromRequest($this->getRequest());
 		$crash->setProject($project);
 		$crash->setIncomingCrashACRA($incomingCrashACRA);
@@ -158,57 +158,19 @@ class IncomingCrashACRAController extends Controller
 
 		$doctrine->flush();
 
-        // Issue, if we have a stacktrace.
-		if ($crash->hasStackTrace()) {
-			$issueFingerPrint = $crash->computeIssueFingerPrint();
-			$issue = $issueRepo->findOneBy(array('fingerprint'=>$issueFingerPrint, 'project'=>$project));
-			if (!$issue) {
-				$issue = new Issue();
-				$issue->setProject($project);
-				$issue->setFingerprint($issueFingerPrint);
-				$issue->setTitleFromCrash($crash);
-				$doctrine->persist($issue);
 
-			}
-			$crash->setIssue($issue);
-			$doctrine->persist($crash);
-			// flush here to try and avoid race conditions; another bug report the same may be coming in at the same time and we might get 2 issues!
-			$doctrine->flush();
+		// Process!
+		$process = $this->container->hasParameter('jmb_technology_brokenopenapp_core.process_incoming_acra_crash_immediately') ?
+			(boolean)$this->container->getParameter('jmb_technology_brokenopenapp_core.process_incoming_acra_crash_immediately') :
+			true;
+		if ($process) {
+			$processCrash = new ProcessCrash($doctrine, $this->get('mailer'), $this->get('twig'),  $this->container->getParameter('notifications_from'));
+			$processCrash->process($crash);
 		}
 
-   		// Send notification email
-		$this->sendNewCrashNotification(
-				$this->get('mailer'),
-				$this->get('twig'),
-				$this->container->getParameter('notifications_from'),
-				$this->container->getParameter('notifications_to'),
-				$crash
-			);
-   		
 		return new Response( '' );
 	}
-    
-    /**
-     * Send an email notification about a new crash
-     */
-    private function sendNewCrashNotification($mailer, $twig, $from, $to, $crash)
-    {
-    	$message = \Swift_Message::newInstance()
-	    	->setFrom($from)
-	    	->setTo($to)
-	    	->setSubject(sprintf(
-	            	'[Acra Server] New crash for your application %s',
-	    			$crash->getPackageName())
-	    		)
-	        ->setBody(
-	            $twig
-	    			->loadTemplate('JMBTechnologyBrokenOpenAppCoreBundle:Notifications:crash_notification_body.html.twig')
-	                ->render(array('crash' => $crash))
-	            );
-	    		
-    	$mailer->send($message);
-    }
-    
+
     /**
      * Build a crash from the parameters passed to the request
      * 

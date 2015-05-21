@@ -46,7 +46,12 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->booleanNode('new_registered_users_are_given_create_project')->defaultValue(false)->end()
             ->end();
-			
+
+		$rootNode
+            ->children()
+            ->booleanNode('process_incoming_acra_crash_immediately')->defaultValue(true)->end()
+            ->end();
+
         return $treeBuilder;
     }
 }
