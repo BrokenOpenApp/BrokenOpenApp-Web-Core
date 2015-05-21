@@ -68,6 +68,13 @@ class UserInProject
 	private $is_accepted = false;
 
 	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_send_notification_on_new_issue", type="boolean", nullable=false)
+	 */
+	private $is_send_notification_on_new_issue = true;
+
+	/**
 	 * @return boolean
 	 */
 	public function getIsAccepted()
@@ -177,6 +184,22 @@ class UserInProject
 	public function setUser($user)
 	{
 		$this->user = $user;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isIsSendNotificationOnNewIssue()
+	{
+		return $this->is_send_notification_on_new_issue;
+	}
+
+	/**
+	 * @param boolean $is_send_notification_on_new_issue
+	 */
+	public function setIsSendNotificationOnNewIssue($is_send_notification_on_new_issue)
+	{
+		$this->is_send_notification_on_new_issue = $is_send_notification_on_new_issue;
 	}
 
 
