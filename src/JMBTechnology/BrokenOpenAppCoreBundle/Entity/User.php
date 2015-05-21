@@ -39,21 +39,21 @@ class User  implements AdvancedUserInterface, \Serializable
 	private $email;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_super_admin", type="boolean", nullable=false)
 	 */
 	private $is_super_admin = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_create_project", type="boolean", nullable=false)
 	 */
 	private $is_create_project = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_locked", type="boolean", nullable=false)
 	 */
@@ -133,7 +133,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsCreateProject()
 	{
@@ -141,7 +141,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @param string $is_create_project
+	 * @param boolean $is_create_project
 	 */
 	public function setIsCreateProject($is_create_project)
 	{
@@ -149,7 +149,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsSuperAdmin()
 	{
@@ -157,7 +157,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @param string $is_super_admin
+	 * @param boolean $is_super_admin
 	 */
 	public function setIsSuperAdmin($is_super_admin)
 	{
@@ -165,7 +165,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsLocked()
 	{
@@ -173,7 +173,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * @param string $is_locked
+	 * @param boolean $is_locked
 	 */
 	public function setIsLocked($is_locked)
 	{

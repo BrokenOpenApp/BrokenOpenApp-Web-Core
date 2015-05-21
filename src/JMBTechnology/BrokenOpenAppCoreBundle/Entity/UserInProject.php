@@ -33,42 +33,42 @@ class UserInProject
 	private $project;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_owner", type="boolean", nullable=false)
 	 */
 	private $is_owner = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_admin", type="boolean", nullable=false)
 	 */
 	private $is_admin = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_write", type="boolean", nullable=false)
 	 */
 	private $is_write = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_read", type="boolean", nullable=false)
 	 */
 	private $is_read = false;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_accepted", type="boolean", nullable=false)
 	 */
 	private $is_accepted = false;
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsAccepted()
 	{
@@ -76,7 +76,7 @@ class UserInProject
 	}
 
 	/**
-	 * @param string $is_accepted
+	 * @param boolean $is_accepted
 	 */
 	public function setIsAccepted($is_accepted)
 	{
@@ -84,7 +84,7 @@ class UserInProject
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsAdmin()
 	{
@@ -92,7 +92,7 @@ class UserInProject
 	}
 
 	/**
-	 * @param string $is_admin
+	 * @param boolean $is_admin
 	 */
 	public function setIsAdmin($is_admin)
 	{
@@ -100,7 +100,7 @@ class UserInProject
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsOwner()
 	{
@@ -108,7 +108,7 @@ class UserInProject
 	}
 
 	/**
-	 * @param string $is_owner
+	 * @param boolean $is_owner
 	 */
 	public function setIsOwner($is_owner)
 	{
@@ -116,7 +116,7 @@ class UserInProject
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsRead()
 	{
@@ -124,7 +124,7 @@ class UserInProject
 	}
 
 	/**
-	 * @param string $is_read
+	 * @param boolean $is_read
 	 */
 	public function setIsRead($is_read)
 	{
@@ -132,7 +132,7 @@ class UserInProject
 	}
 
 	/**
-	 * @return string
+	 * @return boolean
 	 */
 	public function getIsWrite()
 	{
@@ -140,7 +140,7 @@ class UserInProject
 	}
 
 	/**
-	 * @param string $is_write
+	 * @param boolean $is_write
 	 */
 	public function setIsWrite($is_write)
 	{
