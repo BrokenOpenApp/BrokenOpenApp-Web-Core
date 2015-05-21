@@ -152,13 +152,6 @@ class Crash
     /**
      * @var string
      *
-     * @ORM\Column(name="custom_data", type="text", nullable=true)
-     */
-    private $customData;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="stack_trace", type="text", nullable=true)
      */
     private $stackTrace;
@@ -700,29 +693,6 @@ class Crash
     public function getAvailableMemSize()
     {
         return $this->availableMemSize;
-    }
-
-    /**
-     * Set customData
-     *
-     * @param string $customData
-     * @return Crash
-     */
-    public function setCustomData($customData)
-    {
-        $this->customData = $customData;
-    
-        return $this;
-    }
-
-    /**
-     * Get customData
-     *
-     * @return string 
-     */
-    public function getCustomData()
-    {
-        return $this->customData;
     }
 
     /**

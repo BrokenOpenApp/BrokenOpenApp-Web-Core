@@ -130,7 +130,13 @@
 			
 			<ul id="other" class="hide">
 				{{ fields.echo('File path', crash.filePath) }}
-				{{ fields.echo('customData', crash.customData, crash.customData, 'pre') }}
+
+
+				<strong class="label">Custom Data:</strong>
+				{%  for value in customDataValues %}
+					<p>{{ value.key }}: {{ value.value }}</p>
+				{%  endfor %}
+				
 				{{ fields.echo('dumpsysMeminfo', crash.dumpsysMeminfo, crash.dumpsysMeminfo, 'pre') }}
 				{{ fields.echo('dropbox', crash.dropbox, crash.dropbox, 'pre') }}
 				{{ fields.echo('isSilent', crash.isSilent, crash.isSilent, 'pre') }}

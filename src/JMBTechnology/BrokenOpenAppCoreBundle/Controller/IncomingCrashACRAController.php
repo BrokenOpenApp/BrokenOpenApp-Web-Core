@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping\Entity;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashBuild;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashCrashConfiguration;
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashCustomData;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashDisplay;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashEnvironment;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashFeatures;
@@ -146,6 +147,15 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashSharedPrefs);
 		}
 
+
+		foreach($this->getKeyValuePairsFor('CUSTOM_DATA') as $k=>$v) {
+			$crashCustomData = new CrashCustomData();
+			$crashCustomData->setCrash($crash);
+			$crashCustomData->setKey($k);
+			$crashCustomData->setValue($v);
+			$doctrine->persist($crashCustomData);
+		}
+
 		$doctrine->flush();
 
         // Issue, if we have a stacktrace.
@@ -215,7 +225,6 @@ class IncomingCrashACRAController extends Controller
     	$crash->setApplicationLog($requestData->get('APPLICATION_LOG', null));
     	$crash->setAvailableMemSize($requestData->get('AVAILABLE_MEM_SIZE', null));
     	$crash->setBrand($requestData->get('BRAND', null));
-    	$crash->setCustomData($requestData->get('CUSTOM_DATA', null));
     	$crash->setDeviceId($requestData->get('DEVICE_ID', null));
     	$crash->setDropbox($requestData->get('DROPBOX', null));
     	$crash->setDumpsysMeminfo($requestData->get('DUMPSYS_MEMINFO', null));

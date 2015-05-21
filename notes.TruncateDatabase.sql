@@ -9,6 +9,7 @@ DELETE FROM boa_crash_initial_configuration ;
 DELETE FROM boa_crash_settings_global  ;
 DELETE FROM boa_crash_settings_secure  ;
 DELETE FROM boa_crash_shared_preferences;
+DELETE FROM boa_crash_custom_data;
 DELETE FROM boa_crash          ;
 DELETE FROM boa_issue_history_title ;
 DELETE FROM boa_issue ;
