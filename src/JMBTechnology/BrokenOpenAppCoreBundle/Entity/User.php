@@ -38,6 +38,19 @@ class User  implements UserInterface, \Serializable
 	 */
 	private $email;
 
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="is_super_admin", type="boolean", nullable=false)
+	 */
+	private $is_super_admin = false;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="is_create_project", type="boolean", nullable=false)
+	 */
+	private $is_create_project = false;
 
 	public function __construct()
 	{
@@ -62,7 +75,10 @@ class User  implements UserInterface, \Serializable
 
 	public function getRoles()
 	{
-		return array('ROLE_USER');
+		$roles = array('ROLE_USER');
+		if ($this->is_create_project) { $roles[] = 'ROLE_CREATE_PROJECT'; }
+		if ($this->is_super_admin) { $roles[] = 'ROLE_SUPER_ADMIN'; }
+		return $roles;
 	}
 
 	public function eraseCredentials()
@@ -109,6 +125,41 @@ class User  implements UserInterface, \Serializable
 		$this->password = $password;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getIsCreateProject()
+	{
+		return $this->is_create_project;
+	}
+
+	/**
+	 * @param string $is_create_project
+	 */
+	public function setIsCreateProject($is_create_project)
+	{
+		$this->is_create_project = $is_create_project;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIsSuperAdmin()
+	{
+		return $this->is_super_admin;
+	}
+
+	/**
+	 * @param string $is_super_admin
+	 */
+	public function setIsSuperAdmin($is_super_admin)
+	{
+		$this->is_super_admin = $is_super_admin;
+	}
+
+
+
+
 	/** @see \Serializable::serialize() */
 	public function serialize()
 	{
@@ -116,6 +167,8 @@ class User  implements UserInterface, \Serializable
 			$this->id,
 			$this->email,
 			$this->password,
+			$this->is_create_project,
+			$this->is_super_admin
 		));
 	}
 
@@ -126,6 +179,8 @@ class User  implements UserInterface, \Serializable
 			$this->id,
 			$this->email,
 			$this->password,
+			$this->is_create_project,
+			$this->is_super_admin
 			) = unserialize($serialized);
 	}
 

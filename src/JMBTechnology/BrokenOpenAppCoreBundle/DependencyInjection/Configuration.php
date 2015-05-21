@@ -39,7 +39,12 @@ class Configuration implements ConfigurationInterface
 
 		$rootNode
             ->children()
-            ->booleanNode('user_registration_allowed')->defaultValue(true)->end()
+            ->booleanNode('user_registration_allowed')->defaultValue(false)->end()
+            ->end();
+
+		$rootNode
+            ->children()
+            ->booleanNode('new_registered_users_are_given_create_project')->defaultValue(false)->end()
             ->end();
 			
         return $treeBuilder;

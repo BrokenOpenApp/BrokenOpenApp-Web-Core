@@ -15,7 +15,7 @@ security:
                 property: email
 
     role_hierarchy:
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH, ROLE_CREATE_PROJECT]
 
     firewalls:
         dev:

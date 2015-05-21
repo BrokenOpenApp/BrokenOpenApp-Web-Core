@@ -68,6 +68,12 @@ class UserRegisterController extends DefaultViewController
 			$password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
 			$user->setPassword($password);
 
+			if ($this->container->hasParameter('jmb_technology_brokenopenapp_core.new_registered_users_are_given_create_project')) {
+				$user->setIsCreateProject((boolean)$this->container->getParameter('jmb_technology_brokenopenapp_core.new_registered_users_are_given_create_project'));
+			} else {
+				$user->setIsCreateProject(false);
+			}
+
 			$em->persist($user);
 			$em->flush();
 

@@ -136,7 +136,7 @@
 				{%  for value in customDataValues %}
 					<p>{{ value.key }}: {{ value.value }}</p>
 				{%  endfor %}
-				
+
 				{{ fields.echo('dumpsysMeminfo', crash.dumpsysMeminfo, crash.dumpsysMeminfo, 'pre') }}
 				{{ fields.echo('dropbox', crash.dropbox, crash.dropbox, 'pre') }}
 				{{ fields.echo('isSilent', crash.isSilent, crash.isSilent, 'pre') }}
