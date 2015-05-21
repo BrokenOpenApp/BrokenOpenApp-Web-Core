@@ -3,7 +3,7 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: acra_server
+    database_name: brokenopenapp
     database_user: root
     database_password: null
     database_path: null
@@ -24,8 +24,8 @@ parameters:
     secret: 922cd7bd666aeeb3d1163a7c1a4fb62e70746dce
     
     # EMAIL NOTIFICATIONS
-    notifications_from: acra-server@example.com
-    notifications_to: acra-admin@example.com
+    notifications_from: brokenopenapp@example.com
+    notifications_to: brokenopenapp@example.com
     
     # PAGING
     crashes_per_page: 10
