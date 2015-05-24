@@ -70,6 +70,13 @@ class UserInProject
 	/**
 	 * @var boolean
 	 *
+	 * @ORM\Column(name="is_refused", type="boolean", nullable=false)
+	 */
+	private $is_refused = false;
+
+	/**
+	 * @var boolean
+	 *
 	 * @ORM\Column(name="is_send_notification_on_new_issue", type="boolean", nullable=false)
 	 */
 	private $is_send_notification_on_new_issue = true;
@@ -88,6 +95,22 @@ class UserInProject
 	public function setIsAccepted($is_accepted)
 	{
 		$this->is_accepted = $is_accepted;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isIsRefused()
+	{
+		return $this->is_refused;
+	}
+
+	/**
+	 * @param boolean $is_refused
+	 */
+	public function setIsRefused($is_refused)
+	{
+		$this->is_refused = $is_refused;
 	}
 
 	/**
