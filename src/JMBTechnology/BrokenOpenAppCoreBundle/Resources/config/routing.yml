@@ -54,6 +54,13 @@ _project_crash_index:
         id: \d+
         projectId: \d+
 
+_project_admin_proguard_new:
+    pattern:  /project/{projectId}/admin/proguardmapping/new
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGaurdMapping }
+    methods:  [GET,POST]
+    requirements:
+        projectId: \d+
+
 #_crash_test_data:
 #    pattern:  /crash/generate_data
 #    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:Crash:generateTestData }

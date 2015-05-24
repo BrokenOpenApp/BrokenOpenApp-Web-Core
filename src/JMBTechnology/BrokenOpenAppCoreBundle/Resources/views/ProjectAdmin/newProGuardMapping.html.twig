@@ -1,0 +1,37 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+{% import 'JMBTechnologyBrokenOpenAppCoreBundle::breadcrumb.html.twig' as breadcrumb %}
+{% import _self as fields %}
+
+
+
+
+{% block main %}
+
+	{{ breadcrumb.echo([
+	{ label: 'Dashboard', link: path('_main_dashboard') },
+	{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+	]) }}
+
+	<section class="issue-header">
+		<h1>Upload new ProGuard Mapping</h1>
+	</section>
+
+	<section class="issue-crashes">
+		<form class="styled" action="" method="post" {{ form_enctype(form) }}>
+			{{ form_errors(form) }}
+
+			{{ form_rest(form) }}
+
+			<input type="submit" value="Upload" />
+		</form>
+
+	</section>
+
+{% endblock %}
