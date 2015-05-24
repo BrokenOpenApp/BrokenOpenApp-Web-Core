@@ -22,14 +22,22 @@ class ProcessCrash
 
 	protected $fromEmail;
 
-	function __construct($doctrine, $mailer, $twig, $fromEmail)
-	{
-		$this->doctrine = $doctrine;
-		$this->mailer = $mailer;
-		$this->twig = $twig;
-		$this->fromEmail = $fromEmail;
-	}
+	protected $proguardRetraceJarFileLocation;
 
+	protected $javaLocation;
+
+	function __construct($container)
+	{
+		$this->doctrine = $container->get('doctrine')->getManager();
+		$this->fromEmail = $container->hasParameter('notifications_from') ?
+			$container->getParameter('notifications_from') : '';
+		$this->javaLocation = $container->hasParameter('jmb_technology_brokenopenapp_core.java_location') ?
+			$container->getParameter('jmb_technology_brokenopenapp_core.java_location') : '';
+		$this->mailer = $container->get('mailer');
+		$this->proguardRetraceJarFileLocation = $container->hasParameter('jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location') ?
+			$container->getParameter('jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location') : '';
+		$this->twig = $container->get('twig');
+	}
 
 	function process(Crash $crash) {
 
@@ -38,6 +46,48 @@ class ProcessCrash
 			return;
 		}
 
+		// ============================== ProGuard
+		if ($crash->getPackageName() && $crash->getAppVersionCode()) {
+			$proGuardMappingRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:ProGuardMapping');
+			$proGuardMapping = $proGuardMappingRepo->findOneBy(array('project' => $crash->getProject(), 'packageName' => $crash->getPackageName(), 'appVersionCode' => $crash->getAppVersionCode()));
+			if ($proGuardMapping && $this->proguardRetraceJarFileLocation && file_exists($this->proguardRetraceJarFileLocation) && $this->javaLocation && file_exists($this->javaLocation)) {
+
+
+				$tempnam = tempnam('/tmp','brokenopenapp_');
+				if ($tempnam) {
+
+
+					file_put_contents($tempnam, $crash->getStackTrace());
+
+					$command = $this->javaLocation . " -jar " .
+						$this->proguardRetraceJarFileLocation . " " .
+						$proGuardMapping->getAbsolutePath() . " " .
+						$tempnam;
+
+
+					$output = array();
+					$return_var = null;
+
+					exec($command, $output, $return_var);
+
+					if ($return_var == 0) {
+
+						$crash->setStackTraceObscured($crash->getStackTrace());
+						$crash->setStackTrace(implode("\n",$output));
+						$this->doctrine->persist($crash);
+					}
+
+
+					unlink($tempnam);
+
+				}
+
+
+
+			}
+		}
+
+		// ============================== Issue
 		$issueRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
 		$issueFingerPrint = $crash->computeIssueFingerPrint();
 		$issue = $issueRepo->findOneBy(array('fingerprint'=>$issueFingerPrint, 'project'=>$crash->getProject()));
@@ -50,10 +100,12 @@ class ProcessCrash
 		}
 		$crash->setIssue($issue);
 		$this->doctrine->persist($crash);
+
+		// ============================== DB work done
 		// flush here to try and avoid race conditions; another bug report the same may be coming in at the same time and we might get 2 issues!
 		$this->doctrine->flush();
 
-
+		// ============================== Notifications
 		// TODO send emails
 
 

@@ -59,6 +59,9 @@
 			<ul id="stacktrace">
 				{{ fields.echo('Summary', crash.shortStackTrace, crash.shortStackTrace, 'pre') }}
 				{{ fields.echo('Full', crash.stackTrace, crash.stackTrace, 'pre') }}
+				{%  if crash.stackTraceObscured %}
+					{{ fields.echo('Full (Obscured)', crash.stackTraceObscured, crash.stackTraceObscured, 'pre') }}
+				{%  endif %}
 			</ul>
 			 
 			<ul id="device" class="hide">

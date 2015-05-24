@@ -156,6 +156,16 @@ class Crash
      */
     private $stackTrace;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="stack_trace_obscured", type="text", nullable=true)
+     */
+    private $stackTraceObscured;
+
+
+
     /**
      * @var string
      *
@@ -727,6 +737,22 @@ class Crash
     {
         return $this->stackTrace;
     }
+
+	/**
+	 * @return string
+	 */
+	public function getStackTraceObscured()
+	{
+		return $this->stackTraceObscured;
+	}
+
+	/**
+	 * @param string $stackTraceObscured
+	 */
+	public function setStackTraceObscured($stackTraceObscured)
+	{
+		$this->stackTraceObscured = $stackTraceObscured;
+	}
 
     /**
      * Get short stackTrace

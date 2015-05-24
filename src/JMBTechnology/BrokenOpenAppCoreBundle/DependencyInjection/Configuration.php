@@ -52,6 +52,16 @@ class Configuration implements ConfigurationInterface
             ->booleanNode('process_incoming_acra_crash_immediately')->defaultValue(true)->end()
             ->end();
 
+		$rootNode
+            ->children()
+            ->booleanNode('proguard_retrace_jar_file_location')->defaultValue('')->end()
+            ->end();
+
+		$rootNode
+            ->children()
+            ->booleanNode('java_location')->defaultValue('')->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

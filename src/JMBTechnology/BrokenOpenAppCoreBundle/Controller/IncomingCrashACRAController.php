@@ -164,7 +164,7 @@ class IncomingCrashACRAController extends Controller
 			(boolean)$this->container->getParameter('jmb_technology_brokenopenapp_core.process_incoming_acra_crash_immediately') :
 			true;
 		if ($process) {
-			$processCrash = new ProcessCrash($doctrine, $this->get('mailer'), $this->get('twig'),  $this->container->getParameter('notifications_from'));
+			$processCrash = new ProcessCrash($this->container);
 			$processCrash->process($crash);
 		}
 

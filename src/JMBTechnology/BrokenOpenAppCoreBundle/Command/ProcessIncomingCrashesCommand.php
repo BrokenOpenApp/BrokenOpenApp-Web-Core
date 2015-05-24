@@ -30,11 +30,7 @@ class ProcessIncomingCrashesCommand extends ContainerAwareCommand
 
 		$doctrine = $this->getContainer()->get('doctrine')->getManager();
 
-		$processCrash = new ProcessCrash(
-			$doctrine,
-			$this->getContainer()->get('mailer'),
-			$this->getContainer()->get('twig'),
-			$this->getContainer()->getParameter('notifications_from'));
+		$processCrash = new ProcessCrash($this->getContainer());
 
 		$crashRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Crash');
 		$crashIDs = $crashRepo->newCrashesToProcessQuery()->setMaxResults(100)->getResult();
