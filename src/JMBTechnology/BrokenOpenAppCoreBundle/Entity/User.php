@@ -59,6 +59,27 @@ class User  implements AdvancedUserInterface, \Serializable
 	 */
 	private $is_locked = false;
 
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_all_projects_read", type="boolean", nullable=false)
+	 */
+	private $is_all_projects_read = false;
+
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_all_projects_write", type="boolean", nullable=false)
+	 */
+	private $is_all_projects_write = false;
+
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_all_projects_admin", type="boolean", nullable=false)
+	 */
+	private $is_all_projects_admin = false;
+
 	public function __construct()
 	{
 
@@ -180,6 +201,54 @@ class User  implements AdvancedUserInterface, \Serializable
 		$this->is_locked = $is_locked;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function isIsAllProjectsAdmin()
+	{
+		return $this->is_all_projects_admin;
+	}
+
+	/**
+	 * @param boolean $is_all_projects_admin
+	 */
+	public function setIsAllProjectsAdmin($is_all_projects_admin)
+	{
+		$this->is_all_projects_admin = $is_all_projects_admin;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isIsAllProjectsRead()
+	{
+		return $this->is_all_projects_read;
+	}
+
+	/**
+	 * @param boolean $is_all_projects_read
+	 */
+	public function setIsAllProjectsRead($is_all_projects_read)
+	{
+		$this->is_all_projects_read = $is_all_projects_read;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isIsAllProjectsWrite()
+	{
+		return $this->is_all_projects_write;
+	}
+
+	/**
+	 * @param boolean $is_all_projects_write
+	 */
+	public function setIsAllProjectsWrite($is_all_projects_write)
+	{
+		$this->is_all_projects_write = $is_all_projects_write;
+	}
+
 
 
 
@@ -192,7 +261,10 @@ class User  implements AdvancedUserInterface, \Serializable
 			$this->password,
 			$this->is_create_project,
 			$this->is_super_admin,
-			$this->is_locked
+			$this->is_locked,
+			$this->is_all_projects_read,
+			$this->is_all_projects_write,
+			$this->is_all_projects_admin
 		));
 	}
 
@@ -205,7 +277,10 @@ class User  implements AdvancedUserInterface, \Serializable
 			$this->password,
 			$this->is_create_project,
 			$this->is_super_admin,
-			$this->is_locked
+			$this->is_locked,
+			$this->is_all_projects_read,
+			$this->is_all_projects_write,
+			$this->is_all_projects_admin
 			) = unserialize($serialized);
 	}
 
