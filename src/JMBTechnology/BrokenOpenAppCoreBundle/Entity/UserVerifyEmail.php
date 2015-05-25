@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  *
- * @ORM\Table(name="user_verify_email", uniqueConstraints={@ORM\UniqueConstraint(name="user_verify_email_unique", columns={"user_id","key"})})
+ * @ORM\Table(name="user_verify_email")
  * @ORM\Entity()
  *
  */
@@ -19,14 +19,7 @@ class UserVerifyEmail
 {
 
 	/**
-	 * @ORM\Column(type="bigint")
 	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @ORM\SequenceGenerator(sequenceName="user_id_seq")
-	 */
-	private $id;
-
-	/**
 	 * @ORM\ManyToOne(targetEntity="JMBTechnology\BrokenOpenAppCoreBundle\Entity\User")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
 	 * @Assert\NotBlank()
@@ -43,6 +36,7 @@ class UserVerifyEmail
 
 
 	/**
+	 * @ORM\Id
 	 * @var string
 	 *
 	 * @ORM\Column(name="key", type="string", length=250, nullable=false)

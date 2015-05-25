@@ -12,22 +12,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  *
- * @ORM\Table(name="user_reset_password", uniqueConstraints={@ORM\UniqueConstraint(name="user_reset_password_unique", columns={"user_id","key"})})
+ * @ORM\Table(name="user_reset_password")
  * @ORM\Entity()
  *
  */
 class UserResetPassword
 {
 
-	/**
-	 * @ORM\Column(type="bigint")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @ORM\SequenceGenerator(sequenceName="user_id_seq")
-	 */
-	private $id;
 
 	/**
+	 * @ORM\Id
 	 * @ORM\ManyToOne(targetEntity="JMBTechnology\BrokenOpenAppCoreBundle\Entity\User")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
 	 * @Assert\NotBlank()
@@ -37,6 +31,7 @@ class UserResetPassword
 	/**
 	 * @var string
 	 *
+	 * @ORM\Id
 	 * @ORM\Column(name="key", type="string", length=250, nullable=false)
 	 * @Assert\NotBlank()
 	 */
@@ -72,22 +67,6 @@ class UserResetPassword
 	public function setCreatedAt($createdAt)
 	{
 		$this->createdAt = $createdAt;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	/**
-	 * @param mixed $id
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
 	}
 
 	/**
