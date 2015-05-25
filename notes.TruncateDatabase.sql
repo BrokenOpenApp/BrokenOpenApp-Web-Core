@@ -18,5 +18,7 @@ DELETE FROM boa_incoming_crash_acra  ;
 DELETE FROM boa_user_in_project ;
 DELETE FROM boa_project  ;
 
+DELETE FROM boa_user_reset_password;
+DELETE FROM boa_user_verify_email;
 DELETE FROM boa_user ;
 
