@@ -23,7 +23,7 @@ class IncomingCrashACRA
 	 * @ORM\Column(name="id", type="integer", nullable=false)
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @ORM\SequenceGenerator(sequenceName="acra_incoming_crash_acra_id_seq")
+	 * @ORM\SequenceGenerator(sequenceName="boa_incoming_crash_acra_id_seq")
 	 */
 	private $id;
 

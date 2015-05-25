@@ -23,7 +23,7 @@ class IssueHistoryTitle
 	 * @ORM\Column(name="id", type="bigint", nullable=false)
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @ORM\SequenceGenerator(sequenceName="acra_issue_title_history_id_seq")
+	 * @ORM\SequenceGenerator(sequenceName="boa_issue_title_history_id_seq")
 	 */
 	private $id;
 
