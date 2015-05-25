@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="issue")
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\IssueRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Issue
 {
@@ -46,6 +47,14 @@ class Issue
      * @ORM\Column(name="title", type="string", length=250, nullable=false)
      */
     private $title;
+
+	/**
+	 * @var datetime $createdAt
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
 
 	/**
 	 * @return int
@@ -111,6 +120,22 @@ class Issue
         $this->title = $title;
     }
 
+	/**
+	 * @return datetime
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+
+	/**
+	 * @param datetime $createdAt
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+
     /**
      * @param string $title
      */
@@ -120,6 +145,14 @@ class Issue
         $title = substr(trim($bits[0]),0,250);
         $this->title = trim($title) ? trim($title) : "Issue";
     }
+
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
+	}
 
 
 

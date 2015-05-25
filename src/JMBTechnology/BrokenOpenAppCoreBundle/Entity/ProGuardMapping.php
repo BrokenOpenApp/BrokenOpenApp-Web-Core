@@ -57,6 +57,14 @@ class ProGuardMapping
 	public $path;
 
 	/**
+	 * @var datetime $createdAt
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
+
+	/**
 	 * @return int
 	 */
 	public function getAppVersionCode()
@@ -134,6 +142,22 @@ class ProGuardMapping
 	public function setPath($path)
 	{
 		$this->path = $path;
+	}
+
+	/**
+	 * @return datetime
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+
+	/**
+	 * @param datetime $createdAt
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
 	}
 
 
@@ -240,6 +264,13 @@ class ProGuardMapping
 		if ($file) {
 			unlink($file);
 		}
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
 	}
 
 }

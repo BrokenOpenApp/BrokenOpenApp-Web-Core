@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="issue_history_title")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
  */
 class IssueHistoryTitle
 {
@@ -133,6 +134,15 @@ class IssueHistoryTitle
 	public function setUser($user)
 	{
 		$this->user = $user;
+	}
+
+
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
 	}
 
 

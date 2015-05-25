@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="incoming_crash_acra")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
  */
 class IncomingCrashACRA
 {
@@ -39,6 +40,14 @@ class IncomingCrashACRA
 	 * @ORM\Column(name="incoming_crash_key", type="string", nullable=false, length=250, unique = true)
 	 */
 	private $incoming_crash_key;
+
+	/**
+	 * @var datetime $createdAt
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
 
 	/**
 	 * @return int
@@ -88,5 +97,29 @@ class IncomingCrashACRA
 		$this->project = $project;
 	}
 
+	/**
+	 * @return datetime
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+
+	/**
+	 * @param datetime $createdAt
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+
+
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
+	}
 
 }

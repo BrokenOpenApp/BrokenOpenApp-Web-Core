@@ -98,7 +98,6 @@ class ProjectIssueController extends DefaultViewController
 				$issueHistory->setTitle($this->issue->getTitle());
 				$issueHistory->setIssue($this->issue);
 				$issueHistory->setUser($this->getUser());
-				$issueHistory->setCreatedAt(new \DateTime("now", new \DateTimeZone("UTC")));
 				$em->persist($issueHistory);
 
                 $em->flush();

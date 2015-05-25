@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class User  implements AdvancedUserInterface, \Serializable
 {
@@ -79,6 +80,14 @@ class User  implements AdvancedUserInterface, \Serializable
 	 * @ORM\Column(name="is_all_projects_admin", type="boolean", nullable=false)
 	 */
 	private $is_all_projects_admin = false;
+
+	/**
+	 * @var datetime $createdAt
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
 
 	public function __construct()
 	{
@@ -249,6 +258,22 @@ class User  implements AdvancedUserInterface, \Serializable
 		$this->is_all_projects_write = $is_all_projects_write;
 	}
 
+	/**
+	 * @return datetime
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+
+	/**
+	 * @param datetime $createdAt
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+
 
 
 
@@ -342,6 +367,13 @@ class User  implements AdvancedUserInterface, \Serializable
 	public function isEnabled()
 	{
 		return true;
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
 	}
 
 

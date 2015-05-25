@@ -399,7 +399,7 @@ class Crash
     /**
      * Set mediaCodecList
      *
-     * @param string $createdAt
+     * @param string $mediaCodecList
      * @return Crash
      */
     public function setMediaCodecList($mediaCodecList)
@@ -1083,4 +1083,12 @@ class Crash
     	
     	return $issueId;
     }
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
+	}
+
 }

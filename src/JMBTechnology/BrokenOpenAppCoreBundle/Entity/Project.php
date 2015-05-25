@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\ProjectRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Project
 {
@@ -31,6 +32,14 @@ class Project
 	 * @ORM\Column(name="title", type="text", nullable=false)
 	 */
 	private $title;
+
+	/**
+	 * @var datetime $createdAt
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
+	private $createdAt;
+
 
 	/**
 	 * @return int
@@ -62,6 +71,29 @@ class Project
 	public function setTitle($title)
 	{
 		$this->title = $title;
+	}
+
+	/**
+	 * @return datetime
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
+
+	/**
+	 * @param datetime $createdAt
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
 	}
 
 
