@@ -13,6 +13,7 @@ DELETE FROM boa_crash_custom_data;
 DELETE FROM boa_crash          ;
 DELETE FROM boa_issue_history_title ;
 DELETE FROM boa_issue ;
+
 DELETE FROM boa_proguard_mapping;
 DELETE FROM boa_incoming_crash_acra  ;
 DELETE FROM boa_user_in_project ;
