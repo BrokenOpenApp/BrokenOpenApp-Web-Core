@@ -61,11 +61,6 @@ _project_admin_proguard_new:
     requirements:
         projectId: \d+
 
-#_crash_test_data:
-#    pattern:  /crash/generate_data
-#    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:Crash:generateTestData }
-#    methods:  [GET]
-
 account_register:
     path:     /register
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register }

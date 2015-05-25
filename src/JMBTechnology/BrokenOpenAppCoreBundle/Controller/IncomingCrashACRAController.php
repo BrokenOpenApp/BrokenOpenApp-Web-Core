@@ -30,16 +30,8 @@ use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
  */
 class IncomingCrashACRAController extends Controller
 {
-	// TODO Disable in PROD environment
-// 	public function generateTestDataAction()
-// 	{	
-//   		$doctrine = $this->getDoctrine()->getManager();
-		
-//   		$fixtureDataLoader = new LoadFixtureData();
-//   		$fixtures = $fixtureDataLoader->load($doctrine);
 
-//   		return new Response( var_dump($fixtures) );
-// 	}
+
 	
 	/**
 	 * Add a crash to the DB and send a notification to the crash admin
