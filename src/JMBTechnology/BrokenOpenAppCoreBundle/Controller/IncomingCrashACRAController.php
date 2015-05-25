@@ -206,13 +206,17 @@ class IncomingCrashACRAController extends Controller
     	$crash->setTotalMemSize($requestData->get('TOTAL_MEM_SIZE', null));
     	$crash->setUserComment($requestData->get('USER_COMMENT', null));
     	$crash->setUserEmail($requestData->get('USER_EMAIL', null));
-    	
-    	$tmpDateTime = new \DateTime( $requestData->get('USER_APP_START_DATE', null) );
-    	$crash->setUserAppStartDate($tmpDateTime);
 
-    	$tmpDateTime = new \DateTime( $requestData->get('USER_CRASH_DATE', null) );
-    	$crash->setUserCrashDate($tmpDateTime);
-    	
+		if ($requestData->get('USER_APP_START_DATE', null)) {
+			$tmpDateTime = new \DateTime($requestData->get('USER_APP_START_DATE', null));
+			$crash->setUserAppStartDate($tmpDateTime);
+		}
+
+		if ($requestData->get('USER_CRASH_DATE', null)) {
+			$tmpDateTime = new \DateTime($requestData->get('USER_CRASH_DATE', null));
+			$crash->setUserCrashDate($tmpDateTime);
+		}
+
     	return $crash;
     }
 
