@@ -53,14 +53,18 @@ class ProjectAdminController extends DefaultProjectViewController
 		}
 
 		$pgmRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:ProGuardMapping');
-		$pgms = $pgmRepo->findBy(array('project'=>$this->project));
+		$pgms = $pgmRepo->findBy(array('project' => $this->project));
 
 
-
-
-		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', $this->getViewParameters(array(
-			'proguardmappings' => $pgms,
-		)));
+		if ($this->isProGuardIntegrationSupported()) {
+			return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', $this->getViewParameters(array(
+				'proguardmappings' => $pgms,
+			)));
+		} else {
+			return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.notsupported.html.twig', $this->getViewParameters(array(
+				'proguardmappings' => $pgms,
+			)));
+		}
 
 
 	}
@@ -79,6 +83,10 @@ class ProjectAdminController extends DefaultProjectViewController
 			return $return;
 		}
 
+		if (!$this->isProGuardIntegrationSupported()) {
+			return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGuardMapping.notsupported.html.twig', $this->getViewParameters(array(
+			)));
+		}
 
 		// upload
 		$upload = new ProGuardMapping();

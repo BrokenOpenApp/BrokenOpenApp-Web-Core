@@ -25,6 +25,13 @@ class DefaultViewController extends Controller
 
     		), $additionalParameters);
     }
-    
+
+	protected function isProGuardIntegrationSupported() {
+		$javaLocation = $this->container->hasParameter('jmb_technology_brokenopenapp_core.java_location') ?
+			$this->container->getParameter('jmb_technology_brokenopenapp_core.java_location') : '';
+		$proguardRetraceJarFileLocation = $this->container->hasParameter('jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location') ?
+			$this->container->getParameter('jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location') : '';
+		return $javaLocation && $proguardRetraceJarFileLocation && file_exists($javaLocation) && file_exists($proguardRetraceJarFileLocation);
+	}
 
 }
