@@ -45,9 +45,51 @@ class ProjectAdminController extends DefaultViewController
 
 
 	/**
-	 * Render the main dashboard
+	 *
 	 */
-	public function newProGaurdMappingAction($projectId)
+	public function indexAction($projectId)
+	{
+
+		// project
+		$return = $this->build($projectId);
+		if ($return) {
+			return $return;
+		}
+
+		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:index.html.twig', array(
+			'project' => $this->project,
+		));
+
+	}
+
+	/**
+	 *
+	 */
+	public function ProGuardMappingListAction($projectId)
+	{
+		$doctrine = $this->getDoctrine()->getManager();
+
+		// project
+		$return = $this->build($projectId);
+		if ($return) {
+			return $return;
+		}
+
+
+
+
+		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', array(
+			'project' => $this->project,
+		));
+
+
+	}
+
+
+	/**
+	 *
+	 */
+	public function newProGuardMappingAction($projectId)
 	{
 		$doctrine = $this->getDoctrine()->getManager();
 

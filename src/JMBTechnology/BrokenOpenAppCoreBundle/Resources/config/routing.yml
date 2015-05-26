@@ -54,9 +54,23 @@ _project_crash_index:
         id: \d+
         projectId: \d+
 
+_project_admin_index:
+    pattern:  /project/{projectId}/admin
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:index }
+    methods:  [GET]
+    requirements:
+        projectId: \d+
+
+_project_admin_proguard_list:
+    pattern:  /project/{projectId}/admin/proguardmapping
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:ProGuardMappingList }
+    methods:  [GET,POST]
+    requirements:
+        projectId: \d+
+
 _project_admin_proguard_new:
     pattern:  /project/{projectId}/admin/proguardmapping/new
-    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGaurdMapping }
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGuardMapping }
     methods:  [GET,POST]
     requirements:
         projectId: \d+

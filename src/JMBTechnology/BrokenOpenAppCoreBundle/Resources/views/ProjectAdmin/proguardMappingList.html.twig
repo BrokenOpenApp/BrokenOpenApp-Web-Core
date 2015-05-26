@@ -1,0 +1,19 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+
+
+
+
+{% block main %}
+
+	<ul>
+		<li><a href="{{ path('_project_admin_proguard_new', {'projectId':project.id }) }}" class="primary-button">Add new</a></li>
+	</ul>
+
+{%  endblock %}
