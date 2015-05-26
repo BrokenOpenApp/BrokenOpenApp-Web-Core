@@ -61,6 +61,13 @@ _project_admin_index:
     requirements:
         projectId: \d+
 
+_project_admin_user_list:
+    pattern:  /project/{projectId}/admin/user
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdminUser:index }
+    methods:  [GET]
+    requirements:
+        projectId: \d+
+
 _project_admin_proguard_list:
     pattern:  /project/{projectId}/admin/proguardmapping
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:ProGuardMappingList }

@@ -29,7 +29,7 @@ class CrashRepository extends EntityRepository
 	 *  
 	 * @param string $issueFingerPrint
 	 * 
-	 * @return 
+	 * @return
 	 */
     public function newIssueDetailsQuery(Project $project, $issueFingerPrint)
     {
