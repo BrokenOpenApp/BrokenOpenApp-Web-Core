@@ -79,6 +79,11 @@ account_current_index:
     path:     /currentuser
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserCurrent:index }
 
+account_current_change_password:
+    path:     /currentuser/password
+    methods:  [GET,POST]
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserCurrent:changePassword }
+
 account_register:
     path:     /register
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register }
