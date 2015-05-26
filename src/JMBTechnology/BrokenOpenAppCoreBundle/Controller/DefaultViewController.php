@@ -34,4 +34,9 @@ class DefaultViewController extends Controller
 		return $javaLocation && $proguardRetraceJarFileLocation && file_exists($javaLocation) && file_exists($proguardRetraceJarFileLocation);
 	}
 
+	protected function isCurrentUserCreateProject() {
+		$user = $this->getUser();
+		return $user && ($user->getIsCreateProject() || $user->getIsSuperAdmin());
+	}
+
 }

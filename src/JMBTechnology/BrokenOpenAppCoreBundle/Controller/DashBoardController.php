@@ -28,6 +28,7 @@ class DashBoardController extends DefaultViewController
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:DashBoard:index.html.twig',  $this->getViewParameters(
         		array(
 						'projects'   				=> $projectRepo->findAll(),
+					'isCurrentUserCreateProject'=>$this->isCurrentUserCreateProject(),
 					)));
 	}
 

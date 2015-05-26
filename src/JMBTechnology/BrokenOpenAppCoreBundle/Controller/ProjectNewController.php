@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use JMBTechnology\BrokenOpenAppCoreBundle\Controller\DefaultViewController;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash;
 use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -27,6 +28,10 @@ class ProjectNewController extends DefaultViewController
 	{
 		// CHECK Permissions
 		if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			throw new AccessDeniedException();
+		}
+
+		if (!$this->isCurrentUserCreateProject() ) {
 			throw new AccessDeniedException();
 		}
 
