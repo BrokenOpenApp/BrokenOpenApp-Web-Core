@@ -3,6 +3,7 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Issue
@@ -10,9 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  *
- * @ORM\Table(name="issue")
+ * @ORM\Table(name="issue",
+ *   uniqueConstraints={@ORM\UniqueConstraint(name="issue_fingerprint_unique", columns={"project_id","fingerprint"}),
+ *   @ORM\UniqueConstraint(name="issue_number_unique", columns={"project_id","number"})})
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\IssueRepository")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity({"project","fingerprint"})
+ * @UniqueEntity({"project","number"})
  */
 class Issue
 {
@@ -33,6 +38,13 @@ class Issue
 	 * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
 	 */
 	private $project;
+
+	/**
+	 * @var integer
+	 *
+	 * @ORM\Column(name="number", type="bigint", nullable=false)
+	 */
+	private $number;
 
 	/**
 	 * @var string
@@ -86,6 +98,22 @@ class Issue
 	public function setProject($project)
 	{
 		$this->project = $project;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNumber()
+	{
+		return $this->number;
+	}
+
+	/**
+	 * @param int $number
+	 */
+	public function setNumber($number)
+	{
+		$this->number = $number;
 	}
 
 	/**

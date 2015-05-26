@@ -10,4 +10,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class IssueRepository extends EntityRepository
 {
+
+	function getNextIssueNumberForProject(Project $project) {
+
+
+		$query = " SELECT COUNT(i.id) AS iCount, MAX(i.number) AS iNumber ".
+			" FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue i ".
+			" WHERE i.project = :project " .
+			" GROUP BY i.project " ;
+
+		$datas = $this->getEntityManager()
+			->createQuery($query)
+			->setParameters(array('project'=>$project))->getResult();
+		;
+
+		$data = array_shift($datas);
+
+		if ($data['iCount'] == 0) {
+			return 1;
+		} else {
+			return $data['iNumber'] + 1;
+		}
+	}
+
 }

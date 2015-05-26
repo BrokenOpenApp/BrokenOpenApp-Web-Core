@@ -93,6 +93,7 @@ class ProcessCrash
 		$issue = $issueRepo->findOneBy(array('fingerprint'=>$issueFingerPrint, 'project'=>$crash->getProject()));
 		if (!$issue) {
 			$issue = new Issue();
+			$issue->setNumber($issueRepo->getNextIssueNumberForProject($crash->getProject()));
 			$issue->setProject($crash->getProject());
 			$issue->setFingerprint($issueFingerPrint);
 			$issue->setTitleFromCrash($crash);
