@@ -121,7 +121,7 @@ class ProjectAdminController extends DefaultViewController
 
 
 				$em->flush();
-				return $this->redirect($this->generateUrl('_project_index', array('projectId'=>$this->project->getId())));
+				return $this->redirect($this->generateUrl('_project_admin_proguard_list', array('projectId'=>$this->project->getId())));
 			}
 		}
 
