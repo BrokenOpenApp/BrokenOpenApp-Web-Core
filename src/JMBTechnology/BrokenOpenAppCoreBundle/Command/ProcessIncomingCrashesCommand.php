@@ -40,6 +40,8 @@ class ProcessIncomingCrashesCommand extends ContainerAwareCommand
 			$crash = $crashRepo->find($crashID);
 			$processCrash->process($crash);
 
+			// clear to keep memory low and make sure we get latest data on next load
+			$doctrine->clear();
 		}
 
 		$output->writeln('Done');
