@@ -21,9 +21,9 @@ class ProjectIssueController extends DefaultProjectViewController
     protected $issue;
 
 
-    protected function build($projectId, $issueId, $permissionNeeded = ProjectVoter::READ)
+    protected function buildIssue($projectId, $issueId, $permissionNeeded = ProjectVoter::READ)
     {
-		$r = parent::build($projectId, $permissionNeeded);
+		$r = $this->build($projectId, $permissionNeeded);
 		if ($r) {
 			return $r;
 		}
@@ -49,7 +49,7 @@ class ProjectIssueController extends DefaultProjectViewController
 
 
         // project & issue
-        $return = $this->build($projectId, $issueId);
+        $return = $this->buildIssue($projectId, $issueId);
         if ($return) {
             return $return;
         }
@@ -71,7 +71,7 @@ class ProjectIssueController extends DefaultProjectViewController
 
 
         // project & issue
-        $return = $this->build($projectId, $issueId, ProjectVoter::WRITE);
+        $return = $this->buildIssue($projectId, $issueId, ProjectVoter::WRITE);
         if ($return) {
             return $return;
         }
