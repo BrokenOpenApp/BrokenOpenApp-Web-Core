@@ -16,30 +16,10 @@ use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  */
-class ProjectController extends DefaultViewController
+class ProjectController extends DefaultProjectViewController
 {
 
 
-
-	protected $project;
-
-	protected function build($projectId) {
-		$doctrine = $this->getDoctrine()->getManager();
-
-		// load
-		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
-		$this->project = $projectRepo->findOneById($projectId);
-		if (!$this->project) {
-			return  new Response( '404' );
-		}
-
-		// permissions
-		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
-			return  new Response( '403' );
-		}
-
-		return null;
-	}
 
 	/**
 	 * Render the main dashboard
@@ -74,7 +54,6 @@ class ProjectController extends DefaultViewController
 
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:Project:index.html.twig', $this->getViewParameters(
 			array(
-				'project' => $this->project,
 				'issues' => $issues,
 				'incomingCrashURL' => $url,
 			)));

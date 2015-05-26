@@ -16,31 +16,9 @@ use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVo
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  */
-class ProjectCrashController extends DefaultViewController
+class ProjectCrashController extends DefaultProjectViewController
 {
 
-
-
-	protected $project;
-
-	protected function build($projectId) {
-		$doctrine = $this->getDoctrine()->getManager();
-
-		// load
-		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
-		$this->project = $projectRepo->findOneById($projectId);
-		if (!$this->project) {
-			return  new Response( '404' );
-		}
-
-		// permissions
-		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
-			return  new Response( '403' );
-		}
-
-
-		return null;
-	}
 
 	/**
 	 * Render the dashboard for a particular app
@@ -76,7 +54,6 @@ class ProjectCrashController extends DefaultViewController
 
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectCrash:index.html.twig', $this->getViewParameters(
 			array(
-				'project'	=> $this->project,
 				'buildValues'	=> $buildValues,
 				'crashConfigurationValues'	=> $crashConfigValues,
 				'displayValues'	=> $displayValues,

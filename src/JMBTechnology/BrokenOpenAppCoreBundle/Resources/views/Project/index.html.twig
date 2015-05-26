@@ -66,6 +66,8 @@ public class OurApplication extends Application {
 }
 	</pre>
 
-
+{%  if isCurrentUserAdminProject %}
 	<a href="{{ path('_project_admin_index', {'projectId':project.id }) }}" class="primary-button">Project Admin</a>
+{%  endif %}
+
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\IssueHistoryTitle;
 use JMBTechnology\BrokenOpenAppCoreBundle\Form\Type\IssueEditTitleFormType;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,36 +13,29 @@ use JMBTechnology\BrokenOpenAppCoreBundle\Security\Authorization\Voter\ProjectVo
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  */
-class ProjectIssueController extends DefaultViewController
+class ProjectIssueController extends DefaultProjectViewController
 {
 
 
-    protected $project;
-
+	/** @var  Issue */
     protected $issue;
 
 
-    protected function build($projectId, $issueId)
+    protected function build($projectId, $issueId, $permissionNeeded = ProjectVoter::READ)
     {
+		$r = parent::build($projectId, $permissionNeeded);
+		if ($r) {
+			return $r;
+		}
+
         $doctrine = $this->getDoctrine()->getManager();
 
 		// load
-        $projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
-        $this->project = $projectRepo->findOneById($projectId);
-        if (!$this->project) {
-            return new Response('404');
-        }
-
         $issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
         $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'number' => $issueId));
         if (!$this->issue) {
             return new Response('404');
         }
-
-		// permissions
-		if (false === $this->get('security.context')->isGranted(ProjectVoter::READ, $this->project)) {
-			return  new Response( '403' );
-		}
 
 		return null;
     }
@@ -66,7 +60,6 @@ class ProjectIssueController extends DefaultViewController
 
         return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:index.html.twig', $this->getViewParameters(
             array(
-                'project' => $this->project,
                 'issue' => $this->issue,
                 'crashes' => $crashes
             )));
@@ -78,7 +71,7 @@ class ProjectIssueController extends DefaultViewController
 
 
         // project & issue
-        $return = $this->build($projectId, $issueId);
+        $return = $this->build($projectId, $issueId, ProjectVoter::WRITE);
         if ($return) {
             return $return;
         }
@@ -106,11 +99,10 @@ class ProjectIssueController extends DefaultViewController
         }
 
 
-        return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:editTitle.html.twig', array(
-            'project' => $this->project,
+        return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:editTitle.html.twig', $this->getViewParameters(array(
             'issue' => $this->issue,
             'form' => $form->createView(),
-        ));
+        )));
 
 
     }

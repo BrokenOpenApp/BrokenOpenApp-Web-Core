@@ -73,7 +73,9 @@
 {% endif %}
 </section>
 
-	<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.number}) }}">Edit Title</a></p>
+	{%  if isCurrentUserWriteProject %}
+		<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.number}) }}">Edit Title</a></p>
+	{%  endif %}
 
 {% endblock %}
 

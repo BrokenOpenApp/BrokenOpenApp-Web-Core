@@ -18,30 +18,8 @@ use JMBTechnology\BrokenOpenAppCoreBundle\DataFixtures\LoadFixtureData;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  */
-class ProjectAdminController extends DefaultViewController
+class ProjectAdminController extends DefaultProjectViewController
 {
-
-
-	protected $project;
-
-	protected function build($projectId)
-	{
-		$doctrine = $this->getDoctrine()->getManager();
-
-		// load
-		$projectRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Project');
-		$this->project = $projectRepo->findOneById($projectId);
-		if (!$this->project) {
-			return new Response('404');
-		}
-
-		// permissions
-		if (false === $this->get('security.context')->isGranted(ProjectVoter::ADMIN, $this->project)) {
-			return new Response('403');
-		}
-
-		return null;
-	}
 
 
 	/**
@@ -51,14 +29,13 @@ class ProjectAdminController extends DefaultViewController
 	{
 
 		// project
-		$return = $this->build($projectId);
+		$return = $this->build($projectId, ProjectVoter::ADMIN);
 		if ($return) {
 			return $return;
 		}
 
-		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:index.html.twig', array(
-			'project' => $this->project,
-		));
+		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:index.html.twig', $this->getViewParameters(array(
+		)));
 
 	}
 
@@ -70,7 +47,7 @@ class ProjectAdminController extends DefaultViewController
 		$doctrine = $this->getDoctrine()->getManager();
 
 		// project
-		$return = $this->build($projectId);
+		$return = $this->build($projectId, ProjectVoter::ADMIN);
 		if ($return) {
 			return $return;
 		}
@@ -81,10 +58,9 @@ class ProjectAdminController extends DefaultViewController
 
 
 
-		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', array(
-			'project' => $this->project,
+		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', $this->getViewParameters(array(
 			'proguardmappings' => $pgms,
-		));
+		)));
 
 
 	}
@@ -98,7 +74,7 @@ class ProjectAdminController extends DefaultViewController
 		$doctrine = $this->getDoctrine()->getManager();
 
 		// project
-		$return = $this->build($projectId);
+		$return = $this->build($projectId, ProjectVoter::ADMIN);
 		if ($return) {
 			return $return;
 		}
@@ -126,11 +102,9 @@ class ProjectAdminController extends DefaultViewController
 		}
 
 
-		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGuardMapping.html.twig', array(
-			'project' => $this->project,
+		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:newProGuardMapping.html.twig', $this->getViewParameters(array(
 			'form' => $form->createView(),
-		));
-
+		)));
 
 	}
 
