@@ -66,7 +66,9 @@ class RegisterUserTest extends WebTestCase
 	protected function tearDown()
 	{
 		parent::tearDown();
-		$this->em->close();
+		if ($this->em) {
+			$this->em->close();
+		}
 	}
 
 }
