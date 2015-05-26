@@ -40,18 +40,31 @@ class IncomingCrashACRAController extends Controller
 	 */
 	public function addAction()
 	{
+
+		// read only?
+		if ($this->container->hasParameter('jmb_technology_brokenopenapp_core.read_only') && $this->container->getParameter('jmb_technology_brokenopenapp_core.read_only')) {
+			$response = new Response("Read Only Mode. Try Again Soon.");
+			$response->setStatusCode(500);
+			return $response;
+		}
+
+		// vars
 		$doctrine = $this->getDoctrine()->getManager();
 
 		// Project?
 		$incomingCrashACRARepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA');
 		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key'=>$this->getRequest()->query->get('project')));
 		if (!$incomingCrashACRA) {
-			return new Response('404');
+			$response = new Response();
+			$response->setStatusCode(404);
+			return $response;
 		}
 
 		$project = $incomingCrashACRA->getProject();
 		if (!$project) {
-			return new Response('404');
+			$response = new Response();
+			$response->setStatusCode(404);
+			return $response;
 		}
 
 		// Crash

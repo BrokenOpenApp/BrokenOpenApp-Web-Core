@@ -57,6 +57,11 @@ class Configuration implements ConfigurationInterface
             ->booleanNode('java_location')->defaultValue('')->end()
             ->end();
 
+		$rootNode
+			->children()
+			->booleanNode('read_only')->defaultValue(true)->end()
+			->end();
+
         return $treeBuilder;
     }
 }
