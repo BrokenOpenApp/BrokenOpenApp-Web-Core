@@ -10,7 +10,7 @@
 <ul>
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 		<li><a href="{{ path('_main_dashboard') }}">Dashboard</a></li>
-		<li><a href="#">{{  app.user.username }}</a></li>
+		<li><a href="{{  path('account_current_index') }}">{{  app.user.username }}</a></li>
 		<li><a href="{{ path('account_logout') }}">Logout</a></li>
 	{%  else %}
 		<li><a href="{{ path('account_login') }}">Login</a></li>

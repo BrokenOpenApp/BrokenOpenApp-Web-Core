@@ -38,7 +38,7 @@ class UserRegisterController extends DefaultViewController
 		));
 
 		return $this->render(
-			'JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register.html.twig',
+				'JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register.html.twig',
 			array('form' => $form->createView())
 		);
 	}

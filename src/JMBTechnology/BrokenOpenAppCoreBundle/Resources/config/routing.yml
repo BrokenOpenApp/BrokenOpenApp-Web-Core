@@ -75,6 +75,10 @@ _project_admin_proguard_new:
     requirements:
         projectId: \d+
 
+account_current_index:
+    path:     /currentuser
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserCurrent:index }
+
 account_register:
     path:     /register
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register }
