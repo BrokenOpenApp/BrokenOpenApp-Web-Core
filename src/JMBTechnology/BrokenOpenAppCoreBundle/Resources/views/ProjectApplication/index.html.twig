@@ -44,7 +44,7 @@
 						<td>{{ c.title }}</td>
 						<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
 						<td class="crash-num">{{ c.crashNum }}</td>
-						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.fingerprint}) }}" class="primary-button">Details</a></td>
+						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueNumber}) }}" class="primary-button">Details</a></td>
 					</tr>
 				{% endfor %}
 				</tbody>

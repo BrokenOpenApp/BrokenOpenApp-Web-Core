@@ -24,7 +24,7 @@
 {{ breadcrumb.echo([ 
 			{ label: 'Dashboard', link: path('_main_dashboard') },
 			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
-			{ label: 'Issue #' ~ issue.fingerprint, link: path('_project_issue_index', {'projectId':project.id,'issueId': issue.fingerprint}) }
+			{ label: 'Issue #' ~ issue.number, link: path('_project_issue_index', {'projectId':project.id,'issueId': issue.number}) }
 		]) }}
 
 <section class="issue-header">
@@ -73,7 +73,7 @@
 {% endif %}
 </section>
 
-	<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.fingerprint}) }}">Edit Title</a></p>
+	<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.number}) }}">Edit Title</a></p>
 
 {% endblock %}
 

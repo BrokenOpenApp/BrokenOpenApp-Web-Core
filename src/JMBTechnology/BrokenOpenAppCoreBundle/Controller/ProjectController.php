@@ -68,14 +68,14 @@ class ProjectController extends DefaultViewController
 
 		// Dashboard
 
-		$crashRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Crash');
+		$issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
 
-		$crashes = $crashRepo->newLatestIssuesQuery($this->project)->setMaxResults(15)->getResult();
+		$issues = $issueRepo->findBy(array('project'=>$this->project), array('createdAt'=>'DESC'),10);
 
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:Project:index.html.twig', $this->getViewParameters(
 			array(
 				'project' => $this->project,
-				'crashes' => $crashes,
+				'issues' => $issues,
 				'incomingCrashURL' => $url,
 			)));
 	}

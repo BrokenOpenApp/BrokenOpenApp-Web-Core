@@ -35,7 +35,7 @@ _project_issue_index:
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:index }
     methods:  [GET]
     requirements:
-        issueId: "[0-9a-fA-F]{32}"
+        issueId: \d+
         projectId: \d+
 
 _project_issue_edittitle:
@@ -43,7 +43,7 @@ _project_issue_edittitle:
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:editTitle  }
     methods:  [GET,POST]
     requirements:
-        issueId: "[0-9a-fA-F]{32}"
+        issueId: \d+
         projectId: \d+
 
 _project_crash_index:

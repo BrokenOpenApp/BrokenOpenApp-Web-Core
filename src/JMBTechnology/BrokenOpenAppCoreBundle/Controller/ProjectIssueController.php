@@ -33,7 +33,7 @@ class ProjectIssueController extends DefaultViewController
         }
 
         $issueRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
-        $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'fingerprint' => $issueId));
+        $this->issue = $issueRepo->findOneBy(array('project' => $this->project, 'number' => $issueId));
         if (!$this->issue) {
             return new Response('404');
         }
@@ -101,7 +101,7 @@ class ProjectIssueController extends DefaultViewController
 				$em->persist($issueHistory);
 
                 $em->flush();
-                return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getFingerprint())));
+                return $this->redirect($this->generateUrl('_project_issue_index', array('projectId'=>$this->project->getId(), 'issueId'=>$this->issue->getNumber())));
             }
         }
 

@@ -101,13 +101,14 @@ class CrashRepository extends EntityRepository
     	}
 
 		$query = " SELECT i.fingerprint AS fingerprint ,".
-            " MAX(i.title) AS title, ".
-			" COUNT(c.id) as crashNum, " .
+            " i.title AS title, ".
+			" i.number AS issueNumber, " .
+			" COUNT (c.id) AS crashNum,".
 			" MAX(c.userCrashDate) as latestCrashDate ".
 			" FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c ".
 			" JOIN c.issue i ".
 			" WHERE ". $where .
-			"GROUP BY fingerprint ".
+			"GROUP BY i.id ".
 			"ORDER BY latestCrashDate DESC ";
 
     	return $this->getEntityManager()
