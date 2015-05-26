@@ -84,10 +84,38 @@ class ProjectVoter implements  VoterInterface
 			return VoterInterface::ACCESS_DENIED;
 		}
 
+
+		// does user have any general rights?
+		switch($attribute) {
+			case self::READ:
+				if ($user->getIsSuperAdmin() || $user->isIsAllProjectsAdmin() || $user->isIsAllProjectsWrite() || $user->isIsAllProjectsRead()  ) {
+					return VoterInterface::ACCESS_GRANTED;
+				}
+				break;
+
+			case self::WRITE:
+				if ($user->getIsSuperAdmin() || $user->isIsAllProjectsAdmin() || $user->isIsAllProjectsWrite()  ) {
+					return VoterInterface::ACCESS_GRANTED;
+				}
+				break;
+
+			case self::ADMIN:
+				if ($user->getIsSuperAdmin() || $user->isIsAllProjectsAdmin()  ) {
+					return VoterInterface::ACCESS_GRANTED;
+				}
+				break;
+
+			case self::OWNER:
+				if ($user->getIsSuperAdmin() ) {
+					return VoterInterface::ACCESS_GRANTED;
+				}
+				break;
+		}
+
+		// Does user have any rights in project
 		$userInProject = $this->em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:UserInProject')
 			->findOneBy(array('project'=>$project,'user'=>$user));
 
-		// Does user have any rights in project
 		if (!$userInProject) {
 			return VoterInterface::ACCESS_DENIED;
 		}
