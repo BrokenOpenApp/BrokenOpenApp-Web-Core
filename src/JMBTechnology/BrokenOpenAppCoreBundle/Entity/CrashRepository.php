@@ -29,7 +29,7 @@ class CrashRepository extends EntityRepository
 	 *  
 	 * @param string $issueFingerPrint
 	 * 
-	 * @return array
+	 * @return 
 	 */
     public function newIssueDetailsQuery(Project $project, $issueFingerPrint)
     {
@@ -59,7 +59,7 @@ class CrashRepository extends EntityRepository
 	 *  
 	 * @param String $issueFingerPrint
 	 * 
-	 * @return array
+	 * @return
 	 */
     public function newIssueCrashesQuery(Project $project, $issueFingerPrint)
     {
@@ -88,7 +88,7 @@ class CrashRepository extends EntityRepository
 	 * @param string $packageName A package name to get only for this particular app or null
 	 * @param number $limit The max number of issues to return (-1 for all)
 	 * 
-	 * @return array
+	 * @return
 	 */
     public function newLatestIssuesQuery(Project $project, $packageName=null)
     {
@@ -123,7 +123,7 @@ class CrashRepository extends EntityRepository
 	 * @param string $packageName A package name to get only for this particular app or null
 	 * @param number $limit The max number of issues to return (-1 for all)
 	 *
-	 * @return array
+	 * @return
 	 */
     public function newCrashesToProcessQuery()
     {
