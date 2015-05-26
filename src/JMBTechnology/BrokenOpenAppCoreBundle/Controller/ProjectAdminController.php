@@ -75,11 +75,15 @@ class ProjectAdminController extends DefaultViewController
 			return $return;
 		}
 
+		$pgmRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:ProGuardMapping');
+		$pgms = $pgmRepo->findBy(array('project'=>$this->project));
+
 
 
 
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:proguardMappingList.html.twig', array(
 			'project' => $this->project,
+			'proguardmappings' => $pgms,
 		));
 
 

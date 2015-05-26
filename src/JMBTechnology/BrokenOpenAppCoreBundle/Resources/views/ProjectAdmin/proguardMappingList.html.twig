@@ -12,6 +12,39 @@
 
 {% block main %}
 
+	<section class="latest-issues">
+		<h2>ProGuard Mappings</h2>
+		{% if proguardmappings %}
+			<table>
+				<thead>
+				{% block table_headers %}
+					<tr>
+						<th>App</th>
+						<th>Version</th>
+						<th></th>
+					</tr>
+				{% endblock %}
+				</thead>
+				<tbody>
+				{% for proguardmapping in proguardmappings %}
+
+					<tr>
+						<td>{{ proguardmapping.packageName }}</td>
+						<td>{{ proguardmapping.appVersionCode }}</td>
+						<td class="action-link">&nbsp;</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+				<tfoot>
+				{{ block('table_headers') }}
+				</tfoot>
+			</table>
+		{% else %}
+			<p>No mappings have been submitted yet for your applications</p>
+		{% endif %}
+	</section>
+
+
 	<ul>
 		<li><a href="{{ path('_project_admin_proguard_new', {'projectId':project.id }) }}" class="primary-button">Add new</a></li>
 	</ul>
