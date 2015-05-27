@@ -1,31 +1,75 @@
-acra-server
-===========
+BrokenOpenApp - a server for Android Crash Reporting library ACRA
+=================================================================
 
 A server to collect crash data of your android applications
 
-## WORK IN PROGRESS - USE WITH PAIN - CHECK BACK IN A FEW MONTHS FOR MORE!
+For more see http://www.brokenopenapp.org/
+
+## Requires
+
+For normal use:
+
+  *  PHP 5.4+
+  *  Postgresql Database
+  *  A cron job
+
+If you want ProGuard support:
+
+  *  Java
+  *  Area of disk to store files on
+  *  ProGuard library from Android SDK
 
 ## Installation
 
-The app can be installed on your server by installing the Symfony framework first and then this bundle (requires command line access to git, php and composer on your server)
+  * Get App Code from Github
+  * Give permissions 777 to directories app/logs and app/cache
+  * Run `composer install` to install the libraries
+  * Copy the `app/config/parameters.yml.dist` file to `app/config/parameters.yml`
+  * Edit `app/config/parameters.yml` to enter the connection details to your database server and the email addresses for notifications
+  * Run the php commands to setup the project:
 
-This app is nothing more than a regular Symfony bundle and can be installed as such (I am no Symfony expert, feel free to give your feedback on that install procedure):
 
-- Install the bundle from gitHub (git://github.com/marvinlabs/acra-server.git) on your server
-- Give permissions 777 to directories app/logs and app/cache
-- Run composer to install the Symfony framework
-- Copy the `app/config/parameters.yml.dist` file to `app/config/parameters.yml`
-- Edit `app/config/parameters.yml` to enter the connection details to your database server and the email addresses for notifications
-- Run the php commands to setup the project:
+    // Set up DB
+    php app/console doctrine:migrations:migrate --env=prod
 
-    // If the DB is not created
-    php app/console doctrine:database:create --env=prod 
-    
-    // Create the DB tables
-    php app/console doctrine:schema:create --env=prod
-    
     // Prepare the CSS and JS
     php app/console assets:install --env=prod --no-debug
     php app/console assetic:dump --env=prod --no-debug
 
-- If all is fine, you should be able to access the app at http://www.yourdomain.com/dashboard
+  * set up the cron task
+
+   php app/console brokenopenappcore:process-incoming-crashes --env=prod
+
+## Installation of ProGuard
+
+  * Give permissions 777 to directory uploads/proguardmappings
+  * Edit `app/config/parameters.yml` to add
+
+    jmb_technology_brokenopenapp_core.java_location: /usr/bin/java
+    jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location: /var/www/acra-server/retrace.jar
+
+Note as well as retrace.jar, you also need proguard.jar. This should be put in the same directory.
+
+To test your install, you can run
+
+    php app/console brokenopenappcore:test-proguard-library-install --env=prod
+
+
+## Upgrade
+
+  * Get latest app code from Github
+  * Run `composer install` to install the latest libraries
+  * Run
+
+    php app/console cache:clear --env=prod
+    php app/console doctrine:migrations:migrate --env=prod
+    php app/console assets:install --env=prod --no-debug
+    php app/console assetic:dump --env=prod --no-debug
+
+
+## Open Source!
+
+Under the Apache License.
+
+
+
