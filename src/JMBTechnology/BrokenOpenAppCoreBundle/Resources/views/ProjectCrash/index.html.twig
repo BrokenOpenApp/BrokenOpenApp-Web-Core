@@ -68,20 +68,30 @@
 			</ul>
 			 
 			<ul id="device" class="hide">
-				{{ fields.echo('Model', "#{ crash.brand }, #{ crash.phoneModel }", crash.brand) }}
+				{%  if crash.brand and crash.phoneModel %}
+					{{ fields.echo('Model', "#{ crash.brand }, #{ crash.phoneModel }") }}
+				{%  elseif crash.brand %}
+					{{ fields.echo('Model', crash.brand) }}
+				{%  elseif crash.phoneModel %}
+					{{ fields.echo('Model', crash.phoneModel) }}
+				{%  endif %}
 				{{ fields.echo('Product code', crash.product) }}
 				{{ fields.echo('Total memory', crash.totalMemSize | bfos_format_bytes, crash.totalMemSize) }}
 				{{ fields.echo('Available memory', crash.availableMemSize | bfos_format_bytes, crash.availableMemSize) }}
 
-				<strong class="label">Display:</strong>
-				{%  for value in displayValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if displayValues|length > 0 %}
+					<strong class="label">Display:</strong>
+					{%  for value in displayValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
-				<strong class="label">Features:</strong>
-				{%  for value in featuresValues %}
-					<p>{{ value.feature }}</p>
-				{%  endfor %}
+				{%  if featuresValues|length > 0 %}
+					<strong class="label">Features:</strong>
+					{%  for value in featuresValues %}
+						<p>{{ value.feature }}</p>
+					{%  endfor %}
+				{%  endif %}
 
 				{{ fields.echo('Device ID', crash.deviceId, crash.deviceId, 'pre') }}
 			</ul>
@@ -89,11 +99,12 @@
 			<ul id="android" class="hide">
 				{{ fields.echo('Version', crash.androidVersion) }}
 
-				<strong class="label">Build:</strong>
-				{%  for value in buildValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
-				</pre>
+				{%  if buildValues|length > 0 %}
+					<strong class="label">Build:</strong>
+					{%  for value in buildValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 			</ul>	
 			
 			<ul id="logs" class="hide">
@@ -104,44 +115,55 @@
 			</ul>	
 			
 			<ul id="settings" class="hide">
-				<strong class="label">Global:</strong>
-				{%  for value in settingsGlobalValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  settingsGlobalValues|length > 0 %}
+					<strong class="label">Global:</strong>
+					{%  for value in settingsGlobalValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
-				<strong class="label">System:</strong>
-				{%  for value in settingsSystemValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  settingsSystemValues|length > 0 %}
+					<strong class="label">System:</strong>
+					{%  for value in settingsSystemValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
-				<strong class="label">Secure:</strong>
-				{%  for value in settingsSecureValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  settingsSecureValues|length > 0 %}
+					<strong class="label">Secure:</strong>
+					{%  for value in settingsSecureValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 			</ul>
 			
 			<ul id="configuration" class="hide">
+				{%  if  initialConfigurationValues|length > 0 %}
+					<strong class="label">Initial Configuration:</strong>
+					{%  for value in initialConfigurationValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
-				<strong class="label">Initial Configuration:</strong>
-				{%  for value in initialConfigurationValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
 
-
-				<strong class="label">Crash Configuration:</strong>
-				{%  for value in crashConfigurationValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  crashConfigurationValues|length > 0 %}
+					<strong class="label">Crash Configuration:</strong>
+					{%  for value in crashConfigurationValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 			</ul>	
 			
 			<ul id="other" class="hide">
 				{{ fields.echo('File path', crash.filePath) }}
 
 
-				<strong class="label">Custom Data:</strong>
-				{%  for value in customDataValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  customDataValues|length > 0 %}
+					<strong class="label">Custom Data:</strong>
+					{%  for value in customDataValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
 				{{ fields.echo('dumpsysMeminfo', crash.dumpsysMeminfo, crash.dumpsysMeminfo, 'pre') }}
 				{{ fields.echo('dropbox', crash.dropbox, crash.dropbox, 'pre') }}
@@ -149,16 +171,20 @@
 				{{ fields.echo('installationId', crash.installationId, crash.installationId, 'pre') }}
 
 
-				<strong class="label">Environment:</strong>
-				{%  for value in environmentValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  environmentValues|length > 0 %}
+					<strong class="label">Environment:</strong>
+					{%  for value in environmentValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
 
-				<strong class="label">Shared Preferences:</strong>
-				{%  for value in sharedPreferencesValues %}
-					<p>{{ value.key }}: {{ value.value }}</p>
-				{%  endfor %}
+				{%  if  sharedPreferencesValues|length > 0 %}
+					<strong class="label">Shared Preferences:</strong>
+					{%  for value in sharedPreferencesValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 
 				{{ fields.echo('mediaCodecList', crash.mediaCodecList, crash.mediaCodecList, 'pre') }}
 				{{ fields.echo('threadDetails', crash.threadDetails, crash.threadDetails, 'pre') }}
