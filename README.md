@@ -53,9 +53,13 @@ If you want ProGuard support:
 
 Note as well as retrace.jar, you also need proguard.jar. This should be put in the same directory.
 
-To test your install, you can run
+  * Run
 
-    php app/console brokenopenappcore:test-proguard-library-install --env=prod
+      php app/console cache:clear --env=prod
+
+To test your install, you should run
+
+  php app/console brokenopenappcore:test-proguard-library-install --env=prod
 
 
 ## Upgrade
