@@ -53,34 +53,8 @@ class CrashRepository extends EntityRepository
         		->createQuery($query)
         		->setParameters($params);
     }
+
 	
-	/**
-	 * Get the issue details 
-	 *  
-	 * @param String $issueFingerPrint
-	 * 
-	 * @return
-	 */
-    public function newIssueCrashesQuery(Project $project, $issueFingerPrint)
-    {
-    	$where = " c.project = :project ";
-    	$params = array('project'=>$project);
-    	
-    	if ($issueFingerPrint!=null) {
-    		$where .= 'AND i.fingerprint=:fingerprint ';
-    		$params['fingerprint'] = $issueFingerPrint;
-    	}
-    	
-    	$query = "SELECT c "
-        			. "FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c "
-					. " JOIN c.issue i "
-        			. "WHERE " . $where 
-        			. "ORDER BY c.userCrashDate DESC ";
-    	    	
-        return $this->getEntityManager()
-        		->createQuery($query)
-        		->setParameters($params);     
-    }
 	
 	/**
 	 * Get the latest issues (crashes that are supposed to be similar)

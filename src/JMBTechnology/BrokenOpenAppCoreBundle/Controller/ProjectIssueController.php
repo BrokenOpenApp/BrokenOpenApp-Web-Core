@@ -56,7 +56,7 @@ class ProjectIssueController extends DefaultProjectViewController
 
         // Dashboard
         $crashRepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Crash');
-        $crashes = $crashRepo->newIssueCrashesQuery($this->project, $this->issue->getFingerprint())->setMaxResults(15)->getResult();
+        $crashes = $crashRepo->findBy(array('issue'=>$this->issue), array('createdAt'=>'DESC'),100);
 
         return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectIssue:index.html.twig', $this->getViewParameters(
             array(
