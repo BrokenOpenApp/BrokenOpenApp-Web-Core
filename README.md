@@ -30,10 +30,13 @@ If you want ProGuard support:
 
 
     // Set up DB
+
     php app/console doctrine:migrations:migrate --env=prod
 
     // Prepare the CSS and JS
+
     php app/console assets:install --env=prod --no-debug
+
     php app/console assetic:dump --env=prod --no-debug
 
   * set up the cron task
@@ -46,7 +49,7 @@ If you want ProGuard support:
   * Edit `app/config/parameters.yml` to add
 
     jmb_technology_brokenopenapp_core.java_location: /usr/bin/java
-    jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location: /var/www/acra-server/retrace.jar
+    jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location: /home/user/proguard/retrace.jar
 
 Note as well as retrace.jar, you also need proguard.jar. This should be put in the same directory.
 
@@ -62,14 +65,14 @@ To test your install, you can run
   * Run
 
     php app/console cache:clear --env=prod
+
     php app/console doctrine:migrations:migrate --env=prod
+
     php app/console assets:install --env=prod --no-debug
+
     php app/console assetic:dump --env=prod --no-debug
 
 
 ## Open Source!
 
 Under the Apache License.
-
-
-
