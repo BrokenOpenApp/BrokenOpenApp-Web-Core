@@ -54,7 +54,7 @@ class CrashRepository extends EntityRepository
         		->setParameters($params);
     }
 
-	
+
 	
 	/**
 	 * Get the latest issues (crashes that are supposed to be similar)

@@ -20,13 +20,16 @@
 
 {% block main %}
 
-{{ breadcrumb.echo([ 
-			{ label: 'Dashboard', link: path('_main_dashboard') },
-			{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
-			{ label: 'Issue #' ~ crash.issue.number, link: path('_project_issue_index', {'projectId':project.id,'issueId': crash.issue.number}) },
-			{ label: 'App #' ~ crash.packageName, link: path('_project_app_index', {'projectId':project.id,'packageName': crash.packageName	}) },
-			{ label: 'Crash #' ~ crash.id, link: path('_project_crash_index', {'projectId':project.id,'crashId': crash.id}) }
-		]) }}
+	{%  set breadcrumbs = [
+	{ label: 'Dashboard', link: path('_main_dashboard') },
+	{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+	{ label: 'Issue #' ~ crash.issue.number, link: path('_project_issue_index', {'projectId':project.id,'issueId': crash.issue.number}) }
+	] %}
+	{%  if crash.packageName %}
+		{%  set breadcrumbs = breadcrumbs | merge([{ label: 'App #' ~ crash.packageName, link: path('_project_app_index', {'projectId':project.id,'packageName': crash.packageName	}) }]) %}
+	{%  endif %}
+	{%  set breadcrumbs = breadcrumbs | merge([{ label: 'Crash #' ~ crash.id, link: path('_project_crash_index', {'projectId':project.id,'crashId': crash.id}) }]) %}
+	{{ breadcrumb.echo(breadcrumbs) }}
 
 <section class="crash-header">
 	<h1>{{ crash.packageName }} // Crash #{{ crash.id }}</h1>
