@@ -10,7 +10,7 @@
 {% import _self as fields %}
 
 {% macro echo(title, value, test, value_wrapper, outer_tag) %}
-	{% if test | default(value) %}	
+	{% if test %}
 		<{{ outer_tag | default('li') }} class="field">
 			<strong class="label">{{ title }}</strong>: <{{value_wrapper | default('span')}} class="value">{{ value }}</{{value_wrapper | default('span')}}>
 		</{{ outer_tag | default('li') }}>
@@ -35,14 +35,14 @@
 	<h1>{{ crash.packageName }} // Crash #{{ crash.id }}</h1>
 
 	<ul>
-		{{ fields.echo('Package', crash.packageName) }}
+		{{ fields.echo('Package', crash.packageName, crash.packageName) }}
 		{{ fields.echo('Version', "#{ crash.appVersionName } ~ #{ crash.appVersionCode }", crash.appVersionName) }}
 		{{ fields.echo('App crash', "#{crash.userCrashDate | date('Y-m-d H:i:s')} (UTC)", crash.userCrashDate) }}
 		{{ fields.echo('App start', "#{crash.userAppStartDate | date('Y-m-d H:i:s')} (UTC)", crash.userAppStartDate) }}
 		{{ fields.echo('Submitted', "#{crash.createdAt | date('Y-m-d H:i:s')} (UTC)", crash.createdAt) }}
-		{{ fields.echo('User comment', crash.userComment) }}
-		{{ fields.echo('User email', crash.userEmail) }}
-		{{ fields.echo('User IP', crash.reporterIP) }}
+		{{ fields.echo('User comment', crash.userComment, crash.userComment) }}
+		{{ fields.echo('User email', crash.userEmail, crash.userEmail) }}
+		{{ fields.echo('User IP', crash.reporterIP, crash.reporterIP) }}
 	</ul>
 </section>
 
@@ -71,11 +71,11 @@
 				{%  if crash.brand and crash.phoneModel %}
 					{{ fields.echo('Model', "#{ crash.brand }, #{ crash.phoneModel }") }}
 				{%  elseif crash.brand %}
-					{{ fields.echo('Model', crash.brand) }}
+					{{ fields.echo('Model', crash.brand, crash.brand) }}
 				{%  elseif crash.phoneModel %}
-					{{ fields.echo('Model', crash.phoneModel) }}
+					{{ fields.echo('Model', crash.phoneModel, crash.phoneModel) }}
 				{%  endif %}
-				{{ fields.echo('Product code', crash.product) }}
+				{{ fields.echo('Product code', crash.product, crash.product) }}
 				{{ fields.echo('Total memory', crash.totalMemSize | bfos_format_bytes, crash.totalMemSize) }}
 				{{ fields.echo('Available memory', crash.availableMemSize | bfos_format_bytes, crash.availableMemSize) }}
 
@@ -97,7 +97,7 @@
 			</ul>
 			
 			<ul id="android" class="hide">
-				{{ fields.echo('Version', crash.androidVersion) }}
+				{{ fields.echo('Version', crash.androidVersion, crash.androidVersion) }}
 
 				{%  if buildValues|length > 0 %}
 					<strong class="label">Build:</strong>
