@@ -57,9 +57,9 @@
 				<td class="id">#{{ c.id }}</td>
 				<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
 				<td>{{  c.packageName }}</td>
-				<td>{{ c.appVersionName }} ({{  c.appVersionCode }})</td>
+				<td>{{ c.appVersionName }} {%  if c.appVersionCode %}({{  c.appVersionCode }}){%  endif %}</td>
 				<td>{{  c.brand }} {{ c.phoneModel }}</td>
-				<td>V{{  c.androidVersion }}</td>
+				<td>{%  if c.androidVersion %}V{{  c.androidVersion }}{%  endif %}</td>
 				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
 			</tr>
 		{% endfor %}
