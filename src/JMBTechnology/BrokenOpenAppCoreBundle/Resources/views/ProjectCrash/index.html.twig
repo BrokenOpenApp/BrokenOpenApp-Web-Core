@@ -36,7 +36,13 @@
 
 	<ul>
 		{{ fields.echo('Package', crash.packageName, crash.packageName) }}
-		{{ fields.echo('Version', "#{ crash.appVersionName } ~ #{ crash.appVersionCode }", crash.appVersionName) }}
+		{%  if crash.appVersionName and crash.appVersionCode %}
+			{{ fields.echo('Version', "#{ crash.appVersionName } ~ #{ crash.appVersionCode }", crash.appVersionName) }}
+		{%  elseif crash.appVersionName %}
+			{{ fields.echo('Version', crash.appVersionName, crash.appVersionName) }}
+		{%  elseif crash.appVersionCode %}
+			{{ fields.echo('Version', crash.appVersionCode, crash.appVersionCode) }}
+		{%  endif %}
 		{{ fields.echo('App crash', "#{crash.userCrashDate | date('Y-m-d H:i:s')} (UTC)", crash.userCrashDate) }}
 		{{ fields.echo('App start', "#{crash.userAppStartDate | date('Y-m-d H:i:s')} (UTC)", crash.userAppStartDate) }}
 		{{ fields.echo('Submitted', "#{crash.createdAt | date('Y-m-d H:i:s')} (UTC)", crash.createdAt) }}
