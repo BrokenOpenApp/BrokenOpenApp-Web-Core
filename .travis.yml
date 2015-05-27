@@ -8,10 +8,10 @@ services: PostgreSQL
 
 
 before_script:
-  - composer install --dev --no-interaction
   - psql -c 'create database brokenopenapptest;' -U postgres
   - cp  app/config/parameters.yml.dist app/config/parameters.yml
   - cp .travis.parameters_test.pgsql.yml app/config/parameters_test.yml
+  - composer install --dev --no-interaction
 
 
 script: phpunit  --configuration app/phpunit.xml
