@@ -214,13 +214,17 @@ class IncomingCrashACRAController extends Controller
     	$crash->setUserComment($requestData->get('USER_COMMENT', null));
     	$crash->setUserEmail($requestData->get('USER_EMAIL', null));
 
+		$utc = new \DateTimeZone('UTC');
+
 		if ($requestData->get('USER_APP_START_DATE', null)) {
 			$tmpDateTime = new \DateTime($requestData->get('USER_APP_START_DATE', null));
+			$tmpDateTime->setTimezone($utc);
 			$crash->setUserAppStartDate($tmpDateTime);
 		}
 
 		if ($requestData->get('USER_CRASH_DATE', null)) {
 			$tmpDateTime = new \DateTime($requestData->get('USER_CRASH_DATE', null));
+			$tmpDateTime->setTimezone($utc);
 			$crash->setUserCrashDate($tmpDateTime);
 		}
 
