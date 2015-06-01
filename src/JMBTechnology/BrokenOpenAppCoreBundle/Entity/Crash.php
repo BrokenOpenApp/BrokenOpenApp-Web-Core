@@ -848,6 +848,16 @@ class Crash
         return $this;
     }
 
+	public function setUserAppStartDateFromString($userAppStartDate)
+	{
+		if ($userAppStartDate) {
+			$tmpDateTime = new \DateTime($userAppStartDate);
+			$this->userAppStartDateOffset = $tmpDateTime->getTimezone()->getOffset($tmpDateTime) / 60;
+			$tmpDateTime->setTimezone(new \DateTimeZone('UTC'));
+			$this->userAppStartDate = $tmpDateTime;
+		}
+		return $this;
+	}
     /**
      * Get userAppStartDate
      *
@@ -882,6 +892,17 @@ class Crash
     {
         $this->userCrashDate = $userCrashDate;
     
+        return $this;
+    }
+
+	public function setUserCrashDateFromString($userCrashDate)
+	{
+		if ($userCrashDate) {
+			$tmpDateTime = new \DateTime($userCrashDate);
+			$this->userCrashDateOffset = $tmpDateTime->getTimezone()->getOffset($tmpDateTime) / 60;
+			$tmpDateTime->setTimezone(new \DateTimeZone('UTC'));
+			$this->userCrashDate = $tmpDateTime;
+		}
         return $this;
     }
 
