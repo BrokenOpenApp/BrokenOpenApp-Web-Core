@@ -11,22 +11,22 @@
         <title>{% block title %}Home{% endblock %} | BrokenOpenApp </title>
         
         {% stylesheets 	filter='cssrewrite' 
-        		'bundles/mlabsacraserver/stylesheets/*' %}
+        		'bundles/jmbtechnologybrokenopenappcore/stylesheets/*' %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
         {% endstylesheets %}
         
         <!--[if lt IE 9]>       
-        {% javascripts 	'bundles/mlabsacraserver/js_ie/*' %}
+        {% javascripts 	'bundles/jmbtechnologybrokenopenappcore/js_ie/*' %}
     		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
         <![endif]-->
         
-        {% javascripts 	'bundles/mlabsacraserver/js/jquery.min.js'
-        				'bundles/mlabsacraserver/js/*' %}
+        {% javascripts 	'bundles/jmbtechnologybrokenopenappcore/js/jquery.min.js'
+        				'bundles/jmbtechnologybrokenopenappcore/js/*' %}
     		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
 		
-        <link rel="shortcut icon" href="{{ asset('bundles/mlabsacraserver/images/favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ asset('bundles/jmbtechnologybrokenopenappcore/images/favicon.ico') }}" />
     </head>
     <body>
         <section id="wrapper">
