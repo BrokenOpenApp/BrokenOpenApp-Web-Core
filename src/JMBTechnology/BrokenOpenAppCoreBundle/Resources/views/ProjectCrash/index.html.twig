@@ -158,6 +158,13 @@
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
+
+				{%  if buildConfigValues|length > 0 %}
+					<strong class="label">Build Configuration:</strong>
+					{%  for value in buildConfigValues %}
+						<p>{{ value.key }}: {{ value.value }}</p>
+					{%  endfor %}
+				{%  endif %}
 			</ul>	
 			
 			<ul id="other" class="hide">

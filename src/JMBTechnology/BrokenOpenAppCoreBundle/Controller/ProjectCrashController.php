@@ -51,6 +51,7 @@ class ProjectCrashController extends DefaultProjectViewController
 		$settingsSystemValues = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashSettingsSystem')->findBy(array('crash'=>$crash));
 		$sharedPrefsValues = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashSharedPreferences')->findBy(array('crash'=>$crash));
 		$customDataValues = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashCustomData')->findBy(array('crash'=>$crash));
+		$buildConfigValues = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashBuildConfiguration')->findBy(array('crash'=>$crash));
 
 		return $this->render('JMBTechnologyBrokenOpenAppCoreBundle:ProjectCrash:index.html.twig', $this->getViewParameters(
 			array(
@@ -65,6 +66,7 @@ class ProjectCrashController extends DefaultProjectViewController
 				'settingsSystemValues'	=> $settingsSystemValues,
 				'sharedPreferencesValues'	=> $sharedPrefsValues,
 				'customDataValues'	=> $customDataValues,
+				'buildConfigValues'	=> $buildConfigValues,
 				'crash'      => $crash,
 			)));
 	}

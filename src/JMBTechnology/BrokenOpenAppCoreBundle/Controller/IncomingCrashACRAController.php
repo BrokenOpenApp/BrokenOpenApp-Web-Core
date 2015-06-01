@@ -5,6 +5,7 @@ namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 use Doctrine\ORM\Mapping\Entity;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashBuild;
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashBuildConfiguration;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashCrashConfiguration;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashCustomData;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashDisplay;
@@ -40,6 +41,9 @@ class IncomingCrashACRAController extends Controller
 	 */
 	public function addAction()
 	{
+
+
+		// $file = fopen("/tmp/dump.txt","w"); fwrite($file, var_export($_POST, true)); fclose($file);
 
 		// read only?
 		if ($this->container->hasParameter('jmb_technology_brokenopenapp_core.read_only') && $this->container->getParameter('jmb_technology_brokenopenapp_core.read_only')) {
@@ -159,6 +163,14 @@ class IncomingCrashACRAController extends Controller
 			$crashCustomData->setKey($k);
 			$crashCustomData->setValue($v);
 			$doctrine->persist($crashCustomData);
+		}
+
+		foreach($this->getKeyValuePairsFor('BUILD_CONFIG') as $k=>$v) {
+			$crashBuildConfig = new CrashBuildConfiguration();
+			$crashBuildConfig->setCrash($crash);
+			$crashBuildConfig->setKey($k);
+			$crashBuildConfig->setValue($v);
+			$doctrine->persist($crashBuildConfig);
 		}
 
 		$doctrine->flush();

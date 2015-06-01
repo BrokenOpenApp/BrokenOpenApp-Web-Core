@@ -130,6 +130,13 @@ DTMF_TONE_TYPE_WHEN_DIALING=0
 			'CUSTOM_DATA'=>'test1 = a b c
 testNewlines = a\\nb\\nc
 ',
+			'BUILD_CONFIG'=>'APPLICATION_ID=org.brokenopenapp.acratest
+BUILD_TYPE=debug
+DEBUG=true
+FLAVOR=
+VERSION_CODE=1
+VERSION_NAME=1.0
+'
 		));
 
 		$this->assertTrue($client->getResponse()->isSuccessful());
@@ -225,6 +232,10 @@ testNewlines = a\\nb\\nc
 		$value = $this->em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashSharedPreferences')->findOneBy(array('crash'=>$crash,'key'=>'default.acra.lastVersionNr'));
 		$this->assertNotNull($value);
 		$this->assertEquals('1',$value->getValue());
+
+		$value = $this->em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashBuildConfiguration')->findOneBy(array('crash'=>$crash,'key'=>'DEBUG'));
+		$this->assertNotNull($value);
+		$this->assertEquals('true',$value->getValue());
 
 	}
 
