@@ -181,11 +181,29 @@ class Crash
     private $userAppStartDate;
 
     /**
+	 * In Minutes
+	 *
+     * @var integer
+     *
+     * @ORM\Column(name="user_app_start_date_offset", type="smallint", nullable=true)
+     */
+    private $userAppStartDateOffset;
+
+    /**
+	 * In Minutes
+	 *
      * @var datetime
      *
      * @ORM\Column(name="user_crash_date", type="datetime", nullable=true)
      */
     private $userCrashDate;
+
+	/**
+	 * @var integer
+	 *
+	 * @ORM\Column(name="user_crash_date_offset", type="smallint", nullable=true)
+	 */
+    private $userCrashDateOffset;
 
     /**
      * @var string
@@ -890,6 +908,41 @@ class Crash
 			return $d;
 		}
     }
+
+	/**
+	 * @return int
+	 */
+	public function getUserAppStartDateOffset()
+	{
+		return $this->userAppStartDateOffset;
+	}
+
+	/**
+	 * @param int $userAppStartDateOffset
+	 */
+	public function setUserAppStartDateOffset($userAppStartDateOffset)
+	{
+		$this->userAppStartDateOffset = $userAppStartDateOffset;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getUserCrashDateOffset()
+	{
+		return $this->userCrashDateOffset;
+	}
+
+	/**
+	 * @param int $userCrashDateOffset
+	 */
+	public function setUserCrashDateOffset($userCrashDateOffset)
+	{
+		$this->userCrashDateOffset = $userCrashDateOffset;
+	}
+
+
+
 
     /**
      * Set dumpsysMeminfo

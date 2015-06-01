@@ -188,6 +188,8 @@ VERSION_NAME=1.0
 		$this->assertEquals("14215020544",$crash->getTotalMemSize());
 		$this->assertEquals("2015-06-01T16:40:59+00:00",$crash->getUserAppStartDateInUTC()->format("c"));
 		$this->assertEquals("2015-06-01T16:45:05+00:00",$crash->getUserCrashDateInUTC()->format("c"));
+		$this->assertEquals(60,$crash->getUserAppStartDateOffset());
+		$this->assertEquals(60,$crash->getUserCrashDateOffset());
 
 
 		$value = $this->em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashBuild')->findOneBy(array('crash'=>$crash,'key'=>'BOOTLOADER'));

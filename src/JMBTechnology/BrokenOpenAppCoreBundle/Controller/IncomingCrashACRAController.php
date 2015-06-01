@@ -218,12 +218,14 @@ class IncomingCrashACRAController extends Controller
 
 		if ($requestData->get('USER_APP_START_DATE', null)) {
 			$tmpDateTime = new \DateTime($requestData->get('USER_APP_START_DATE', null));
+			$crash->setUserAppStartDateOffset($tmpDateTime->getTimezone()->getOffset($tmpDateTime) / 60);
 			$tmpDateTime->setTimezone($utc);
 			$crash->setUserAppStartDate($tmpDateTime);
 		}
 
 		if ($requestData->get('USER_CRASH_DATE', null)) {
 			$tmpDateTime = new \DateTime($requestData->get('USER_CRASH_DATE', null));
+			$crash->setUserCrashDateOffset($tmpDateTime->getTimezone()->getOffset($tmpDateTime) / 60);
 			$tmpDateTime->setTimezone($utc);
 			$crash->setUserCrashDate($tmpDateTime);
 		}
