@@ -841,6 +841,20 @@ class Crash
     }
 
     /**
+     * Get userAppStartDate
+     *
+     * @return datetime
+     */
+    public function getUserAppStartDateInUTC()
+    {
+        if ($this->userAppStartDate) {
+			$d = clone 	$this->userAppStartDate;
+			$d->setTimeZone(new \DateTimeZone('UTC'));
+			return $d;
+		}
+    }
+
+    /**
      * Set userCrashDate
      *
      * @param datetime $userCrashDate
@@ -861,6 +875,20 @@ class Crash
     public function getUserCrashDate()
     {
         return $this->userCrashDate;
+    }
+
+    /**
+     * Get userCrashDate
+     *
+     * @return datetime
+     */
+    public function getUserCrashDateInUTC()
+    {
+		if ($this->userCrashDate) {
+			$d = clone 	$this->userCrashDate;
+			$d->setTimeZone(new \DateTimeZone('UTC'));
+			return $d;
+		}
     }
 
     /**

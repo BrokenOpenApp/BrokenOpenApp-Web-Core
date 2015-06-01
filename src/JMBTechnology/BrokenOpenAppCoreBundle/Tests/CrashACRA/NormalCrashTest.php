@@ -186,8 +186,8 @@ VERSION_NAME=1.0
         at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:601)
         at dalvik.system.NativeStart.main(Native Method)',$crash->getStackTrace());
 		$this->assertEquals("14215020544",$crash->getTotalMemSize());
-		$this->assertEquals("2015-06-01T17:40:59+01:00",$crash->getUserAppStartDate()->format("c"));
-		$this->assertEquals("2015-06-01T17:45:05+01:00",$crash->getUserCrashDate()->format("c"));
+		$this->assertEquals("2015-06-01T16:40:59+00:00",$crash->getUserAppStartDateInUTC()->format("c"));
+		$this->assertEquals("2015-06-01T16:45:05+00:00",$crash->getUserCrashDateInUTC()->format("c"));
 
 
 		$value = $this->em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:CrashBuild')->findOneBy(array('crash'=>$crash,'key'=>'BOOTLOADER'));
