@@ -33,7 +33,7 @@ class ProjectNotFoundTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/crash/add?project=realrealreal",array(
+		$crawler = $client->request("POST","/incomingcrashacra?project=realrealreal",array(
 			'PACKAGE_NAME'=>'com.test',
 			'APP_VERSION_CODE'=>'1',
 			'APP_VERSION_NAME'=>'1.0',

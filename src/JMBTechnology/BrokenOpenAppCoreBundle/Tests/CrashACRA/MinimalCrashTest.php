@@ -33,7 +33,7 @@ class MinimalCrashTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/crash/add?project=test",array(
+		$crawler = $client->request("POST","/incomingcrashacra?project=test",array(
 			'STACK_TRACE'=>'12345',
 		));
 

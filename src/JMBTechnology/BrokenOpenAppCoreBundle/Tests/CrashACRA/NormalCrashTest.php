@@ -33,7 +33,7 @@ class NormalCrashTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/crash/add?project=test",array(
+		$crawler = $client->request("POST","/incomingcrashacra?project=test",array(
 			'ANDROID_VERSION'=>'4.4.4',
 			'APP_VERSION_CODE'=>'1',
 			'APP_VERSION_NAME'=>'1.0',
