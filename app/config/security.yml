@@ -41,4 +41,4 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login/check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/crash, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/incomingcrashacra, roles: IS_AUTHENTICATED_ANONYMOUSLY }

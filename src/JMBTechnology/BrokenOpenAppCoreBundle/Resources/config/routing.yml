@@ -1,5 +1,5 @@
-_crash_add:
-    pattern:  /crash/add
+_incoming_crash_acra:
+    pattern:  /incomingcrashacra
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA:add }
     methods:  [POST]
 

@@ -43,7 +43,7 @@ class ProjectController extends DefaultProjectViewController
 			$this->container->getParameter('jmb_technology_brokenopenapp_core.incoming_crash_url') : '';
 
 		$url = (trim($host) ? trim($host) : 'http://'.$this->getRequest()->server->get('HTTP_HOST'))
-			.$this->generateUrl('_crash_add')
+			.$this->generateUrl('_incoming_crash_acra')
 			.'?project='.$incomingCrashACRA->getIncomingCrashKey();
 
 		// Dashboard
