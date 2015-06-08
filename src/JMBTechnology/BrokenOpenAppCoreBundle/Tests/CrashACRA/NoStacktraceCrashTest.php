@@ -9,12 +9,12 @@ use JMBTechnology\BrokenOpenAppCoreBundle\Test\BaseTestWithDataBase;
 
 include_once(__DIR__."/../BaseTestWithDataBase.php");
 
-class ProjectNotFoundTest extends BaseTestWithDataBase
+class NoStacktraceCrashTest extends BaseTestWithDataBase
 {
 
 
 
-	public function test1()
+	public function testStackTraceOnly1()
 	{
 
 		// Set up DB
@@ -33,14 +33,10 @@ class ProjectNotFoundTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/incomingcrashacra?project=realrealreal",array(
-			'PACKAGE_NAME'=>'com.test',
-			'APP_VERSION_CODE'=>'1',
-			'APP_VERSION_NAME'=>'1.0',
-			'STACK_TRACE'=>'12345',
+		$crawler = $client->request("POST","/incomingcrashacra?project=test",array(
 		));
 
-		$this->assertFalse($client->getResponse()->isSuccessful());
+		$this->assertTrue($client->getResponse()->isSuccessful());
 
 		// Load Crash from DB and check!
 

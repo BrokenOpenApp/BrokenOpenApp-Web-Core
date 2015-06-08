@@ -52,6 +52,13 @@ class IncomingCrashACRAController extends Controller
 			return $response;
 		}
 
+		// Check crash conditions
+		if (!$this->getRequest()->get('STACK_TRACE',NULL)) {
+			$response = new Response("No STACK_TRACE.");
+			$response->setStatusCode(200);
+			return $response;
+		}
+
 		// vars
 		$doctrine = $this->getDoctrine()->getManager();
 
