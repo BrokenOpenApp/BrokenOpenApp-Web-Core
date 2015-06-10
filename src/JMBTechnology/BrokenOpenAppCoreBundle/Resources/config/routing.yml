@@ -121,3 +121,8 @@ account_logout:
 super_admin_index:
     path:     /superadmin
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:SuperAdmin:index }
+
+
+super_admin_user_list:
+    path:     /superadmin/user
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:SuperAdminUserList:index }

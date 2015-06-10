@@ -1,0 +1,57 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+
+
+
+
+{% block main %}
+
+	<section class="latest-issues">
+		<h2>Users</h2>
+		{% if users %}
+			<table>
+				<thead>
+				{% block table_headers %}
+					<tr>
+						<th>ID</th>
+						<th>Email</th>
+						<tH>Locked</tH>
+						<th>Super Admin</th>
+						<th>Create project</th>
+						<th></th>
+					</tr>
+				{% endblock %}
+				</thead>
+				<tbody>
+				{% for user in users %}
+
+					<tr>
+						<td>{{ user.id }}</td>
+						<td>{{ user.email }}</td>
+						<td>{%  if user.isLocked %}Yes{%  else %}No{%  endif %}</td>
+						<td>{%  if user.isSuperAdmin %}Yes{%  else %}No{%  endif %}</td>
+						<td>{%  if user.isCreateProject %}Yes{%  else %}No{%  endif %}</td>
+						<td class="action-link">&nbsp;</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+				<tfoot>
+				{{ block('table_headers') }}
+				</tfoot>
+			</table>
+		{% else %}
+			<p>No users. How are you seeing this then? Oh shit.</p>
+		{% endif %}
+	</section>
+
+
+
+{%  endblock %}
+
+
