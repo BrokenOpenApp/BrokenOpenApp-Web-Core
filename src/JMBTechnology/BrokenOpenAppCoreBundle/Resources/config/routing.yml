@@ -117,3 +117,7 @@ account_login_check:
 account_logout:
     path:   /logout
 
+
+super_admin_index:
+    path:     /superadmin
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:SuperAdmin:index }

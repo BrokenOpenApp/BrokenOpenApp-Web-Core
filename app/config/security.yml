@@ -42,3 +42,4 @@ security:
         - { path: ^/login/check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/incomingcrashacra, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/superadmin, roles: ROLE_SUPER_ADMIN }
