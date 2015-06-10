@@ -126,3 +126,8 @@ super_admin_index:
 super_admin_user_list:
     path:     /superadmin/user
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:SuperAdminUserList:index }
+
+
+super_admin_project_list:
+    path:     /superadmin/project
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:SuperAdminProjectList:index }
