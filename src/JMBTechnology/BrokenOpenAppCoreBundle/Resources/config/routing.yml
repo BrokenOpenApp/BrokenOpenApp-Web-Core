@@ -61,6 +61,13 @@ _project_admin_index:
     requirements:
         projectId: \d+
 
+_project_admin_incoming_crash_acra_list:
+    pattern:  /project/{projectId}/admin/incomingcrashacra
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdminIncomingCrashACRAList:index }
+    methods:  [GET]
+    requirements:
+        projectId: \d+
+
 _project_admin_user_list:
     pattern:  /project/{projectId}/admin/user
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdminUser:index }
