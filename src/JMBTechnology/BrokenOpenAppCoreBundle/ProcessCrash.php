@@ -4,6 +4,7 @@ namespace JMBTechnology\BrokenOpenAppCoreBundle;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue;
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\User;
 
 
 /**
@@ -107,7 +108,12 @@ class ProcessCrash
 		$this->doctrine->flush();
 
 		// ============================== Notifications
-		// TODO send emails
+
+		$userRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:User');
+		foreach($userRepo->usersToNotifyOnNewIssue($crash->getProject())->getResult() as $userData) {
+			$user = $userRepo->find($userData['id']);
+			$this->emailIssue($issue, $crash, $user);
+		}
 
 
 	}
