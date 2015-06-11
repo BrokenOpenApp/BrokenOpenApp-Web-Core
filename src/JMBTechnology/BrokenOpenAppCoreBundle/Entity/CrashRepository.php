@@ -13,54 +13,20 @@ class CrashRepository extends EntityRepository
 {
 
 	/**
-	 * Get the number of issues per application
+	 *
 	 */
-	public function newAllApplicationsQuery() {    	
+	public function newAllApplicationsQuery() {
     	$query = "SELECT DISTINCT c.packageName as packageName "
         			. "FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c "
         			. "ORDER BY c.packageName ASC ";
-    	    	
+
         return $this->getEntityManager()
         		->createQuery($query);
 	}
-	
-	/**
-	 * Get the issue details 
-	 *  
-	 * @param string $issueFingerPrint
-	 * 
-	 * @return
-	 */
-    public function newIssueDetailsQuery(Project $project, $issueFingerPrint)
-    {
-    	$where = " c.project = :project ";
-    	$params = array('project'=>$project);
-    	
-    	if ($issueFingerPrint!=null) {
-    		$where .= 'AND c.fingerprint=:fingerprint ';
-    		$params['fingerprint'] = $issueFingerPrint;
-    	}
-    	
-    	$query = "SELECT c.issueFingerPrint as issueFingerPrint, "
-        				. "COUNT(c.id) as crashNum, "
-        				. "MAX(c.userCrashDate) as latestCrashDate "
-        			. "FROM JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash c "
-        			. "WHERE " . $where 
-        			. "GROUP BY c.issueId "
-        			. "ORDER BY latestCrashDate DESC ";
-    	    	
-        return $this->getEntityManager()
-        		->createQuery($query)
-        		->setParameters($params);
-    }
 
-
-	
 	/**
 	 * Get the latest issues (crashes that are supposed to be similar)
-	 *  
-	 * @param string $packageName A package name to get only for this particular app or null
-	 * @param number $limit The max number of issues to return (-1 for all)
+	 *
 	 * 
 	 * @return
 	 */
@@ -91,14 +57,6 @@ class CrashRepository extends EntityRepository
     }
 
 
-	/**
-	 * Get the latest issues (crashes that are supposed to be similar)
-	 *
-	 * @param string $packageName A package name to get only for this particular app or null
-	 * @param number $limit The max number of issues to return (-1 for all)
-	 *
-	 * @return
-	 */
     public function newCrashesToProcessQuery()
     {
 
