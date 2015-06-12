@@ -6,13 +6,18 @@
 
 Hey,
 
-There is a new crash for your application {{ crash.packageName }}
+There is a new issue for your project {{ project.title }}
 
-Link
---
-{{ url('_project_crash_index', {'projectId':crash.project.id, 'crashId': crash.id}) }}
+{{  issue.title }}
+{{ url('_project_issue_index', {'projectId':crash.project.id, 'issueId': issue.number}) }}
+
 
 Stacktrace:
 --
-{{ crash.shortStackTrace }}
+{{ crash.stackTrace }}
+
+
+Thanks,
+BrokenOpenApp
+
 

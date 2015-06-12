@@ -92,6 +92,7 @@ class ProcessCrash
 		$issueRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:Issue');
 		$issueFingerPrint = $crash->computeIssueFingerPrint();
 		$issue = $issueRepo->findOneBy(array('fingerprint'=>$issueFingerPrint, 'project'=>$crash->getProject()));
+		$newIssue = false;
 		if (!$issue) {
 			$issue = new Issue();
 			$issue->setNumber($issueRepo->getNextIssueNumberForProject($crash->getProject()));
@@ -99,6 +100,7 @@ class ProcessCrash
 			$issue->setFingerprint($issueFingerPrint);
 			$issue->setTitleFromCrash($crash);
 			$this->doctrine->persist($issue);
+			$newIssue = true;
 		}
 		$crash->setIssue($issue);
 		$this->doctrine->persist($crash);
@@ -109,10 +111,12 @@ class ProcessCrash
 
 		// ============================== Notifications
 
-		$userRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:User');
-		foreach($userRepo->usersToNotifyOnNewIssue($crash->getProject())->getResult() as $userData) {
-			$user = $userRepo->find($userData['id']);
-			$this->emailIssue($issue, $crash, $user);
+		if ($newIssue) {
+			$userRepo = $this->doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:User');
+			foreach ($userRepo->usersToNotifyOnNewIssue($crash->getProject())->getResult() as $userData) {
+				$user = $userRepo->find($userData['id']);
+				$this->emailIssue($issue, $crash, $user);
+			}
 		}
 
 
