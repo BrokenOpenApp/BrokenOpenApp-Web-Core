@@ -28,3 +28,9 @@ parameters:
 
     # PAGING
     crashes_per_page: 10
+
+    # These must be set so URLs in emails are correct
+    router.request_context.host: www.example.com
+    router.request_context.scheme: http
+    router.request_context.base_url:
+
