@@ -54,6 +54,13 @@ _project_crash_index:
         id: \d+
         projectId: \d+
 
+_project_usersettings_index:
+    pattern:  /project/{projectId}/mysettings
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectUserSettings:index }
+    methods:  [GET,POST]
+    requirements:
+        projectId: \d+
+
 _project_admin_index:
     pattern:  /project/{projectId}/admin
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:ProjectAdmin:index }

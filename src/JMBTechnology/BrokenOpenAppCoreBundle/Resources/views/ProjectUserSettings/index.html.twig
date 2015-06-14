@@ -1,0 +1,40 @@
+{#
+ #
+ # @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
+ #}
+
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+
+
+
+
+
+{% block main %}
+
+	<h2>Your settings for this project</h2>
+
+	{%  if userInProject.IsSendNotificationOnNewIssue %}
+
+		<p>Get email for each new issue: Yes</p>
+
+		<form action="" method="post">
+			<input type="hidden" name="action" value="setIsSendNotificationOnNewIssueOff">
+			<input type="submit" value="Turn Off">
+		</form>
+
+	{%  else %}
+
+		<p>Get email for each new issue: No</p>
+
+
+		<form action="" method="post">
+			<input type="hidden" name="action" value="setIsSendNotificationOnNewIssueOn">
+			<input type="submit" value="Turn On">
+		</form>
+
+	{%  endif %}
+
+{%  endblock %}
+
+
