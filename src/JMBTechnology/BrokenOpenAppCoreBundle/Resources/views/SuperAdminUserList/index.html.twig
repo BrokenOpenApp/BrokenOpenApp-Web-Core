@@ -24,6 +24,9 @@
 						<tH>Locked</tH>
 						<th>Super Admin</th>
 						<th>Create project</th>
+						<th>All Projects Read</th>
+						<th>All Projects Write</th>
+						<th>All Projects Admin</th>
 						<th></th>
 					</tr>
 				{% endblock %}
@@ -37,6 +40,9 @@
 						<td>{%  if user.isLocked %}Yes{%  else %}No{%  endif %}</td>
 						<td>{%  if user.isSuperAdmin %}Yes{%  else %}No{%  endif %}</td>
 						<td>{%  if user.isCreateProject %}Yes{%  else %}No{%  endif %}</td>
+						<td>{%  if user.isAllProjectsRead %}Yes{%  else %}No{%  endif %}</td>
+						<td>{%  if user.isAllProjectsWrite %}Yes{%  else %}No{%  endif %}</td>
+						<td>{%  if user.isAllProjectsAdmin %}Yes{%  else %}No{%  endif %}</td>
 						<td class="action-link">&nbsp;</td>
 					</tr>
 				{% endfor %}
