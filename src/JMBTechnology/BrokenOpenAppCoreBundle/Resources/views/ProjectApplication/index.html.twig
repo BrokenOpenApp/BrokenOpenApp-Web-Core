@@ -26,31 +26,26 @@
 	<section class="latest-issues">
 		<h2>Latest {{ crashes|length }} issues</h2>
 		{% if crashes %}
-			<table>
+			<table class="table table-striped">
 				<thead>
-					{% block table_headers %}
 					<tr>
 						<th>Title</th>
 						<th>Last Crash</th>
 						<th>Crashes</th>
 						<th></th>
 					</tr>
-					{% endblock %}
 				</thead>
 				<tbody>
-				{% for c in crashes %}
-					
-					<tr>
-						<td>{{ c.title }}</td>
-						<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
-						<td class="crash-num">{{ c.crashNum }}</td>
-						<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueNumber}) }}" class="primary-button">Details</a></td>
-					</tr>
-				{% endfor %}
+					{% for c in crashes %}
+
+						<tr>
+							<td>{{ c.title }}</td>
+							<td class="created-at">{{ c.latestCrashDate | date('d/m/Y H:i') }} (UTC)</td>
+							<td class="crash-num">{{ c.crashNum }}</td>
+							<td class="action-link"><a href="{{ path('_project_issue_index', {'projectId':project.id, 'issueId': c.issueNumber}) }}" class="btn btn-default">Details</a></td>
+						</tr>
+					{% endfor %}
 				</tbody>
-				<tfoot>
-					{{ block('table_headers') }}
-				</tfoot>
 			</table>			
 		{% else %}
 			<p>No crashes have been submitted yet for your applications</p>

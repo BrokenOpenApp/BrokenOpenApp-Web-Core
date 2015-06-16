@@ -11,9 +11,9 @@
 
 {% macro echo(title, value, test, value_wrapper, outer_tag) %}
 	{% if test %}
-		<{{ outer_tag | default('li') }} class="field">
-			<strong class="label">{{ title }}</strong>: <{{value_wrapper | default('span')}} class="value">{{ value }}</{{value_wrapper | default('span')}}>
-		</{{ outer_tag | default('li') }}>
+		<{{ outer_tag | default('div') }}>
+			<strong>{{ title }}</strong>: <{{value_wrapper | default('span')}} class="value">{{ value }}</{{value_wrapper | default('span')}}>
+		</{{ outer_tag | default('div') }}>
 	{% endif %}	
 {% endmacro %}
 
@@ -53,27 +53,29 @@
 </section>
 
 <section class="crash-details">
-	<div id="details-tabs" class="tab-container">				
-		<ul class="nav">
-	    	<li class="tab first"><a href="#stacktrace" class="current">Stacktrace</a></li>
-            <li class="tab"><a href="#device">Device</a></li>
-            <li class="tab"><a href="#android">Android</a></li>
-            <li class="tab"><a href="#logs">Logs</a></li>
-            <li class="tab"><a href="#settings">Settings</a></li>
-            <li class="tab"><a href="#configuration">Configuration</a></li>
-            <li class="tab last"><a href="#other">Other</a></li>
+	<div role="tabpanel">
+		<ul class="nav nav-tabs" role="tablist">
+	    	<li role="presentation" class="active"><a href="#stacktrace"  aria-controls="home" role="tab" data-toggle="tab">Stacktrace</a></li>
+            <li role="presentation"><a href="#device"  aria-controls="home" role="tab" data-toggle="tab">Device</a></li>
+            <li role="presentation"><a href="#android"  aria-controls="home" role="tab" data-toggle="tab">Android</a></li>
+            <li role="presentation"><a href="#logs"  aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+            <li role="presentation"><a href="#settings"  aria-controls="home" role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation"><a href="#configuration"  aria-controls="home" role="tab" data-toggle="tab">Configuration</a></li>
+            <li role="presentation"><a href="#other"  aria-controls="home" role="tab" data-toggle="tab">Other</a></li>
 	    </ul>
-		
+
+
+
 	    <div class="tab-content">		
-			<ul id="stacktrace">
+			<div role="tabpanel" class="tab-pane active fade in"  id="stacktrace">
 				{{ fields.echo('Summary', crash.shortStackTrace, crash.shortStackTrace, 'pre') }}
 				{{ fields.echo('Full', crash.stackTrace, crash.stackTrace, 'pre') }}
 				{%  if crash.stackTraceObscured %}
 					{{ fields.echo('Full (Obscured)', crash.stackTraceObscured, crash.stackTraceObscured, 'pre') }}
 				{%  endif %}
-			</ul>
+			</div>
 			 
-			<ul id="device" class="hide">
+			<div  role="tabpanel" class="tab-pane fade" id="device">
 				{%  if crash.brand and crash.phoneModel %}
 					{{ fields.echo('Model', "#{ crash.brand }, #{ crash.phoneModel }") }}
 				{%  elseif crash.brand %}
@@ -86,66 +88,66 @@
 				{{ fields.echo('Available memory', crash.availableMemSize | bfos_format_bytes, crash.availableMemSize) }}
 
 				{%  if displayValues|length > 0 %}
-					<strong class="label">Display:</strong>
+					<strong>Display:</strong>
 					{%  for value in displayValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
 
 				{%  if featuresValues|length > 0 %}
-					<strong class="label">Features:</strong>
+					<strong>Features:</strong>
 					{%  for value in featuresValues %}
 						<p>{{ value.feature }}</p>
 					{%  endfor %}
 				{%  endif %}
 
 				{{ fields.echo('Device ID', crash.deviceId, crash.deviceId, 'pre') }}
-			</ul>
+			</div>
 			
-			<ul id="android" class="hide">
+			<div  role="tabpanel" class="tab-pane fade"  id="android">
 				{{ fields.echo('Version', crash.androidVersion, crash.androidVersion) }}
 
 				{%  if buildValues|length > 0 %}
-					<strong class="label">Build:</strong>
+					<strong>Build:</strong>
 					{%  for value in buildValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
-			</ul>	
+			</div>
 			
-			<ul id="logs" class="hide">
+			<div id="logs" role="tabpanel" class="tab-pane fade" >
 				{{ fields.echo('logcat', crash.logcat, crash.logcat, 'pre') }}
 				{{ fields.echo('eventslog', crash.eventslog, crash.eventslog, 'pre') }}
 				{{ fields.echo('radiolog', crash.radiolog, crash.radiolog, 'pre') }}
 				{{ fields.echo('applicationLog', crash.applicationLog, crash.applicationLog, 'pre') }}
-			</ul>	
+			</div>
 			
-			<ul id="settings" class="hide">
+			<div id="settings"  role="tabpanel" class="tab-pane fade" >
 				{%  if  settingsGlobalValues|length > 0 %}
-					<strong class="label">Global:</strong>
+					<strong>Global:</strong>
 					{%  for value in settingsGlobalValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
 
 				{%  if  settingsSystemValues|length > 0 %}
-					<strong class="label">System:</strong>
+					<strong>System:</strong>
 					{%  for value in settingsSystemValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
 
 				{%  if  settingsSecureValues|length > 0 %}
-					<strong class="label">Secure:</strong>
+					<strong>Secure:</strong>
 					{%  for value in settingsSecureValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
-			</ul>
+			</div>
 			
-			<ul id="configuration" class="hide">
+			<div id="configuration"  role="tabpanel" class="tab-pane fade" >
 				{%  if  initialConfigurationValues|length > 0 %}
-					<strong class="label">Initial Configuration:</strong>
+					<strong>Initial Configuration:</strong>
 					{%  for value in initialConfigurationValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
@@ -153,26 +155,26 @@
 
 
 				{%  if  crashConfigurationValues|length > 0 %}
-					<strong class="label">Crash Configuration:</strong>
+					<strong>Crash Configuration:</strong>
 					{%  for value in crashConfigurationValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
 
 				{%  if buildConfigValues|length > 0 %}
-					<strong class="label">Build Configuration:</strong>
+					<strong>Build Configuration:</strong>
 					{%  for value in buildConfigValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
 				{%  endif %}
-			</ul>	
+			</div>
 			
-			<ul id="other" class="hide">
+			<div id="other"  role="tabpanel" class="tab-pane fade" >
 				{{ fields.echo('File path', crash.filePath) }}
 
 
 				{%  if  customDataValues|length > 0 %}
-					<strong class="label">Custom Data:</strong>
+					<strong>Custom Data:</strong>
 					{%  for value in customDataValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
@@ -185,7 +187,7 @@
 
 
 				{%  if  environmentValues|length > 0 %}
-					<strong class="label">Environment:</strong>
+					<strong>Environment:</strong>
 					{%  for value in environmentValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
@@ -193,7 +195,7 @@
 
 
 				{%  if  sharedPreferencesValues|length > 0 %}
-					<strong class="label">Shared Preferences:</strong>
+					<strong>Shared Preferences:</strong>
 					{%  for value in sharedPreferencesValues %}
 						<p>{{ value.key }}: {{ value.value }}</p>
 					{%  endfor %}
@@ -201,33 +203,11 @@
 
 				{{ fields.echo('mediaCodecList', crash.mediaCodecList, crash.mediaCodecList, 'pre') }}
 				{{ fields.echo('threadDetails', crash.threadDetails, crash.threadDetails, 'pre') }}
-			</ul>	 
+			</div>
 	    </div>
 	</div> 
 </section>
 
-{% endblock %}
-
-{% block javascripts %}    
-    $(document).ready(function(){ 	    
-	    // Tab handling
-	    var globalTabOptions = {
-		        hide: { effect: "fade", duration: 300 },
-		        show: { effect: "fade", duration: 300 },
-		        
-		       	// Following is to fix the page jump
-		       	// see: http://stackoverflow.com/questions/243794/jquery-ui-tabs-causing-screen-to-jump
-				select: function(event, ui) {
-					jQuery(this).css('height', jQuery(this).height());
-					jQuery(this).css('overflow', 'hidden');
-				},
-				show: function(event, ui) {
-					jQuery(this).css('height', 'auto');
-					jQuery(this).css('overflow', 'visible');
-				}
-			};
-	    $("#details-tabs").tabs(globalTabOptions);
-	});
 {% endblock %}
 
 

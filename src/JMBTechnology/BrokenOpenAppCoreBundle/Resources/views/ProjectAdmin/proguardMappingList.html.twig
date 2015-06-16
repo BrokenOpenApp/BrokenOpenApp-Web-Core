@@ -15,29 +15,23 @@
 	<section class="latest-issues">
 		<h2>ProGuard Mappings</h2>
 		{% if proguardmappings %}
-			<table>
+			<table class="table table-striped">
 				<thead>
-				{% block table_headers %}
 					<tr>
 						<th>App</th>
 						<th>Version</th>
 						<th></th>
 					</tr>
-				{% endblock %}
 				</thead>
 				<tbody>
-				{% for proguardmapping in proguardmappings %}
-
-					<tr>
-						<td>{{ proguardmapping.packageName }}</td>
-						<td>{{ proguardmapping.appVersionCode }}</td>
-						<td class="action-link">&nbsp;</td>
-					</tr>
-				{% endfor %}
+					{% for proguardmapping in proguardmappings %}
+						<tr>
+							<td>{{ proguardmapping.packageName }}</td>
+							<td>{{ proguardmapping.appVersionCode }}</td>
+							<td class="action-link">&nbsp;</td>
+						</tr>
+					{% endfor %}
 				</tbody>
-				<tfoot>
-				{{ block('table_headers') }}
-				</tfoot>
 			</table>
 		{% else %}
 			<p>No mappings have been submitted yet for your applications</p>

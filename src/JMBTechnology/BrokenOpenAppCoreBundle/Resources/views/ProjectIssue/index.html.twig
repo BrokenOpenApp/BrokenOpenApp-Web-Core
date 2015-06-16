@@ -37,9 +37,8 @@
 	<h2>Latest {{ crashes|length }} crashes</h2>
 
 {% if crashes %}
-	<table>
+	<table class="table table-striped">
 		<thead>
-			{% block table_headers %}
 			<tr>
 				<th>Id</th>
 				<th>Created</th>
@@ -49,24 +48,20 @@
 				<th>Android</th>
 				<th></th>
 			</tr>
-			{% endblock %}
 		</thead>
 		<tbody>
-		{% for c in crashes %}
-			<tr>
-				<td class="id">#{{ c.id }}</td>
-				<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
-				<td>{{  c.packageName }}</td>
-				<td>{{ c.appVersionName }} {%  if c.appVersionCode %}({{  c.appVersionCode }}){%  endif %}</td>
-				<td>{{  c.brand }} {{ c.phoneModel }}</td>
-				<td>{%  if c.androidVersion %}V{{  c.androidVersion }}{%  endif %}</td>
-				<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="primary-button">Details</a></td>
-			</tr>
-		{% endfor %}
+			{% for c in crashes %}
+				<tr>
+					<td class="id">#{{ c.id }}</td>
+					<td class="created-at">{{ c.userCrashDate | date('d/m/Y H:i') }} (UTC)</td>
+					<td>{{  c.packageName }}</td>
+					<td>{{ c.appVersionName }} {%  if c.appVersionCode %}({{  c.appVersionCode }}){%  endif %}</td>
+					<td>{{  c.brand }} {{ c.phoneModel }}</td>
+					<td>{%  if c.androidVersion %}V{{  c.androidVersion }}{%  endif %}</td>
+					<td class="action-link"><a href="{{ path('_project_crash_index', {'projectId':project.id, 'crashId': c.id}) }}" class="btn btn-default">Details</a></td>
+				</tr>
+			{% endfor %}
 		</tbody>
-		<tfoot>
-			{{ block('table_headers') }}
-		</tfoot>
 	</table>
 {% else %}
 	<p>No crashes here</p>
@@ -74,7 +69,7 @@
 </section>
 
 	{%  if isCurrentUserWriteProject %}
-		<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.number}) }}">Edit Title</a></p>
+		<p><a href="{{ path('_project_issue_edittitle', {'projectId':project.id, 'issueId':issue.number}) }}" class="btn btn-lg btn-default">Edit Title</a></p>
 	{%  endif %}
 
 {% endblock %}

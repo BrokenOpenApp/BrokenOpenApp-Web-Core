@@ -15,29 +15,23 @@
 	<section class="latest-issues">
 		<h2>Incoming Crashes - ACRA</h2>
 		{% if incomingCrashACRAS %}
-			<table>
+			<table class="table table-striped">
 				<thead>
-				{% block table_headers %}
 					<tr>
 						<th>ID</th>
 						<th>End Point</th>
 						<th></th>
 					</tr>
-				{% endblock %}
 				</thead>
 				<tbody>
-				{% for incomingCrashACRA in incomingCrashACRAS %}
-
-					<tr>
-						<td>{{ incomingCrashACRA.id }}</td>
-						<td>{{ incomingCrashACRA.incomingCrashKey }}</td>
-						<td class="action-link">&nbsp;</td>
-					</tr>
-				{% endfor %}
+					{% for incomingCrashACRA in incomingCrashACRAS %}
+						<tr>
+							<td>{{ incomingCrashACRA.id }}</td>
+							<td>{{ incomingCrashACRA.incomingCrashKey }}</td>
+							<td class="action-link">&nbsp;</td>
+						</tr>
+					{% endfor %}
 				</tbody>
-				<tfoot>
-				{{ block('table_headers') }}
-				</tfoot>
 			</table>
 		{% else %}
 			<p>No incoming crash points for ACRA are configured</p>

@@ -7,49 +7,64 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Home{% endblock %} | BrokenOpenApp </title>
-        
-        {% stylesheets 	filter='cssrewrite' 
-        		'bundles/jmbtechnologybrokenopenappcore/stylesheets/*' %}
+
+		{% stylesheets '@bootstrap_css' %}
+			<link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+		{% endstylesheets %}
+        {#% stylesheets 	filter='cssrewrite'
+        		'bundles/jmbtechnologybrokenopenappcore/stylesheets/*' % }
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-        {% endstylesheets %}
-        
-        <!--[if lt IE 9]>       
-        {% javascripts 	'bundles/jmbtechnologybrokenopenappcore/js_ie/*' %}
-    		<script type="text/javascript" src="{{ asset_url }}"></script>
-		{% endjavascripts %}
-        <![endif]-->
-        
-        {% javascripts 	'bundles/jmbtechnologybrokenopenappcore/js/jquery.min.js'
-        				'bundles/jmbtechnologybrokenopenappcore/js/*' %}
-    		<script type="text/javascript" src="{{ asset_url }}"></script>
-		{% endjavascripts %}
-		
-        <link rel="shortcut icon" href="{{ asset('bundles/jmbtechnologybrokenopenappcore/images/favicon.ico') }}" />
+        {% endstylesheets %}#}
+
     </head>
-    <body>
-        <section id="wrapper">
-            <header id="main-header">
-                <nav class="main-navigation">
-            		{% block navigation %}
-            		{% endblock %}
+
+	<body role="document">
+
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-inverse navbar-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{{ path('_main_dashboard') }}">BrokenOpenApp</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+
+					{% block navigation %}
+					{% endblock %}
+
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+
+		<div class="container theme-showcase" role="main">
+
+			{% block main %}{% endblock %}
 
 
-                </nav>
-            </header>
+			{% block footer %}
+				<div id="footer">
+					<a href="http://www.brokenopenapp.org/">BrokenOpenApp</a> by <a href="http://jmbtechnology.co.uk/">JMB Technology</a>
+					(With thanks to <a href="http://www.marvinlabs.com">MarvinLabs</a>)
+				</div>
+			{% endblock %}
 
-            <div id="main-content">                
-                {% block main %}{% endblock %}
-            </div>
+		</div> <!-- /container -->
 
-            <footer id="main-footer">
-                {% block footer %}
-                    <a href="http://www.brokenopenapp.org/">BrokenOpenApp</a> by <a href="http://jmbtechnology.co.uk/">JMB Technology</a> (With thanks to <a href="http://www.marvinlabs.com">MarvinLabs</a>)
-                {% endblock %}
-            </footer>
-        </section>
-    
+		{% javascripts '@jquery' '@bootstrap_js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+		{#% javascripts 'bundles/jmbtechnologybrokenopenappcore/js/*' % }
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %#}
 	    <script type="text/javascript">
 	    {% block javascripts %}{% endblock %}
 	    </script>
