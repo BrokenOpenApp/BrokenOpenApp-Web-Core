@@ -76,6 +76,12 @@ To test your install, you should run
 
     php app/console assetic:dump --env=prod --no-debug
 
+## Using Xdebug?
+
+You may have to increase the max_nesting_level setting
+
+    xdebug.max_nesting_level=200
+
 
 ## Open Source!
 
