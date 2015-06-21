@@ -20,6 +20,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Email</th>
+						<th>Email Verified</th>
 						<tH>Locked</tH>
 						<th>Super Admin</th>
 						<th>Create project</th>
@@ -34,6 +35,7 @@
 						<tr>
 							<td>{{ user.id }}</td>
 							<td>{{ user.email }}</td>
+							<td>{%  if user.isEmailVerified %}Yes{%  else %}No{%  endif %}</td>
 							<td>{%  if user.isLocked %}Yes{%  else %}No{%  endif %}</td>
 							<td>{%  if user.isSuperAdmin %}Yes{%  else %}No{%  endif %}</td>
 							<td>{%  if user.isCreateProject %}Yes{%  else %}No{%  endif %}</td>

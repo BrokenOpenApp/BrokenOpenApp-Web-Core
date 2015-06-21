@@ -3,6 +3,7 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMBTechnology\BrokenOpenAppCoreBundle\JMBTechnologyBrokenOpenAppCoreBundle;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="user_verify_email")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
  *
  */
 class UserVerifyEmail
@@ -155,6 +157,14 @@ class UserVerifyEmail
 	public function setVerifiedAt($verifiedAt)
 	{
 		$this->verifiedAt = $verifiedAt;
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function beforeFirstSave() {
+		$this->createdAt = new \DateTime("", new \DateTimeZone("UTC"));
+		$this->key = JMBTechnologyBrokenOpenAppCoreBundle::createRandomString(1,100);
 	}
 
 

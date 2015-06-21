@@ -3,9 +3,12 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Controller;
 
 
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\UserEmailVerification;
+use JMBTechnology\BrokenOpenAppCoreBundle\Entity\UserVerifyEmail;
 use JMBTechnology\BrokenOpenAppCoreBundle\Form\Model\UserRegistration;
 use JMBTechnology\BrokenOpenAppCoreBundle\Form\Type\UserRegistrationType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
@@ -74,8 +77,27 @@ class UserRegisterController extends DefaultViewController
 				$user->setIsCreateProject(false);
 			}
 
+			$userEmailVerification = new UserVerifyEmail();
+			$userEmailVerification->setUser($user);
+			$userEmailVerification->setEmail($user->getEmail());
+
 			$em->persist($user);
+			$em->persist($userEmailVerification);
 			$em->flush();
+
+			$mailer = $this->container->get('mailer');
+			$email = $this->container->hasParameter('notifications_from') ? $this->container->getParameter('notifications_from') : '';
+
+			$message = \Swift_Message::newInstance()
+				->setFrom($email)
+				->setTo($user->getEmail())
+				->setSubject('Please verify your email')
+				->setBody(
+					$this->container->get('twig')
+						->loadTemplate('JMBTechnologyBrokenOpenAppCoreBundle:Emails:verifyEmail.html.twig')
+						->render(array('user' => $user, 'userEmailVerification'=>$userEmailVerification))
+				);
+			$mailer->send($message);
 
 			return $this->redirect($this->generateUrl('_main_dashboard', array()));
 		}
@@ -84,6 +106,41 @@ class UserRegisterController extends DefaultViewController
 			'JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:register.html.twig',
 			array('form' => $form->createView())
 		);
+	}
+
+	public function verifyEmailAction($user, $key) {
+
+		$em = $this->getDoctrine()->getManager();
+		$userRepo = $em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:User');
+		$userEmailVerificationRepo = $em->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:UserVerifyEmail');
+
+		$userObj = $userRepo->findOneById($user);
+		if (!$userObj) {
+			return new Response( '404' );
+		}
+
+		$userEmailVerifyObj = $userEmailVerificationRepo->findOneBy(array('user'=>$userObj,'key'=>$key));
+		if (!$userEmailVerifyObj) {
+			return new Response( '404' );
+		}
+
+		if ($userEmailVerifyObj->getVerifiedAt()) {
+			// TODO? redirect to homepage with a flash message
+			return new Response( '404' );
+		}
+
+
+		$userEmailVerifyObj->setVerifiedAt(new \DateTime("", new \DateTimeZone("UTC")));
+		$userObj->setIsEmailVerified(true);
+
+		$em->persist($userEmailVerifyObj);
+		$em->persist($userObj);
+		$em->flush();
+
+		// TODO add flash message
+
+		return $this->redirect($this->generateUrl('_main_dashboard', array()));
+
 	}
 
 }

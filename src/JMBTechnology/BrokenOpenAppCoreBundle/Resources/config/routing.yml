@@ -117,6 +117,10 @@ account_login:
     path:     /login
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserLogin:login }
 
+account_user_email_verification:
+    path:     /useremailverify/{user}/{key}
+    defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserRegister:verifyEmail }
+
 account_login_check:
     path:     /login/check
     defaults: { _controller: JMBTechnologyBrokenOpenAppCoreBundle:UserLogin:check }

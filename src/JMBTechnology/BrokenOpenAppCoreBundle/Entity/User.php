@@ -82,6 +82,13 @@ class User  implements AdvancedUserInterface, \Serializable
 	private $is_all_projects_admin = false;
 
 	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_email_verified", type="boolean", nullable=false)
+	 */
+	private $is_email_verified = false;
+
+	/**
 	 * @var datetime $createdAt
 	 *
 	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -272,6 +279,22 @@ class User  implements AdvancedUserInterface, \Serializable
 	public function setCreatedAt($createdAt)
 	{
 		$this->createdAt = $createdAt;
+	}
+
+	/**
+	 * @param boolean $is_email_verified
+	 */
+	public function setIsEmailVerified($is_email_verified)
+	{
+		$this->is_email_verified = $is_email_verified;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getIsEmailVerified()
+	{
+		return $this->is_email_verified;
 	}
 
 
