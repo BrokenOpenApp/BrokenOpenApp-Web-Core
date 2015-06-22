@@ -4,13 +4,20 @@
  # @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  #}
 
-{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.html.twig' %}
+{% extends 'JMBTechnologyBrokenOpenAppCoreBundle::layout.project.html.twig' %}
 
 
+{% import 'JMBTechnologyBrokenOpenAppCoreBundle::breadcrumb.html.twig' as breadcrumb %}
 
 
 
 {% block main %}
+
+	{{ breadcrumb.echo([
+	{ label: 'Dashboard', link: path('_main_dashboard') },
+	{ label: 'Project ' ~ project.title, link: path('_project_index', {'projectId':project.id}) },
+	{ label: 'Your Settings', link: path('_project_usersettings_index', {'projectId':project.id}) }
+	]) }}
 
 	<h2>Your settings for this project</h2>
 
