@@ -19,8 +19,8 @@ class Version20150601185727 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE boa_crash ADD user_app_start_date_offset SMALLINT DEFAULT NULL');
-        $this->addSql('ALTER TABLE boa_crash ADD user_crash_date_offset SMALLINT DEFAULT NULL');
+        $this->addSql('ALTER TABLE crash ADD user_app_start_date_offset SMALLINT DEFAULT NULL');
+        $this->addSql('ALTER TABLE crash ADD user_crash_date_offset SMALLINT DEFAULT NULL');
     }
 
     /**
@@ -31,7 +31,7 @@ class Version20150601185727 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE boa_crash DROP user_app_start_date_offset');
-        $this->addSql('ALTER TABLE boa_crash DROP user_crash_date_offset');
+        $this->addSql('ALTER TABLE crash DROP user_app_start_date_offset');
+        $this->addSql('ALTER TABLE crash DROP user_crash_date_offset');
     }
 }

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @license Apache Open Source License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  * @link http://www.brokenopenapp.org/ BrokenOpenApp Home Page for docs and support
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="user_account")
  * @ORM\Entity(repositoryClass="JMBTechnology\BrokenOpenAppCoreBundle\Entity\UserRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -23,7 +23,7 @@ class User  implements AdvancedUserInterface, \Serializable
 	 * @ORM\Column(type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="SEQUENCE")
-	 * @ORM\SequenceGenerator(sequenceName="boa_user_id_seq")
+	 * @ORM\SequenceGenerator(sequenceName="user_id_seq")
 	 */
 	private $id;
 

@@ -19,9 +19,9 @@ class Version20150601181330 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE TABLE boa_crash_build_configuration (crash_id BIGINT NOT NULL, key VARCHAR(255) NOT NULL, value TEXT NOT NULL, PRIMARY KEY(crash_id, key))');
-        $this->addSql('CREATE INDEX IDX_E0D519695AF93C1D ON boa_crash_build_configuration (crash_id)');
-        $this->addSql('ALTER TABLE boa_crash_build_configuration ADD CONSTRAINT FK_E0D519695AF93C1D FOREIGN KEY (crash_id) REFERENCES boa_crash (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('CREATE TABLE crash_build_configuration (crash_id BIGINT NOT NULL, key VARCHAR(255) NOT NULL, value TEXT NOT NULL, PRIMARY KEY(crash_id, key))');
+        $this->addSql('CREATE INDEX IDX_E0D519695AF93C1D ON crash_build_configuration (crash_id)');
+        $this->addSql('ALTER TABLE crash_build_configuration ADD CONSTRAINT FK_E0D519695AF93C1D FOREIGN KEY (crash_id) REFERENCES crash (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
     /**
@@ -32,6 +32,6 @@ class Version20150601181330 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('DROP TABLE boa_crash_build_configuration');
+        $this->addSql('DROP TABLE crash_build_configuration');
     }
 }

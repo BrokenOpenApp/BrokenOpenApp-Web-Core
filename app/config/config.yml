@@ -107,7 +107,7 @@ swiftmailer:
 doctrine_migrations:
     dir_name: %kernel.root_dir%/DoctrineMigrations
     namespace: Application\Migrations
-    table_name: boa_migration_versions
+    table_name: migration_versions
     name: Application Migrations
 
 

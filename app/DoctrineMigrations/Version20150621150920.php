@@ -18,7 +18,7 @@ class Version20150621150920 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE boa_user ADD is_email_verified BOOLEAN NOT NULL DEFAULT \'0\' ');
+        $this->addSql('ALTER TABLE user_account ADD is_email_verified BOOLEAN NOT NULL DEFAULT \'0\' ');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20150621150920 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('ALTER TABLE boa_user DROP is_email_verified');
+        $this->addSql('ALTER TABLE user_account DROP is_email_verified');
     }
 }

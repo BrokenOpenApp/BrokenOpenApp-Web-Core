@@ -8,9 +8,6 @@ parameters:
     database_password: null
     database_path: null
     
-    # DB TABLE PREFIX
-    jmb_technology_brokenopenapp_core.table_prefix: boa_
-    
     # SWIFT MAILER
     mailer_transport: mail
     mailer_host: 127.0.0.1
