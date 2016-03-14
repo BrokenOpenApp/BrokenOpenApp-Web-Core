@@ -1,12 +1,10 @@
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
-
 security:
+
     encoders:
         JMBTechnology\BrokenOpenAppCoreBundle\Entity\User:
             algorithm: bcrypt
             cost: 12
+
 
     providers:
         our_db_provider:

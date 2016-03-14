@@ -3,9 +3,6 @@
 namespace JMBTechnology\BrokenOpenAppCoreBundle\Test;
 
 
-use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash;
-use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue;
-use JMBTechnology\BrokenOpenAppCoreBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

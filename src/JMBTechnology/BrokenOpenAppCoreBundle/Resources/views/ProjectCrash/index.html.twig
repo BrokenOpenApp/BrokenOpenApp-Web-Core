@@ -84,8 +84,8 @@
 					{{ fields.echo('Model', crash.phoneModel, crash.phoneModel) }}
 				{%  endif %}
 				{{ fields.echo('Product code', crash.product, crash.product) }}
-				{{ fields.echo('Total memory', crash.totalMemSize | bfos_format_bytes, crash.totalMemSize) }}
-				{{ fields.echo('Available memory', crash.availableMemSize | bfos_format_bytes, crash.availableMemSize) }}
+				{{ fields.echo('Total memory', crash.totalMemSize, crash.totalMemSize ) }}
+				{{ fields.echo('Available memory', crash.availableMemSize, crash.availableMemSize) }}
 
 				{%  if displayValues|length > 0 %}
 					<strong>Display:</strong>
