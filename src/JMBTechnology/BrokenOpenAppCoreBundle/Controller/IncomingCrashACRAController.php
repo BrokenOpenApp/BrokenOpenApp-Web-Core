@@ -19,6 +19,7 @@ use JMBTechnology\BrokenOpenAppCoreBundle\Entity\CrashSharedPreferences;
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Issue;
 use JMBTechnology\BrokenOpenAppCoreBundle\ProcessCrash;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash;
@@ -39,7 +40,7 @@ class IncomingCrashACRAController extends Controller
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function addAction()
+	public function addAction(Request $request)
 	{
 
 
@@ -53,7 +54,7 @@ class IncomingCrashACRAController extends Controller
 		}
 
 		// Check crash conditions
-		if (!$this->getRequest()->get('STACK_TRACE',NULL)) {
+		if (!$request->get('STACK_TRACE',NULL)) {
 			$response = new Response("No STACK_TRACE.");
 			$response->setStatusCode(200);
 			return $response;
@@ -64,7 +65,7 @@ class IncomingCrashACRAController extends Controller
 
 		// Project?
 		$incomingCrashACRARepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA');
-		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key'=>$this->getRequest()->query->get('project')));
+		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key'=>$request->query->get('project')));
 		if (!$incomingCrashACRA) {
 			$response = new Response();
 			$response->setStatusCode(404);
@@ -82,33 +83,33 @@ class IncomingCrashACRAController extends Controller
 		$crash = $this->newCrashFromRequest($this->getRequest());
 		$crash->setProject($project);
 		$crash->setIncomingCrashACRA($incomingCrashACRA);
-		$crash->setReporterIp($this->getRequest()->getClientIp());
+		$crash->setReporterIp($request->getClientIp());
 		$doctrine->persist($crash);
 		// flush here so always got basic data of crash at least!
 		$doctrine->flush();
 
-		foreach($this->getKeyValuePairsFor('BUILD') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'BUILD') as $k=>$v) {
 			$crashBuild = new CrashBuild();
 			$crashBuild->setCrash($crash);
 			$crashBuild->setKey($k);
 			$crashBuild->setValue($v);
 			$doctrine->persist($crashBuild);
 		}
-		foreach($this->getKeyValuePairsFor('DISPLAY') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'DISPLAY') as $k=>$v) {
 			$crashDisplay = new CrashDisplay();
 			$crashDisplay->setCrash($crash);
 			$crashDisplay->setKey($k);
 			$crashDisplay->setValue($v);
 			$doctrine->persist($crashDisplay);
 		}
-		foreach($this->getKeyValuePairsFor('CRASH_CONFIGURATION') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'CRASH_CONFIGURATION') as $k=>$v) {
 			$crashConfig = new CrashCrashConfiguration();
 			$crashConfig->setCrash($crash);
 			$crashConfig->setKey($k);
 			$crashConfig->setValue($v);
 			$doctrine->persist($crashConfig);
 		}
-		foreach($this->getKeyValuePairsFor('INITIAL_CONFIGURATION') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'INITIAL_CONFIGURATION') as $k=>$v) {
 			$initConfig = new CrashInitialConfiguration();
 			$initConfig->setCrash($crash);
 			$initConfig->setKey($k);
@@ -116,7 +117,7 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($initConfig);
 		}
 
-		foreach($this->getKeyValuePairsFor('ENVIRONMENT') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'ENVIRONMENT') as $k=>$v) {
 			$crashEnv = new CrashEnvironment();
 			$crashEnv->setCrash($crash);
 			$crashEnv->setKey($k);
@@ -124,14 +125,14 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashEnv);
 		}
 
-		foreach($this->getValueFor('DEVICE_FEATURES') as $f) {
+		foreach($this->getValueFor($request, 'DEVICE_FEATURES') as $f) {
 			$crashFeatures = new CrashFeatures();
 			$crashFeatures->setCrash($crash);
 			$crashFeatures->setFeature($f);
 			$doctrine->persist($crashFeatures);
 		}
 
-		foreach($this->getKeyValuePairsFor('SETTINGS_SECURE') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'SETTINGS_SECURE') as $k=>$v) {
 			$crashSettingsSecure = new CrashSettingsSecure();
 			$crashSettingsSecure->setCrash($crash);
 			$crashSettingsSecure->setKey($k);
@@ -139,7 +140,7 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashSettingsSecure);
 		}
 
-		foreach($this->getKeyValuePairsFor('SETTINGS_GLOBAL') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'SETTINGS_GLOBAL') as $k=>$v) {
 			$crashSettingsGlobal = new CrashSettingsGlobal();
 			$crashSettingsGlobal->setCrash($crash);
 			$crashSettingsGlobal->setKey($k);
@@ -147,7 +148,7 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashSettingsGlobal);
 		}
 
-		foreach($this->getKeyValuePairsFor('SETTINGS_SYSTEM') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'SETTINGS_SYSTEM') as $k=>$v) {
 			$crashSettingsSystem = new CrashSettingsSystem();
 			$crashSettingsSystem->setCrash($crash);
 			$crashSettingsSystem->setKey($k);
@@ -155,7 +156,7 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashSettingsSystem);
 		}
 
-		foreach($this->getKeyValuePairsFor('SHARED_PREFERENCES') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'SHARED_PREFERENCES') as $k=>$v) {
 			$crashSharedPrefs = new CrashSharedPreferences();
 			$crashSharedPrefs->setCrash($crash);
 			$crashSharedPrefs->setKey($k);
@@ -164,7 +165,7 @@ class IncomingCrashACRAController extends Controller
 		}
 
 
-		foreach($this->getKeyValuePairsFor('CUSTOM_DATA') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'CUSTOM_DATA') as $k=>$v) {
 			$crashCustomData = new CrashCustomData();
 			$crashCustomData->setCrash($crash);
 			$crashCustomData->setKey($k);
@@ -172,7 +173,7 @@ class IncomingCrashACRAController extends Controller
 			$doctrine->persist($crashCustomData);
 		}
 
-		foreach($this->getKeyValuePairsFor('BUILD_CONFIG') as $k=>$v) {
+		foreach($this->getKeyValuePairsFor($request, 'BUILD_CONFIG') as $k=>$v) {
 			$crashBuildConfig = new CrashBuildConfiguration();
 			$crashBuildConfig->setCrash($crash);
 			$crashBuildConfig->setKey($k);
@@ -182,7 +183,7 @@ class IncomingCrashACRAController extends Controller
 
 		$doctrine->flush();
 
-		return new Response( '' );
+		return new Response( 'DONE' );
 	}
 
     /**
@@ -190,7 +191,7 @@ class IncomingCrashACRAController extends Controller
      * 
      * @return \JMBTechnology\BrokenOpenAppCoreBundle\Entity\Crash
      */
-    private function newCrashFromRequest($request)
+    private function newCrashFromRequest(Request $request)
     {
     	$requestData = $request->request;
     	
@@ -227,9 +228,9 @@ class IncomingCrashACRAController extends Controller
     	return $crash;
     }
 
-	private function getKeyValuePairsFor($key) {
+	private function getKeyValuePairsFor(Request $request, $key) {
 		$out = array();
-		foreach(explode("\n", $this->getRequest()->request->get($key)) as $line) {
+		foreach(explode("\n", $request->request->get($key)) as $line) {
 			if (trim($line)) {
 				$bits =  explode("=", trim($line),2);
 				if (count($bits) == 2 && trim($bits[0])) {
@@ -240,9 +241,9 @@ class IncomingCrashACRAController extends Controller
 		return $out;
 	}
 
-	private function getValueFor($key) {
+	private function getValueFor(Request $request, $key) {
 		$out = array();
-		foreach(explode("\n", $this->getRequest()->request->get($key)) as $line) {
+		foreach(explode("\n", $request->request->get($key)) as $line) {
 			if (trim($line)) {
 				$out[] = trim($line);
 			}
