@@ -46,17 +46,20 @@
 
 	<h2>Set up ACRA</h2>
 	<pre>
-import org.acra.*;
-import org.acra.annotation.*;
+import org.acra.*
+import org.acra.config.ACRAConfiguration;
+import org.acra.config.ConfigurationBuilder;
 
-@ReportsCrashes(formUri = "{{  incomingCrashURL }}")
 public class OurApplication extends Application {
 
-        @Override
-        public void onCreate() {
-                super.onCreate();
-                ACRA.init(this);
-        }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        final ACRAConfiguration config = new ConfigurationBuilder(this)
+            .setFormUri("{{  incomingCrashURL }}")
+            .build();
+        ACRA.init(this, config);
+    }
 
 }
 	</pre>
