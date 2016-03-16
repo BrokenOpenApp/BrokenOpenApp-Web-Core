@@ -38,7 +38,11 @@ parameters:
     router.request_context.scheme: http
     router.request_context.base_url:
 
-
+    # Permissions
     jmb_technology_brokenopenapp_core.user_registration_allowed: false
     jmb_technology_brokenopenapp_core.new_registered_users_are_given_create_project: false
+
+    # ProGuard (Optional)
+    jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location:
+    jmb_technology_brokenopenapp_core.java_location:
 

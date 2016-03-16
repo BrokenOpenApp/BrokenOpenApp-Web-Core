@@ -45,6 +45,7 @@ If you want ProGuard support:
 
 ## Installation of ProGuard
 
+  * Download ProGuard from https://sourceforge.net/projects/proguard/files/proguard/
   * Give permissions 777 to directory uploads/proguardmappings
   * Edit `app/config/parameters.yml` to add
 

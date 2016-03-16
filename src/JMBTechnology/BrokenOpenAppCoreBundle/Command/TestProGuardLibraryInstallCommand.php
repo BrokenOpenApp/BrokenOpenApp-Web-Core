@@ -82,7 +82,7 @@ class TestProGuardLibraryInstallCommand extends ContainerAwareCommand
 		$expectedOut = trim(file_get_contents($stacktraceOut));
 
 		if ($actualOut != $expectedOut) {
-			$output->writeln("Fails as output different. Got: \n\n".$actualOut);
+			$output->writeln("Fails as output different. \n\nExpected:\n\n".$expectedOut." \n\nGot:\n\n".$actualOut."\n\n");
 		} else {
 			$output->writeln("PASS");
 		}
