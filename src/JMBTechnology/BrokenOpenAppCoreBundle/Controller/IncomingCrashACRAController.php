@@ -63,9 +63,11 @@ class IncomingCrashACRAController extends Controller
 		// vars
 		$doctrine = $this->getDoctrine()->getManager();
 
-		// Project?
+		// Incoming Crash & Project?
+        // (It used to be "project", move to "key" as both shorter and a more accurate description)
+        $key = $request->query->get('key') ? $request->query->get('key') : $request->query->get('project');
 		$incomingCrashACRARepo = $doctrine->getRepository('JMBTechnologyBrokenOpenAppCoreBundle:IncomingCrashACRA');
-		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key'=>$request->query->get('project')));
+		$incomingCrashACRA = $incomingCrashACRARepo->findOneBy(array('incoming_crash_key' => $key));
 		if (!$incomingCrashACRA) {
 			$response = new Response();
 			$response->setStatusCode(404);

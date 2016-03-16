@@ -44,7 +44,7 @@ class ProjectController extends DefaultProjectViewController
 
 		$url = (trim($host) ? trim($host) : 'http://'.$this->getRequest()->server->get('HTTP_HOST'))
 			.$this->generateUrl('_incoming_crash_acra')
-			.'?project='.$incomingCrashACRA->getIncomingCrashKey();
+			.'?key='.$incomingCrashACRA->getIncomingCrashKey();
 
 		// Dashboard
 

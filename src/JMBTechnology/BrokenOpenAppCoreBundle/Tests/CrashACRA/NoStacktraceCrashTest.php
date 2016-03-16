@@ -33,7 +33,7 @@ class NoStacktraceCrashTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/incomingcrashacra?project=test",array(
+		$crawler = $client->request("POST","/incomingcrashacra?key=test",array(
 		));
 
 		$this->assertTrue($client->getResponse()->isSuccessful());

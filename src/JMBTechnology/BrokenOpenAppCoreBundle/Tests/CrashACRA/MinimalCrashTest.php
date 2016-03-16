@@ -13,8 +13,17 @@ class MinimalCrashTest extends BaseTestWithDataBase
 {
 
 
+    function dataForTestStackTraceOnly1() {
+        return array(
+            array("/incomingcrashacra?project=test"),
+            array("/incomingcrashacra?key=test"),
+        );
+    }
 
-	public function testStackTraceOnly1()
+    /**
+     * @dataProvider dataForTestStackTraceOnly1
+     */
+	public function testStackTraceOnly1($url)
 	{
 
 		// Set up DB
@@ -33,7 +42,7 @@ class MinimalCrashTest extends BaseTestWithDataBase
 		// Run Request!
 		$client = static::createClient();
 
-		$crawler = $client->request("POST","/incomingcrashacra?project=test",array(
+		$crawler = $client->request("POST",$url,array(
 			'STACK_TRACE'=>'12345',
 		));
 
