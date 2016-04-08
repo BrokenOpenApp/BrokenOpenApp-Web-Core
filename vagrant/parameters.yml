@@ -1,0 +1,29 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: brokenopenapp
+    database_user: brokenopenapp
+    database_password: password
+    database_path: null
+    mailer_transport: mail
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    mailer_port: 1025
+    locale: en
+    secret: 922cd7bd666aeeb3d1163a7c1a4fb62e70746dce
+    notifications_from: brokenopenapp@example.com
+    crashes_per_page: 10
+    jmb_technology_brokenopenapp_core.user_registration_allowed: true
+    jmb_technology_brokenopenapp_core.java_location: /usr/bin/java
+    jmb_technology_brokenopenapp_core.proguard_retrace_jar_file_location: /home/vagrant/bin/retrace.jar
+    jmb_technology_brokenopenapp_core.read_only: false
+    jmb_technology_brokenopenapp_core.new_registered_users_are_given_create_project: true
+    # These must be set so URLs in emails are correct
+    router.request_context.host: localhost:8080
+    router.request_context.scheme: http
+    router.request_context.base_url:
+
+

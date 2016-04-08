@@ -83,6 +83,14 @@ You may have to increase the max_nesting_level setting
 
     xdebug.max_nesting_level=200
 
+## Develop with vagrant!
+
+Run "vagrant up" to get an app box at http://localhost:8080 or https://localhost:8443/
+
+To run tests run
+
+    vagrant ssh
+    phpunit -c /vagrant/app/phpunit.xml.dist
 
 ## Open Source!
 
